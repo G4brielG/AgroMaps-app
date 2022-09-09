@@ -3,20 +3,29 @@ import { Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { nav } from '../styles/styles'
-import { Home } from '../pages/home'
-import { Map } from "../pages/map";
+import {Home} from '../pages/Home'
+import { Map } from "../pages/map.jsx";
 
 const Tab = createBottomTabNavigator();
 
-export function BotBar() {
+// export function BotBar() {
+//   return (
+//     <NavigationContainer style={nav}>
+//       <Tab.Navigator>
+//         <Tab.Screen name="Inicio" component={Home} />
+//         <Tab.Screen name="Mapa" component={Map} />
+//       </Tab.Navigator>
+//     </NavigationContainer>
+//   )
+// }
+
+export const BotBar = () => {
   return (
-    <View style={nav}>
-      <NavigationContainer>
-        <Tab.Navigator>
-          <Tab.Screen name="Inicio" component={Home} />
-          <Tab.Screen name="Mapa" component={Map} />
-        </Tab.Navigator>
+  <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen name="Inicio" component={Home} />
+        <Tab.Screen name="Mapa" component={Map} />
+      </Tab.Navigator>
       </NavigationContainer>
-    </View>
-  );
+  )
 }
