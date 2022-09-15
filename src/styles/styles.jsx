@@ -1,12 +1,11 @@
 import { Dimensions } from 'react-native';
 
-
 const container= {
   justifyContent: 'center',
   alignItems: 'center',
   borderWidth: 1,
   //flex: 1,
-  //height: '100%',
+  height: '100%',
   backgroundColor: '#75ffaa'
  }
  
@@ -60,5 +59,6 @@ export {
   text,
   button,
   map,
-  containerMap
+  containerMap,
+  
 }

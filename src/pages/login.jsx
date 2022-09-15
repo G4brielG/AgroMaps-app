@@ -14,9 +14,9 @@ import {
 } from "react-native";
  
 export function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
- 
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   return (
     <View>
       <StatusBar style="auto" />
@@ -30,7 +30,7 @@ export function Login() {
             onChangeText={(email) => setEmail(email)}
           />
         </View>
-  
+
         <View style={input}>
           <TextInput
             style={text}
@@ -50,7 +50,8 @@ export function Login() {
         </TouchableOpacity>
   
         <TouchableOpacity >
-          <Text style={button}>Iniciar sesión</Text>
+          <Text style={button}
+          >Iniciar sesión</Text>
         </TouchableOpacity>
       </View>
     </View>

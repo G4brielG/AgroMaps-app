@@ -5,6 +5,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { nav } from '../styles/styles'
 import {Home} from '../pages/Home'
 import { Map } from "../pages/map.jsx";
+import { Login } from "../pages/login";
+import { Register } from "../pages/register";
 
 const Tab = createBottomTabNavigator();
 
@@ -22,10 +24,12 @@ const Tab = createBottomTabNavigator();
 export const BotBar = () => {
   return (
   <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen name="Inicio" component={Home} />
-        <Tab.Screen name="Mapa" component={Map} />
-      </Tab.Navigator>
-      </NavigationContainer>
+    <Tab.Navigator>
+      <Tab.Screen name="Inicio" component={Home} />
+      <Tab.Screen name="Mapa" component={Map} />
+      <Tab.Screen name="Login" component={Login} />
+      <Tab.Screen name="Registro" component={Register} />
+    </Tab.Navigator>
+  </NavigationContainer>
   )
 }
