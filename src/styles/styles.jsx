@@ -52,6 +52,15 @@ const nav = {
   //position: 'absolute'
 }
 
+const image = {
+  width: 200,
+  height: 200
+}
+
+const home = {
+  flex: 1,
+  alignItems: 'center',
+}
 
 export {
   container,
@@ -60,5 +69,6 @@ export {
   button,
   map,
   containerMap,
-  
+  image,
+  home
 }

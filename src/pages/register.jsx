@@ -1,6 +1,7 @@
 import { StatusBar } from "expo-status-bar";
-import { container, text, input, button } from '../styles/styles'
+import { container, text, input, button, image } from '../styles/styles'
 import React, { useState } from "react";
+import ipf from '../imgs/IPF-logo.png';
 import {
   StyleSheet,
   Text,
@@ -21,6 +22,12 @@ export function Register() {
       <StatusBar style="auto" />
 
       <View style={container}>
+
+        <Image
+          style={image}
+          source={ipf}
+        />
+
         <View style={input}>
           <TextInput
             style={text}

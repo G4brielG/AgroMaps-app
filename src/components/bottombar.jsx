@@ -12,6 +12,9 @@ import { Register } from "../pages/register";
 const Tab = createBottomTabNavigator();
 
 export const BotBar = () => {
+
+
+
   return (
   <NavigationContainer>
     <Tab.Navigator>
@@ -22,6 +25,16 @@ export const BotBar = () => {
         }}/>
       <Tab.Screen name="Mapa" component={Map} options={{
         tabBarLabel: 'Home',
+        tabBarIcon: ({ color }) => (
+          <MaterialCommunityIcons name="map" color={color} size={26} />),
+        }}/>
+        <Tab.Screen name="Cuenta" component={Map} options={{
+        tabBarLabel: 'Mi cuenta',
+        tabBarIcon: ({ color }) => (
+          <MaterialCommunityIcons name="map" color={color} size={26} />),
+        }}/>
+        <Tab.Screen name="Ubicaciones" component={Map} options={{
+        tabBarLabel: 'Mis ubicaciones',
         tabBarIcon: ({ color }) => (
           <MaterialCommunityIcons name="map" color={color} size={26} />),
         }}/>
