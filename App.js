@@ -1,50 +1,57 @@
-// import { BotBar } from "./src/components/bottombar.jsx";
-// import { StatusBar } from 'expo-status-bar'
-import { Login } from "./src/pages/Login";
-import { Home } from './src/pages/Home'
-import { Map } from './src/pages/Map'
-import { Register } from './src/pages/Register'
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { Login, Home, Map, Register, MiCuenta } from "./src/pages/index"
+import { NavigationContainer } from '@react-navigation/native'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import { Button, NativeBaseProvider } from "native-base"
 
 const Tab = createBottomTabNavigator();
 
-export default function App({ logueado }) {
+export default function App() {
+  const logueado = false
   return (
     <>
+    <NativeBaseProvider>
       <NavigationContainer>
         {
-          logueado
+          logueado === true
           ?
             <Tab.Navigator
-              initialRouteName="Login"
+              initialRouteName="Home"
             >
-              <Tab.Screen name="Inicio" component={Home} options={{
-                tabBarLabel: 'Home',
-                tabBarIcon: ({ color }) => (
-                  <MaterialCommunityIcons name="home" color={color} size={26} />),
-              }} />
-              <Tab.Screen name="Mapa" component={Map} options={{
-                tabBarLabel: 'Home',
-                tabBarIcon: ({ color }) => (
-                  <MaterialCommunityIcons name="map" color={color} size={26} />),
-              }} />
-              <Tab.Screen name="Cuenta" component={Map} options={{
-                tabBarLabel: 'Mi cuenta',
-                tabBarIcon: ({ color }) => (
-                  <MaterialCommunityIcons name="map" color={color} size={26} />),
-              }} />
+                <Tab.Group screenOptions={() => ({
+                  presentation: 'modal',
+                  headerRight: () => <Button variant="unstyled"><MaterialCommunityIcons name="login-variant" size={26} color="#890000" /></Button>
+                })}>
+                <Tab.Screen name="Inicio" component={Home} options={{
+                  tabBarLabel: 'Home',
+                  tabBarIcon: ({ color }) => (
+                    <MaterialCommunityIcons name="home" color={color} size={26} />),
+                }} />
+                <Tab.Screen name="Mapa" component={Map} options={{
+                  tabBarLabel: 'Mapa',
+                  tabBarIcon: ({ color }) => (
+                    <MaterialCommunityIcons name="map" color={color} size={26} />),
+                }} />
+                <Tab.Screen name="Cuenta" component={MiCuenta} options={{
+                  tabBarLabel: 'Mi cuenta',
+                  tabBarIcon: ({ color }) => (
+                    <MaterialCommunityIcons name="account" color={color} size={26} />),
+                }} />
+              </Tab.Group>
             </Tab.Navigator>
             : <Tab.Navigator
               initialRouteName="Login"
               >
-                <Tab.Screen name="Login" component={Login} options={{ headerShown: false, tabBarStyle: { display: 'none' } }} />
-                <Tab.Screen name="Register" component={Register} />
+                <Tab.Group>
+                  <Tab.Screen name="Login" component={Login} options={{ headerShown: false, tabBarStyle: { display: 'none' } }} />
+                  <Tab.Screen name="Register" component={Register} />
+                  <Tab.Screen name="Home" component={Home} />
+                </Tab.Group>
               </Tab.Navigator>
         }
         
       </NavigationContainer>
+    </NativeBaseProvider>
     </>
   )
 }

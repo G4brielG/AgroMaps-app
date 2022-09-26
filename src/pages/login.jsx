@@ -5,7 +5,7 @@ import ipf from '../imgs/IPF-logo.png';
 import { Text, View, Image, TextInput, TouchableOpacity } from "react-native";
 import { Pressable, NativeBaseProvider } from "native-base";
  
-export function Login() {
+export function Login({navigation}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -16,6 +16,7 @@ export function Login() {
 
         <View style={container}>
           <Image style={image} source={ipf} />
+          
           <View style={input}>
             <TextInput
               style={text}
