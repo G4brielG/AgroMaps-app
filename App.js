@@ -2,12 +2,12 @@ import { Login, Home, Map, Register, MiCuenta } from "./src/pages/index"
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import { Button, NativeBaseProvider } from "native-base"
+import { Button, NativeBaseProvider } from "native-base";
 
 const Tab = createBottomTabNavigator();
 
 export default function App() {
-  const logueado = false
+  const logueado = true
   return (
     <>
     <NativeBaseProvider>
