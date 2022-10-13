@@ -1,28 +1,74 @@
-import { useState } from "react";
-import { StatusBar } from "expo-status-bar";
+import { StatusBar } from "expo-status-bar"
 import { container, text, input, button, image } from '../styles/styles'
-import ipf from '../imgs/IPF-logo.png';
-import { Text, View, Image, TextInput, TouchableOpacity } from "react-native";
-import { Pressable, NativeBaseProvider } from "native-base";
- 
+import { Text, View, Image, TextInput, TouchableOpacity } from "react-native"
+import { Pressable, Button, NativeBaseProvider } from "native-base"
+import { useFetchCallBack } from "../hooks/fetch";
+import { useSetForm } from "../hooks"
+import Server from "../services/server"
+import ipf from '../imgs/IPF-logo.png'
+import { useForm, Controller } from 'react-hook-form'
+import { useState } from "react";
+
 export function Login({navigation}) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const { control, handleSubmit, formState: { errors, isValid }} = useForm({ mode: "onBlur" });
+  const [form, setForm] = useSetForm({});
+  const fetchCallBack = useFetchCallBack()
+
+  const onSubmit = (data) => console.log(data);
+
+  const handleSubmitForm = async () => {
+    const url = `${Server}/login`
+    const content = {
+      method: "POST",
+      body: JSON.stringify(data),
+    }
+
+    await fetchCallBack(url, content)
+  }
 
   return (
     <NativeBaseProvider>
-      <View>
-        <StatusBar style="auto" />
+      <View style={container}>
+        <Image style={image} source={ipf} />
+        <View>
+          <StatusBar style="auto" />
+          <Controller
+            control={control}
+            name="name"
+            render={({ field: { onChange, value, onBlur } }) => (
+              <TextInput
+                iconName="person"
+                iconType="MaterialIcons"
+                placeholder="Enter your name here"
+                value={value}
+                onBlur={onBlur}
+                onChangeText={(value) => onChange(value)}
+              />
+            )}
+          />
+          <Controller
+            control={control}
+            name="sexo"
+            render={({ field: { onChange, value, onBlur } }) => (
+              <TextInput
+                iconName="sexo"
+                iconType="MaterialIcons"
+                placeholder="queri sexo"
+                value={value}
+                onBlur={onBlur}
+                onChangeText={(value) => onChange(value)}
+              />
+            )}
+          />
+          <Button title="Submit" onPress={handleSubmit(onSubmit)} />
 
-        <View style={container}>
-          <Image style={image} source={ipf} />
-          
           <View style={input}>
             <TextInput
               style={text}
               placeholder="Usuario"
               placeholderTextColor="#a3a3a3"
-              onChangeText={(email) => setEmail(email)}
+              value={form.usuario || ""}
+              onChangeText={setForm}
             />
           </View>
 
@@ -31,8 +77,9 @@ export function Login({navigation}) {
               style={text}
               placeholder="Contraseña"
               placeholderTextColor="#a3a3a3"
-              secureTextEntry={true}
-              onChangeText={(password) => setPassword(password)}
+              secureTextEntry={false}
+              value={form.password || ""}
+              onChangeText={setForm}
             />
           </View>
 
@@ -49,7 +96,7 @@ export function Login({navigation}) {
           </TouchableOpacity>
 
           <TouchableOpacity>
-            <Pressable onPress={() => navigation.navigate("Home")}>
+            <Pressable onPress={() => handleSubmitForm}>
               <Text style={button}>Iniciar sesión</Text>
             </Pressable>
           </TouchableOpacity>
