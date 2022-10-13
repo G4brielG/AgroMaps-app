@@ -1,74 +1,59 @@
+import { useEffect, useState } from "react"
 import { StatusBar } from "expo-status-bar"
 import { container, text, input, button, image } from '../styles/styles'
 import { Text, View, Image, TextInput, TouchableOpacity } from "react-native"
 import { Pressable, Button, NativeBaseProvider } from "native-base"
-import { useFetchCallBack } from "../hooks/fetch";
-import { useSetForm } from "../hooks"
-import Server from "../services/server"
 import ipf from '../imgs/IPF-logo.png'
-import { useForm, Controller } from 'react-hook-form'
-import { useState } from "react";
 
 export function Login({navigation}) {
-  const { control, handleSubmit, formState: { errors, isValid }} = useForm({ mode: "onBlur" });
-  const [form, setForm] = useSetForm({});
-  const fetchCallBack = useFetchCallBack()
+  const [form, setForm] = useState({})
 
-  const onSubmit = (data) => console.log(data);
+  // {
+  //   usuario: "pruebbaa",       //gabrielg
+  //   clave: "laweafomeql",
+  // }
 
   const handleSubmitForm = async () => {
-    const url = `${Server}/login`
-    const content = {
-      method: "POST",
-      body: JSON.stringify(data),
+    try {
+      const url = "http://192.168.216.110:4000/login"
+      const settings = {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      }
+      const response = await fetch(url, settings);
+      const json = await response.json()
+      console.log(json)
+      return json
+    } catch (error) {
+      console.error(error)
     }
-
-    await fetchCallBack(url, content)
   }
-
+  useEffect(() => {
+    console.log(form)
+  }, [form])
   return (
     <NativeBaseProvider>
-      <View style={container}>
-        <Image style={image} source={ipf} />
-        <View>
-          <StatusBar style="auto" />
-          <Controller
-            control={control}
-            name="name"
-            render={({ field: { onChange, value, onBlur } }) => (
-              <TextInput
-                iconName="person"
-                iconType="MaterialIcons"
-                placeholder="Enter your name here"
-                value={value}
-                onBlur={onBlur}
-                onChangeText={(value) => onChange(value)}
-              />
-            )}
-          />
-          <Controller
-            control={control}
-            name="sexo"
-            render={({ field: { onChange, value, onBlur } }) => (
-              <TextInput
-                iconName="sexo"
-                iconType="MaterialIcons"
-                placeholder="queri sexo"
-                value={value}
-                onBlur={onBlur}
-                onChangeText={(value) => onChange(value)}
-              />
-            )}
-          />
-          <Button title="Submit" onPress={handleSubmit(onSubmit)} />
+      <View>
+        <StatusBar style="auto" />
+
+        <View style={container}>
+          <Image style={image} source={ipf} />
 
           <View style={input}>
             <TextInput
               style={text}
               placeholder="Usuario"
               placeholderTextColor="#a3a3a3"
-              value={form.usuario || ""}
-              onChangeText={setForm}
+              onChangeText={(value) =>
+                setForm({
+                  ...form,
+                  usuario: value,
+                })
+              }
             />
           </View>
 
@@ -78,10 +63,20 @@ export function Login({navigation}) {
               placeholder="Contraseña"
               placeholderTextColor="#a3a3a3"
               secureTextEntry={false}
-              value={form.password || ""}
-              onChangeText={setForm}
+              onChangeText={(value) =>
+                setForm({
+                  ...form,
+                  clave: value,
+                })
+              }
             />
           </View>
+
+          <TouchableOpacity>
+            <Pressable onPress={handleSubmitForm}>
+              <Text style={button}>Iniciar sesión</Text>
+            </Pressable>
+          </TouchableOpacity>
 
           <TouchableOpacity>
             <Pressable onPress={() => navigation.navigate("Home")}>
@@ -95,14 +90,9 @@ export function Login({navigation}) {
             </Pressable>
           </TouchableOpacity>
 
-          <TouchableOpacity>
-            <Pressable onPress={() => handleSubmitForm}>
-              <Text style={button}>Iniciar sesión</Text>
-            </Pressable>
-          </TouchableOpacity>
         </View>
       </View>
     </NativeBaseProvider>
-  );
+  )
 }
 

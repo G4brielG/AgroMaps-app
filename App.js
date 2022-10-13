@@ -7,7 +7,7 @@ import { Button, NativeBaseProvider } from "native-base";
 const Tab = createBottomTabNavigator();
 
 export default function App() {
-  const logueado = false
+  const logueado = true
   return (
     <>
     <NativeBaseProvider>
