@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
 
 const useFetchCallBack = () => {
-  const dispatch = useContext(SessionContext)[1];
+  // const dispatch = useContext(SessionContext)[1];
   const navigate = useNavigation();
 
   return async (url, content, callback = null) => {

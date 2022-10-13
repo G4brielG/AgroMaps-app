@@ -1,23 +1,26 @@
 import { StatusBar } from "expo-status-bar"
 import { container, text, input, button, image } from '../styles/styles'
 import { Text, View, Image, TextInput, TouchableOpacity } from "react-native"
-import { Pressable, NativeBaseProvider } from "native-base"
+import { Pressable, Button, NativeBaseProvider } from "native-base"
 import { useFetchCallBack } from "../hooks/fetch";
 import { useSetForm } from "../hooks"
 import Server from "../services/server"
 import ipf from '../imgs/IPF-logo.png'
-// import { SessionContext } from "../contexts/SessionProvider"
+import { useForm, Controller } from 'react-hook-form'
+import { useState } from "react";
 
 export function Login({navigation}) {
+  const { control, handleSubmit, formState: { errors, isValid }} = useForm({ mode: "onBlur" });
   const [form, setForm] = useSetForm({});
-  // const login = useContext(SessionContext)[1]
   const fetchCallBack = useFetchCallBack()
+
+  const onSubmit = (data) => console.log(data);
 
   const handleSubmitForm = async () => {
     const url = `${Server}/login`
     const content = {
       method: "POST",
-      body: JSON.stringify(form),
+      body: JSON.stringify(data),
     }
 
     await fetchCallBack(url, content)
@@ -25,11 +28,39 @@ export function Login({navigation}) {
 
   return (
     <NativeBaseProvider>
-      <View>
-        <StatusBar style="auto" />
-
-        <View style={container}>
-          <Image style={image} source={ipf} />
+      <View style={container}>
+        <Image style={image} source={ipf} />
+        <View>
+          <StatusBar style="auto" />
+          <Controller
+            control={control}
+            name="name"
+            render={({ field: { onChange, value, onBlur } }) => (
+              <TextInput
+                iconName="person"
+                iconType="MaterialIcons"
+                placeholder="Enter your name here"
+                value={value}
+                onBlur={onBlur}
+                onChangeText={(value) => onChange(value)}
+              />
+            )}
+          />
+          <Controller
+            control={control}
+            name="sexo"
+            render={({ field: { onChange, value, onBlur } }) => (
+              <TextInput
+                iconName="sexo"
+                iconType="MaterialIcons"
+                placeholder="queri sexo"
+                value={value}
+                onBlur={onBlur}
+                onChangeText={(value) => onChange(value)}
+              />
+            )}
+          />
+          <Button title="Submit" onPress={handleSubmit(onSubmit)} />
 
           <View style={input}>
             <TextInput
@@ -46,7 +77,7 @@ export function Login({navigation}) {
               style={text}
               placeholder="Contraseña"
               placeholderTextColor="#a3a3a3"
-              secureTextEntry={ver}
+              secureTextEntry={false}
               value={form.password || ""}
               onChangeText={setForm}
             />
