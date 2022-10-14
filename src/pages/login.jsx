@@ -10,11 +10,14 @@ import { useForm, Controller } from 'react-hook-form'
 import { useState } from "react";
 
 export function Login({navigation}) {
+
+  const onSubmit = (data) => console.log(data);
+
+
   const { control, handleSubmit, formState: { errors, isValid }} = useForm({ mode: "onBlur" });
   const [form, setForm] = useSetForm({});
   const fetchCallBack = useFetchCallBack()
 
-  const onSubmit = (data) => console.log(data);
 
   const handleSubmitForm = async () => {
     const url = `${Server}/login`
