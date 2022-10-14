@@ -28,7 +28,7 @@ const text= {
 const button= {
   textAlign: 'center',
   textSize: '15px',
-  margin: 30,
+  margin: 10,
   padding: 10,
   borderRadius: 20,
   alignItems: 'center',

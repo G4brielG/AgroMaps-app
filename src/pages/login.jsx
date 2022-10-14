@@ -9,6 +9,7 @@ import ipf from '../imgs/IPF-logo.png'
 import { useForm, Controller } from 'react-hook-form'
 import { useState } from "react";
 
+
 export function Login({navigation}) {
 
   const onSubmit = (data) => console.log(data);
@@ -108,4 +109,3 @@ export function Login({navigation}) {
     </NativeBaseProvider>
   );
 }
-

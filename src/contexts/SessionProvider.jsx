@@ -1,6 +1,5 @@
 import { createContext, useReducer } from "react";
 import SessionReducer, { initialState } from "./SessionReducer";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Creamos el contexto
 const SessionContext = createContext();
