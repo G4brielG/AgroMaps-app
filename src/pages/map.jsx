@@ -31,11 +31,13 @@ export function Map() {
   };
   
   const capas = {
-    Sin: '',
-    Acuarela: 'http://c.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg',
-    Toner: 'http://c.tile.stamen.com/toner/{z}/{x}/{y}.jpg',
-    Terrain: 'http://a.tile.stamen.com/terrain/{z}/{x}/{y}.png'
-  }
+    Sin: "",
+    Acuarela: "http://c.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg",
+    Toner: "http://c.tile.stamen.com/toner/{z}/{x}/{y}.jpg",
+    Terrain: "http://a.tile.stamen.com/terrain/{z}/{x}/{y}.png",
+    Temp_Suelo: "http://maps.openweathermap.org/maps/2.0/weather/TS0/{z}/{x}/{y}?appid=b1b15e88fa797225412429c1c50c122a1",
+    geoserver: `http://192.168.114.200:8080/geoserver/gwc/service/tms/1.0.0/Provincias/{z}/{x}/{-y}.png`,
+  };
   const [capa, setCapa] = useState(capas.Sin);
   const [render, setRender] = useState(false);
 
@@ -54,23 +56,15 @@ export function Map() {
 
   return (
     <View>
-      <MapView
-      style={map}
-      initialRegion={region}
-      >
-        {
-          render && <MapView.UrlTile
-          urlTemplate={capa}
-          zIndex={-1}
-        />
-        }
+      <MapView style={map} initialRegion={region}>
+        {render && <MapView.UrlTile urlTemplate={capa} zIndex={-1} />}
       </MapView>
 
       <View
         style={{
-          position: 'absolute',
-          top: '0%',
-          alignSelf: 'flex-start',
+          position: "absolute",
+          top: "0%",
+          alignSelf: "flex-start",
         }}
       >
         <TouchableOpacity onPress={() => setCapa(capas.Acuarela)}>
@@ -82,20 +76,26 @@ export function Map() {
         <TouchableOpacity onPress={() => setCapa(capas.Terrain)}>
           <Text style={button}>Terrain</Text>
         </TouchableOpacity>
+        <TouchableOpacity onPress={() => setCapa(capas.Temp_Suelo)}>
+          <Text style={button}>Temp Suelo</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setCapa(capas.geoserver)}>
+          <Text style={button}>Geoserver</Text>
+        </TouchableOpacity>
       </View>
-   </View>
+    </View>
 
     //   <MapView
     //   initialRegion={region}
     //   style={map}
     //   >
-    //     <Overlay 
+    //     <Overlay
     //   image="https://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg"
     //   bounds={[
-    //     [40.712216, -74.22655], 
+    //     [40.712216, -74.22655],
     //     [40.773941, -74.12544]
     //   ]}
     // />
     //   </MapView>
- );
+  );
 }
