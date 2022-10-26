@@ -14,7 +14,7 @@ export default function App() {
     <NativeBaseProvider>
       <NavigationContainer>
         {
-          logueado === false
+          logueado === true
           ?
             <Tab.Navigator
               initialRouteName="Home"

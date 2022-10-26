@@ -4,7 +4,7 @@ import { Text, View, Image, TextInput, TouchableOpacity } from "react-native"
 import { Pressable, Button, NativeBaseProvider } from "native-base"
 import { useFetchCallBack } from "../hooks/fetch";
 import { useSetForm } from "../hooks"
-import Server from "../services/server"
+//import Server from "../services/server"
 import ipf from '../imgs/IPF-logo.png'
 import { useForm, Controller } from 'react-hook-form'
 import { useState } from "react";
@@ -20,15 +20,15 @@ export function Login({navigation}) {
   const fetchCallBack = useFetchCallBack()
 
 
-  const handleSubmitForm = async () => {
-    const url = `${Server}/login`
-    const content = {
-      method: "POST",
-      body: JSON.stringify(data),
-    }
+  // const handleSubmitForm = async () => {
+  //   const url = `${Server}/login`
+  //   const content = {
+  //     method: "POST",
+  //     body: JSON.stringify(data),
+  //   }
 
-    await fetchCallBack(url, content)
-  }
+  //   await fetchCallBack(url, content)
+  // }
 
   return (
     <NativeBaseProvider>

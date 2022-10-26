@@ -37,6 +37,8 @@ export function Map() {
     Terrain: "http://a.tile.stamen.com/terrain/{z}/{x}/{y}.png",
     Temp_Suelo: "http://maps.openweathermap.org/maps/2.0/weather/TS0/{z}/{x}/{y}?appid=b1b15e88fa797225412429c1c50c122a1",
     geoserver: `http://192.168.114.200:8080/geoserver/gwc/service/tms/1.0.0/Provincias/{z}/{x}/{-y}.png`,
+    provincia: "http://192.168.216.51/tileserver-php-master/prueba/{z}/{x}/{y}.png",
+    cultivos: "http://192.168.216.51/tileserver-php-master/cultivos2022/cultivos2022/{z}/{x}/{y}.png"
   };
   const [capa, setCapa] = useState(capas.Sin);
   const [render, setRender] = useState(false);
@@ -79,8 +81,11 @@ export function Map() {
         <TouchableOpacity onPress={() => setCapa(capas.Temp_Suelo)}>
           <Text style={button}>Temp Suelo</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => setCapa(capas.geoserver)}>
-          <Text style={button}>Geoserver</Text>
+        <TouchableOpacity onPress={() => setCapa(capas.provincia)}>
+          <Text style={button}>Provincias</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setCapa(capas.cultivos)}>
+          <Text style={button}>Cultivos</Text>
         </TouchableOpacity>
       </View>
     </View>
