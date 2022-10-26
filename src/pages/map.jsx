@@ -1,8 +1,9 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import MapView, { UrlTile, Overlay, Callout } from 'react-native-maps';
 import WebView from 'react-native-webview';
 import { map, button } from '../styles/styles';
 import { View, TouchableOpacity, Text } from 'react-native';
+
 
 export function Map() {
   // const watercolor = 'http://c.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg'
@@ -22,14 +23,14 @@ export function Map() {
   //     scalesPageToFit={false}
   //   />
   // );
-  
+
   const region = {
     latitude: -26.0822,
     longitude: -58.2784,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   };
-  
+
   const capas = {
     Sin: "",
     Acuarela: "http://c.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg",
@@ -41,7 +42,7 @@ export function Map() {
   const [capa, setCapa] = useState(capas.Sin);
   const [render, setRender] = useState(false);
 
-  useEffect(()=>{
+  useEffect(() => {
 
     if (render) {
       setRender(false);
@@ -52,7 +53,7 @@ export function Map() {
       console.log(capa)
       return capa;
     }, 100);
-  },[capa])
+  }, [capa])
 
   return (
     <View>

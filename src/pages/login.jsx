@@ -4,18 +4,17 @@ import { Text, View, Image, TextInput, TouchableOpacity } from "react-native"
 import { Pressable, Button, NativeBaseProvider } from "native-base"
 import { useFetchCallBack } from "../hooks/fetch";
 import { useSetForm } from "../hooks"
-import Server from "../services/server"
 import ipf from '../imgs/IPF-logo.png'
 import { useForm, Controller } from 'react-hook-form'
 import { useState } from "react";
 
 
-export function Login({navigation}) {
+export function Login({ navigation }) {
 
   const onSubmit = (data) => console.log(data);
 
 
-  const { control, handleSubmit, formState: { errors, isValid }} = useForm({ mode: "onBlur" });
+  const { control, handleSubmit, formState: { errors, isValid } } = useForm({ mode: "onBlur" });
   const [form, setForm] = useSetForm({});
   const fetchCallBack = useFetchCallBack()
 
