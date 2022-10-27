@@ -1,71 +1,127 @@
 import { StatusBar } from "expo-status-bar";
-import { container, text, input, button, image } from '../styles/styles'
+import { container, text, regtext, input, button, image } from '../styles/styles'
 import React, { useState } from "react";
 import ipf from '../imgs/IPF-logo.png';
+import { useSetForm } from "../hooks"
+import { useFetchCallBack } from "../hooks/fetch"
+import { Pressable, Button, NativeBaseProvider } from "native-base"
+import { useForm, Controller } from 'react-hook-form'
 import {
   StyleSheet,
   Text,
   View,
   Image,
   TextInput,
-  Button,
   TouchableOpacity,
-  TouchableHighlight
+  TouchableHighlight,
 } from "react-native";
- 
-export function Register() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
- 
+
+
+export function Register(navigation) {
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+  const { control, handleSubmit, formState: { errors, isValid } } = useForm({ mode: "onBlur" });
+  const [form, setForm] = useSetForm({});
+  const fetchCallBack = useFetchCallBack()
+  const onSubmit = (data) => console.log(data);
+
+  const handleSubmitForm = async () => {
+    const url = `${Server}/login`
+    const content = {
+      method: "POST",
+      body: JSON.stringify(data),
+    }
+  }
+
   return (
-    <View>
-      <StatusBar style="auto" />
-
+    <NativeBaseProvider>
       <View style={container}>
+        <Image style={image} source={ipf} />
+        <View>
+          <StatusBar style="auto" />
+          <View style={input}>
+            <Controller
+              control={control}
+              name="usuario"
+              render={({ field: { onChange, value, onBlur } }) => (
+                <TextInput
+                  style={regtext}
+                  iconName=""
+                  iconType="MaterialIcons"
+                  placeholder="Usuario"
+                  placeholderTextColor="#a3a3a3"
 
-        <Image
-          style={image}
-          source={ipf}
-        />
+                  onBlur={onBlur}
+                  onChangeText={(value) => onChange(value)}
+                />
+              )}
+            />
+          </View>
+          <View style={input}>
+            <Controller
+              control={control}
+              name="clave"
+              render={({ field: { onChange, value, onBlur } }) => (
+                <TextInput
+                  style={regtext}
+                  iconName=""
+                  iconType="MaterialIcons"
+                  placeholderTextColor="#a3a3a3"
+                  placeholder="Clave"
+                  onBlur={onBlur}
+                  onChangeText={(value) => onChange(value)}
+                />
+              )}
+            />
+          </View>
+          <View style={input}>
+            <Controller
+              control={control}
+              name="correo"
+              render={({ field: { onChange, value, onBlur } }) => (
+                <TextInput
+                  style={regtext}
+                  iconName=""
+                  iconType="MaterialIcons"
+                  placeholderTextColor="#a3a3a3"
+                  placeholder="Correo"
 
-        <View style={input}>
-          <TextInput
-            style={text}
-            placeholder="Correo electrónico"
-            placeholderTextColor="#a3a3a3"
-            onChangeText={(email) => setEmail(email)}
-          />
-        </View>
-  
-        <View style={input}>
-          <TextInput
-            style={text}
-            placeholder="Contraseña"
-            placeholderTextColor="#a3a3a3"
-            secureTextEntry={true}
-            onChangeText={(password) => setPassword(password)}
-          />
-        </View>
+                  onBlur={onBlur}
+                  onChangeText={(value) => onChange(value)}
+                />
+              )}
+            />
+          </View>
+          <View style={input}>
+            <Controller
+              control={control}
+              name="telefono"
+              render={({ field: { onChange, value, onBlur } }) => (
+                <TextInput
+                  style={regtext}
+                  iconName=""
+                  iconType="MaterialIcons"
+                  placeholderTextColor="#a3a3a3"
+                  placeholder="Telefono"
 
-        <View style={input}>
-          <TextInput
-            style={text}
-            placeholder="Repite contraseña"
-            placeholderTextColor="#a3a3a3"
-            secureTextEntry={true}
-            onChangeText={(password) => setPassword(password)}
-          />
+                  onBlur={onBlur}
+                  onChangeText={(value) => onChange(value)}
+                />
+              )}
+            />
+          </View>
+          <TouchableOpacity >
+            <Pressable onPress={() => handleSubmitForm}></Pressable>
+            <Button style={button} title="Submit" onPress={handleSubmit(onSubmit)} >Registrarme</Button>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Pressable onPress={() => navigation.navigate("Login")}>
+              <Text>¿Ya tienes una cuenta? Inicia sesión</Text>
+            </Pressable>
+          </TouchableOpacity>
         </View>
-  
-        <TouchableOpacity>
-          <Text>¿Ya tienes una cuenta? Inicia sesión</Text>
-        </TouchableOpacity>
-  
-        <TouchableOpacity >
-          <Text style={button}>Regístrame</Text>
-        </TouchableOpacity>
       </View>
-    </View>
-  );
-}
+    </NativeBaseProvider>
+  )
+};
 

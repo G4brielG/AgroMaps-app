@@ -8,7 +8,7 @@ const Tab = createBottomTabNavigator();
 
 export default function App() {
 
-  const logueado = true
+  const logueado = false
   return (
     <>
     <NativeBaseProvider>

@@ -1,23 +1,23 @@
 import { Dimensions } from 'react-native';
 
-const container= {
+const container = {
   justifyContent: 'center',
   alignItems: 'center',
   borderWidth: 1,
   //flex: 1,
   height: '100%',
   backgroundColor: '#75ffaa'
- }
- 
-const input= {
+}
+
+const input = {
   backgroundColor: 'rgba(255, 255, 255, 0.5)',
   borderRadius: 30,
   width: "70%",
   height: 45,
   marginBottom: 20,
 }
- 
-const text= {
+
+const text = {
   textAlign: "center",
   height: 50,
   flex: 1,
@@ -25,7 +25,14 @@ const text= {
   //marginLeft: 20,
 }
 
-const button= {
+const regtext = {
+  textAlign: "center",
+  height: 50,
+  padding: 10,
+  width: 350,
+}
+
+const button = {
   textAlign: 'center',
   textSize: '15px',
   margin: 10,
@@ -38,10 +45,10 @@ const button= {
 
 const containerMap = {
   flex: 2,
-  
+
 }
 
-const map= {
+const map = {
   width: Dimensions.get('window').width,
   height: Dimensions.get('window').height,
 }
@@ -70,5 +77,6 @@ export {
   map,
   containerMap,
   image,
-  home
+  home,
+  regtext
 }
