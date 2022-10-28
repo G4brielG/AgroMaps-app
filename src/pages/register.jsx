@@ -19,7 +19,7 @@ import SelectDropdown from 'react-native-select-dropdown'
 
 
 
-const countries = ["Asesor", "Productor"]
+const roles = ["Asesor", "Productor"]
 
 
 
@@ -121,7 +121,7 @@ export function Register(navigation) {
               name="rol"
               render={({ field: { onChange } }) => (
                 <SelectDropdown
-                  data={countries}
+                  data={roles}
                   onSelect={(selectedItem) => { onChange(selectedItem) }}
                 />
               )}
