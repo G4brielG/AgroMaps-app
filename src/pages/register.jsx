@@ -1,42 +1,35 @@
 import { StatusBar } from "expo-status-bar";
-import { container, text, regtext, input, button, image } from '../styles/styles'
+import { container, regtext, input, button, image } from '../styles/styles'
 import React, { useState } from "react";
 import ipf from '../imgs/IPF-logo.png';
-import { useSetForm } from "../hooks"
-import { useFetchCallBack } from "../hooks/fetch"
 import { Pressable, Button, NativeBaseProvider } from "native-base"
-import { useForm, Controller } from 'react-hook-form'
 import {
-  StyleSheet,
   Text,
   View,
   Image,
   TextInput,
   TouchableOpacity,
-  TouchableHighlight,
 } from "react-native";
 import SelectDropdown from 'react-native-select-dropdown'
+import { useForm, Controller } from 'react-hook-form'
 
-
-
-const roles = ["Asesor", "Productor"]
-
-
-
-
-export function Register(navigation) {
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  const { control, handleSubmit, formState: { errors, isValid } } = useForm({ mode: "onBlur" });
+export function Register({ navigation }) {
+  const roles = ["Asesor", "Productor", "Otro..."];
+  const {
+    control,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm({ mode: "onBlur" });
   const onSubmit = (data) => console.log(data);
 
   const handleSubmitForm = async () => {
-    const url = `${Server}/login`
+    const url = `${Server}/login`;
     const content = {
       method: "POST",
       body: JSON.stringify(data),
-    }
-  }
+    };
+    await fetchCallBack(url, content)
+  };
 
   return (
     <NativeBaseProvider>
@@ -55,7 +48,6 @@ export function Register(navigation) {
                   iconType="MaterialIcons"
                   placeholder="Usuario"
                   placeholderTextColor="#a3a3a3"
-
                   onBlur={onBlur}
                   onChangeText={(value) => onChange(value)}
                 />
@@ -90,7 +82,6 @@ export function Register(navigation) {
                   iconType="MaterialIcons"
                   placeholderTextColor="#a3a3a3"
                   placeholder="Correo"
-
                   onBlur={onBlur}
                   onChangeText={(value) => onChange(value)}
                 />
@@ -108,7 +99,6 @@ export function Register(navigation) {
                   iconType="MaterialIcons"
                   placeholderTextColor="#a3a3a3"
                   placeholder="Telefono"
-
                   onBlur={onBlur}
                   onChangeText={(value) => onChange(value)}
                 />
@@ -122,14 +112,22 @@ export function Register(navigation) {
               render={({ field: { onChange } }) => (
                 <SelectDropdown
                   data={roles}
-                  onSelect={(selectedItem) => { onChange(selectedItem) }}
+                  onSelect={(selectedItem) => {
+                    onChange(selectedItem);
+                  }}
                 />
               )}
             />
           </View>
-          <TouchableOpacity >
+          <TouchableOpacity>
             <Pressable onPress={() => handleSubmitForm}></Pressable>
-            <Button style={button} title="Submit" onPress={handleSubmit(onSubmit)}>Registrarme</Button>
+            <Button
+              style={button}
+              title="Submit"
+              onPress={handleSubmit(onSubmit)}
+            >
+              Registrarme
+            </Button>
           </TouchableOpacity>
           <TouchableOpacity>
             <Pressable onPress={() => navigation.navigate("Login")}>
@@ -139,6 +137,6 @@ export function Register(navigation) {
         </View>
       </View>
     </NativeBaseProvider>
-  )
+  );
 };
 
