@@ -129,7 +129,7 @@ export function Register(navigation) {
           </View>
           <TouchableOpacity >
             <Pressable onPress={() => handleSubmitForm}></Pressable>
-            <Button style={button} title="Submit" onPress={handleSubmit(onSubmit)} >Registrarme</Button>
+            <Button style={button} title="Submit" onPress={handleSubmit(onSubmit)}>Registrarme</Button>
           </TouchableOpacity>
           <TouchableOpacity>
             <Pressable onPress={() => navigation.navigate("Login")}>
