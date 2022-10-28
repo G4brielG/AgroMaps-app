@@ -1,28 +1,19 @@
 import { StatusBar } from "expo-status-bar";
-import { container, text, regtext, input, button, image } from '../styles/styles'
+import { container, regtext, input, button, image } from '../styles/styles'
 import React, { useState } from "react";
 import ipf from '../imgs/IPF-logo.png';
-import { useSetForm } from "../hooks"
-import { useFetchCallBack } from "../hooks/fetch"
 import { Pressable, Button, NativeBaseProvider } from "native-base"
-import { useForm, Controller } from 'react-hook-form'
 import {
-  StyleSheet,
   Text,
   View,
   Image,
   TextInput,
   TouchableOpacity,
-  TouchableHighlight,
 } from "react-native";
 
 
 export function Register(navigation) {
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  const { control, handleSubmit, formState: { errors, isValid } } = useForm({ mode: "onBlur" });
-  const [form, setForm] = useSetForm({});
-  const fetchCallBack = useFetchCallBack()
+  const [form, setForm] = useState({});
   const onSubmit = (data) => console.log(data);
 
   const handleSubmitForm = async () => {

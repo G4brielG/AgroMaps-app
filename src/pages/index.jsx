@@ -1,7 +1,7 @@
-import { Home } from './home'
-import { Login } from './login'
-import { Map } from './map'
-import { Register } from './register'
+import { Home } from './Home'
+import { Login } from './Login'
+import { Map } from './Map'
+import { Register } from './Register'
 import { MiCuenta } from './MiCuenta'
 
 export {
