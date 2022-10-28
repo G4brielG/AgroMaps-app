@@ -15,6 +15,13 @@ import {
   TouchableOpacity,
   TouchableHighlight,
 } from "react-native";
+import SelectDropdown from 'react-native-select-dropdown'
+
+
+
+const countries = ["Asesor", "Productor"]
+
+
 
 
 export function Register(navigation) {
@@ -106,6 +113,18 @@ export function Register(navigation) {
 
                   onBlur={onBlur}
                   onChangeText={(value) => onChange(value)}
+                />
+              )}
+            />
+          </View>
+          <View style={input}>
+            <Controller
+              control={control}
+              name="rol"
+              render={({ field: { onChange } }) => (
+                <SelectDropdown
+                  data={countries}
+                  onSelect={(selectedItem) => { onChange(selectedItem) }}
                 />
               )}
             />
