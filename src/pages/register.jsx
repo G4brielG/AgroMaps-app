@@ -10,19 +10,25 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
+import SelectDropdown from 'react-native-select-dropdown'
+import { useForm, Controller } from 'react-hook-form'
 
-
-export function Register(navigation) {
-  const [form, setForm] = useState({});
+export function Register({navigation}) {
+  const countries = ["Asesor", "Productor"];
+  const {
+    control,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm({ mode: "onBlur" });
   const onSubmit = (data) => console.log(data);
 
   const handleSubmitForm = async () => {
-    const url = `${Server}/login`
+    const url = `${Server}/login`;
     const content = {
       method: "POST",
       body: JSON.stringify(data),
-    }
-  }
+    };
+  };
 
   return (
     <NativeBaseProvider>
@@ -34,14 +40,13 @@ export function Register(navigation) {
             <Controller
               control={control}
               name="usuario"
-              render={({ field: { onChange, value, onBlur } }) => (
+              render={({ field: { onChange, onBlur } }) => (
                 <TextInput
                   style={regtext}
                   iconName=""
                   iconType="MaterialIcons"
                   placeholder="Usuario"
                   placeholderTextColor="#a3a3a3"
-
                   onBlur={onBlur}
                   onChangeText={(value) => onChange(value)}
                 />
@@ -52,7 +57,7 @@ export function Register(navigation) {
             <Controller
               control={control}
               name="clave"
-              render={({ field: { onChange, value, onBlur } }) => (
+              render={({ field: { onChange, onBlur } }) => (
                 <TextInput
                   style={regtext}
                   iconName=""
@@ -69,14 +74,13 @@ export function Register(navigation) {
             <Controller
               control={control}
               name="correo"
-              render={({ field: { onChange, value, onBlur } }) => (
+              render={({ field: { onChange, onBlur } }) => (
                 <TextInput
                   style={regtext}
                   iconName=""
                   iconType="MaterialIcons"
                   placeholderTextColor="#a3a3a3"
                   placeholder="Correo"
-
                   onBlur={onBlur}
                   onChangeText={(value) => onChange(value)}
                 />
@@ -94,16 +98,35 @@ export function Register(navigation) {
                   iconType="MaterialIcons"
                   placeholderTextColor="#a3a3a3"
                   placeholder="Telefono"
-
                   onBlur={onBlur}
                   onChangeText={(value) => onChange(value)}
                 />
               )}
             />
           </View>
-          <TouchableOpacity >
+          <View style={input}>
+            <Controller
+              control={control}
+              name="rol"
+              render={({ field: { onChange } }) => (
+                <SelectDropdown
+                  data={countries}
+                  onSelect={(selectedItem) => {
+                    onChange(selectedItem);
+                  }}
+                />
+              )}
+            />
+          </View>
+          <TouchableOpacity>
             <Pressable onPress={() => handleSubmitForm}></Pressable>
-            <Button style={button} title="Submit" onPress={handleSubmit(onSubmit)} >Registrarme</Button>
+            <Button
+              style={button}
+              title="Submit"
+              onPress={handleSubmit(onSubmit)}
+            >
+              Registrarme
+            </Button>
           </TouchableOpacity>
           <TouchableOpacity>
             <Pressable onPress={() => navigation.navigate("Login")}>
@@ -113,6 +136,6 @@ export function Register(navigation) {
         </View>
       </View>
     </NativeBaseProvider>
-  )
+  );
 };
 
