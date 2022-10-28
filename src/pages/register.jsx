@@ -14,7 +14,7 @@ import SelectDropdown from 'react-native-select-dropdown'
 import { useForm, Controller } from 'react-hook-form'
 
 export function Register({ navigation }) {
-  const roles = ["Asesor", "Productor", "Otro..."];
+  const roles = ["Asesor", "Productor", "Otro"];
   const {
     control,
     handleSubmit,

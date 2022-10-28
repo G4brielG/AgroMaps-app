@@ -11,8 +11,8 @@ const container = {
 
 const input = {
   backgroundColor: 'rgba(255, 255, 255, 0.5)',
-  borderRadius: 30,
-  width: "70%",
+  borderRadius: 20,
+  width: 300,
   height: 45,
   marginBottom: 20,
 }
