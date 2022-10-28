@@ -28,8 +28,6 @@ export function Register(navigation) {
   // const [email, setEmail] = useState("");
   // const [password, setPassword] = useState("");
   const { control, handleSubmit, formState: { errors, isValid } } = useForm({ mode: "onBlur" });
-  const [form, setForm] = useSetForm({});
-  const fetchCallBack = useFetchCallBack()
   const onSubmit = (data) => console.log(data);
 
   const handleSubmitForm = async () => {
@@ -50,7 +48,7 @@ export function Register(navigation) {
             <Controller
               control={control}
               name="usuario"
-              render={({ field: { onChange, value, onBlur } }) => (
+              render={({ field: { onChange, onBlur } }) => (
                 <TextInput
                   style={regtext}
                   iconName=""
@@ -68,7 +66,7 @@ export function Register(navigation) {
             <Controller
               control={control}
               name="clave"
-              render={({ field: { onChange, value, onBlur } }) => (
+              render={({ field: { onChange, onBlur } }) => (
                 <TextInput
                   style={regtext}
                   iconName=""
@@ -85,7 +83,7 @@ export function Register(navigation) {
             <Controller
               control={control}
               name="correo"
-              render={({ field: { onChange, value, onBlur } }) => (
+              render={({ field: { onChange, onBlur } }) => (
                 <TextInput
                   style={regtext}
                   iconName=""
