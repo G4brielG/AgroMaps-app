@@ -69,6 +69,27 @@ const home = {
   alignItems: 'center',
 }
 
+const addButton = {
+  alignItems: 'center',
+  backgroundColor: '#1CC48D',
+  justifyContent: 'center',
+  width: 50,
+  height: 50,
+  borderRadius: 25,
+  margin: 3
+}
+
+const addButtonText = {
+  color: 'white',
+  fontSize: 30,
+}
+
+const buttonContainer = {
+  top: 30 ,
+  right: 20,
+  position: 'absolute'
+}
+
 export {
   container,
   input,
@@ -78,5 +99,8 @@ export {
   containerMap,
   image,
   home,
-  regtext
+  regtext,
+  addButton,
+  addButtonText,
+  buttonContainer
 }
