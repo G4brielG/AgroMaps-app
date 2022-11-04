@@ -1,28 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import MapView, { UrlTile, Overlay, Callout } from 'react-native-maps';
-import WebView from 'react-native-webview';
+import MapView, { UrlTile, Marker, Callout } from 'react-native-maps';
 import { map, button } from '../styles/styles';
 import { View, TouchableOpacity, Text } from 'react-native';
 
 export function Map() {
-  // const watercolor = 'http://c.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg'
-  // const terrain = 'http://a.tile.stamen.com/terrain/{z}/{x}/{y}.png'
-
-  // const myip = "192.168.216.230"
-
-  // const customHTML = `
-  // <iframe width='100%' height='100%' src="https://api.mapbox.com/styles/v1/sirlam/cl8udimeq002m14n0iuszi1kb.html?title=false&access_token=pk.eyJ1Ijoic2lybGFtIiwiYSI6ImNsOHQ1emN1ZTA0YWUzb3Buem1xZjdwZHYifQ.J6TKjjJr8rNaq1zQ0lko0A&zoomwheel=false#3/-21.45/-57.05" title="Blank" style="border:none;"></iframe>
-  // `
-  // return (
-  //   <WebView
-  //     originWhitelist={["*"]}
-  //     source={{
-  //       html: customHTML,
-  //     }}
-  //     scalesPageToFit={false}
-  //   />
-  // );
   
+  // REGION INICIAL EN EL POLO CIENTÍFICO
   const region = {
     latitude: -26.0822,
     longitude: -58.2784,
@@ -33,16 +16,20 @@ export function Map() {
   const capas = {
     Sin: "",
     Acuarela: "http://c.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg",
-    Toner: "http://c.tile.stamen.com/toner/{z}/{x}/{y}.jpg",
+    Toner: "https://api.maptiler.com/tiles/10a72053-a2ce-4ea1-a9aa-e42853c7b427/{z}/{x}/{y}.png?key=ikvXccZmYAyuvY2spJi0",
     Terrain: "http://a.tile.stamen.com/terrain/{z}/{x}/{y}.png",
     Temp_Suelo: "http://maps.openweathermap.org/maps/2.0/weather/TS0/{z}/{x}/{y}?appid=b1b15e88fa797225412429c1c50c122a1",
     geoserver: `http://192.168.114.200:8080/geoserver/gwc/service/tms/1.0.0/Provincias/{z}/{x}/{-y}.png`,
     provincia: "http://192.168.216.51/tileserver-php-master/prueba/{z}/{x}/{y}.png",
     cultivos: "http://192.168.216.51/tileserver-php-master/cultivos2022/cultivos2022/{z}/{x}/{y}.png"
   };
+
+  // ESTADOS INICIALES DE LA CAPA
   const [capa, setCapa] = useState(capas.Sin);
   const [render, setRender] = useState(false);
 
+
+  // CAMBIO DE ESTADO DE SELECCIÓN DE CAPA PARA RENDERIZARLA
   useEffect(()=>{
 
     if (render) {
@@ -58,8 +45,18 @@ export function Map() {
 
   return (
     <View>
-      <MapView style={map} initialRegion={region}>
+      <MapView style={map} initialRegion={region} onLongPress={e => console.log(e.nativeEvent.coordinate)}>
         {render && <MapView.UrlTile urlTemplate={capa} zIndex={-1} />}
+        <Marker
+          coordinate={{ latitude : region.latitude , longitude : region.longitude }}
+        >
+          <Callout>
+            <View>
+              <Text>Polo Científico</Text>
+            </View>
+          </Callout>
+        </Marker>
+       
       </MapView>
 
       <View
@@ -89,18 +86,5 @@ export function Map() {
         </TouchableOpacity>
       </View>
     </View>
-
-    //   <MapView
-    //   initialRegion={region}
-    //   style={map}
-    //   >
-    //     <Overlay
-    //   image="https://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg"
-    //   bounds={[
-    //     [40.712216, -74.22655],
-    //     [40.773941, -74.12544]
-    //   ]}
-    // />
-    //   </MapView>
   );
 }

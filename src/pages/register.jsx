@@ -13,8 +13,8 @@ import {
 import SelectDropdown from 'react-native-select-dropdown'
 import { useForm, Controller } from 'react-hook-form'
 
-export function Register({navigation}) {
-  const countries = ["Asesor", "Productor", "Otro"];
+export function Register({ navigation }) {
+  const roles = ["Asesor", "Productor", "Otro"];
   const {
     control,
     handleSubmit,
@@ -28,6 +28,7 @@ export function Register({navigation}) {
       method: "POST",
       body: JSON.stringify(data),
     };
+    await fetchCallBack(url, content)
   };
 
   return (
@@ -110,7 +111,7 @@ export function Register({navigation}) {
               name="rol"
               render={({ field: { onChange } }) => (
                 <SelectDropdown
-                  data={countries}
+                  data={roles}
                   onSelect={(selectedItem) => {
                     onChange(selectedItem);
                   }}

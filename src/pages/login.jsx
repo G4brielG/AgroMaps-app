@@ -17,7 +17,7 @@ import ipf from '../imgs/IPF-logo.png'
 //   }
 // };
 
-export function Login({navigation}) {
+export function Login({ navigation }) {
   const [form, setForm] = useState({})
   const [errors, setErrors] = useState({})
   const [data, setData] = useState({})
