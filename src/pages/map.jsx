@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import MapView, { UrlTile, Marker, Callout } from 'react-native-maps';
 import { map, button, addButton, buttonContainer, addButtonText } from '../styles/styles';
-import { View, TouchableOpacity, Text } from 'react-native';
+import { View, TouchableOpacity, Text, TextInput } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export function Map() {
@@ -33,7 +33,9 @@ export function Map() {
   // ESTADO PARA MOSTRAR LA INFO DE LA CAPA SELECCIONADA
   const  [infoCapa, setInfoCapa]  = useState(false);
 
-  // const [marker, setMarker] = useState('');
+  const [addMark, setAddMark] = useState(false);
+  const [marker, setMarker] = useState([]);
+  const [marcador, setMarcador] = useState(false);
 
   // CAMBIO DE ESTADO DE SELECCIÓN DE CAPA PARA RENDERIZARLA
   useEffect(()=>{
@@ -53,20 +55,18 @@ export function Map() {
   //   return (
   //     <View>
   //       <TextInput 
-  //         onChangeText = { setMarker }
+  //         onChangeText={(value) => setMarker(value)}
   //         placeholder = 'Nombre del lugar'
-  //         value = { marker }
   //       />
   //       <View style = {{ marginVertical: 10, flexDirection: 'row', }}>
   //         <TouchableOpacity style = { button }>
   //           <Text
-  //             onPress = {Marker} 
+  //             onPress = {Test} 
   //           >Agregar</Text>
   //         </TouchableOpacity>
 
   //         <TouchableOpacity style = { button }>
   //           <Text
-              
   //             onPress = { () => setMarker('') }
   //           >Cancelar</Text>
   //         </TouchableOpacity>
@@ -84,25 +84,30 @@ export function Map() {
   // };
 
   const Test = (e) => {
-    let latitude = e.nativeEvent.coordinate.latitude
-    let longitude = e.nativeEvent.coordinate.longitude
-    console.log(region.latitude)
+    // const mark = {
+    //   nombre: marker,
+    //   latitude: e.nativeEvent.coordinate.latitude,
+    //   longitude: e.nativeEvent.coordinate.longitude
+    // }
+    //console.log(marker.longitude)
+    setAddMark(!addMark);
     return (
-      <Marker
-        coordinate={{ latitude : latitude, longitude : longitude }}
-      >
-        <Callout>
-          <View>
-            <Text>New</Text>
-          </View>
-        </Callout>
-      </Marker>
+      console.log(marker)
     )
   }
 
   return (
     <View>
-      <MapView style={map} initialRegion={region} onLongPress={Test}>
+      <MapView 
+        style={map} 
+        initialRegion={region} 
+        onLongPress={(e) => {
+          setMarcador(!marcador)
+          setMarker([...marker, {latitude: e.nativeEvent.coordinate.latitude, longitude: e.nativeEvent.coordinate.longitude}])
+        }}
+        minZoomLevel={7}
+        maxZoomLevel={18}
+        >
         {render && <MapView.UrlTile urlTemplate={capa} zIndex={-1} style={{opacity: 0.3}}/>}
         <Marker
           coordinate={{ latitude : region.latitude , longitude : region.longitude }}
@@ -113,8 +118,80 @@ export function Map() {
             </View>
           </Callout>
         </Marker>
-       
+        {
+          addMark && (
+            <View>
+              <Marker
+                coordinate={{ latitude : marker[3].latitude, longitude : marker[3].longitude }}
+                >
+                <Callout>
+                  <View>
+                    <Text>New</Text>
+                  </View>
+                </Callout>
+              </Marker>
+              <Marker
+              coordinate={{ latitude : marker[0].latitude, longitude : marker[0].longitude }}/>
+              <Marker
+              coordinate={{ latitude : marker[1].latitude, longitude : marker[1].longitude }}/>
+              <Marker
+              coordinate={{ latitude : marker[2].latitude, longitude : marker[2].longitude }}/>
+            </View>
+          )
+        }
       </MapView>
+
+      {
+        marcador && (
+          <View style={{
+            position: "absolute",
+            alignSelf: "center",
+            alignItems: "center",
+            alignContent: "center",
+            justifyContent: "center",
+            height: 200,
+            width: 300,
+            backgroundColor: "white"
+          }}>
+            {/* <TextInput 
+              onChangeText={(value) => ({nombre: value})}
+              placeholder = 'Nombre del lugar'
+              value = 
+            /> */}
+            <View style = {{ marginVertical: 10, flexDirection: 'row', }}>
+              <TouchableOpacity style = { button }>
+                <Text
+                  onPress = {()=> {
+                    setAddMark(!addMark)
+                    setMarcador(!marcador)
+                  }} 
+                >Agregar</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity style = { button }>
+                <Text
+                  onPress = { () => setMarcador(!marcador) }
+                >Cancelar</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        )
+      }
+
+      {/* {
+        addMark && (
+          <Marker
+            coordinate={{ latitude : marker.latitude, longitude : marker.longitude }}
+          >
+            <Callout>
+              <View>
+                <Text>New</Text>
+              </View>
+            </Callout>
+          </Marker>
+
+        )
+      } */}
 
       {
         verCapa && (
