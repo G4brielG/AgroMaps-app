@@ -10,17 +10,20 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import SelectDropdown from 'react-native-select-dropdown'
+// import SelectDropdown from 'react-native-select-dropdown'
 import { useForm, Controller } from 'react-hook-form'
 
 export function Register({ navigation }) {
-  const roles = ["Asesor", "Productor", "Otro"];
+  // const roles = ["Asesor", "Productor", "Otro"];
   const {
     control,
     handleSubmit,
     formState: { errors, isValid },
   } = useForm({ mode: "onBlur" });
-  const onSubmit = (data) => console.log(data);
+
+  const onSubmit = (data) => {
+    console.log(data);
+  }
 
   const handleSubmitForm = async () => {
     const url = `${Server}/login`;
@@ -30,6 +33,7 @@ export function Register({ navigation }) {
     };
     await fetchCallBack(url, content)
   };
+
 
   return (
     <NativeBaseProvider>
@@ -64,7 +68,24 @@ export function Register({ navigation }) {
                   iconName=""
                   iconType="MaterialIcons"
                   placeholderTextColor="#a3a3a3"
-                  placeholder="Clave"
+                  placeholder="Contraseña"
+                  onBlur={onBlur}
+                  onChangeText={(value) => onChange(value)}
+                />
+              )}
+            />
+          </View>
+          <View style={input}>
+            <Controller
+              control={control}
+              name="confClave"
+              render={({ field: { onChange, onBlur } }) => (
+                <TextInput
+                  style={regtext}
+                  iconName=""
+                  iconType="MaterialIcons"
+                  placeholderTextColor="#a3a3a3"
+                  placeholder="Confirmar Contraseña"
                   onBlur={onBlur}
                   onChangeText={(value) => onChange(value)}
                 />
@@ -92,7 +113,7 @@ export function Register({ navigation }) {
             <Controller
               control={control}
               name="telefono"
-              render={({ field: { onChange, value, onBlur } }) => (
+              render={({ field: { onChange, onBlur } }) => (
                 <TextInput
                   style={regtext}
                   iconName=""
@@ -101,20 +122,6 @@ export function Register({ navigation }) {
                   placeholder="Telefono"
                   onBlur={onBlur}
                   onChangeText={(value) => onChange(value)}
-                />
-              )}
-            />
-          </View>
-          <View style={input}>
-            <Controller
-              control={control}
-              name="rol"
-              render={({ field: { onChange } }) => (
-                <SelectDropdown
-                  data={roles}
-                  onSelect={(selectedItem) => {
-                    onChange(selectedItem);
-                  }}
                 />
               )}
             />
