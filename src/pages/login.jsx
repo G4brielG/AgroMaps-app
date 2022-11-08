@@ -1,37 +1,60 @@
 import { StatusBar } from "expo-status-bar"
 import { container, text, input, button, image, Label } from "../styles/styles"
 import { Text, View, Image, TextInput, TouchableOpacity } from "react-native"
-import { Pressable, NativeBaseProvider } from "native-base"
+import { NativeBaseProvider } from "native-base"
 import { useState, useEffect } from "react";
 import ipf from '../imgs/IPF-logo.png'
+// import AsyncStorage from "@react-native-async-storage/async-storage";
+
+// const getData = async () => {
+//   try {
+//     const value = await AsyncStorage.getItem("@storage_Key");
+//     if (value !== null) {
+//       // value previously stored
+//     }
+//   } catch (e) {
+//     // error reading value
+//   }
+// };
 
 export function Login({ navigation }) {
   const [form, setForm] = useState({})
   const [errors, setErrors] = useState({})
-
+  const [data, setData] = useState({})
+  const [ver, setVer] = useState(true)
+  // getData()
   const validate = () => {
     if (form.usuario === undefined) {
-      setErrors({ ...errors, usuario: "*Campo obligatorio" })
+      setErrors({ ...errors, usuario: "* Campo obligatorio" })
       return false
-    } else if (form.usuario.length < 3) {
-      setErrors({ ...errors, usuario: "short dick men" })
+    } else if (form.password === undefined) {
+      setErrors({ ...errors, password: "* Campo obligatorio" });
       return false
     }
     return true
   }
 
   const onSubmit = () => {
-    validate() ? console.log("Submitted") : console.log("Validation Failed")
+    validate() 
+    ? handleSubmitForm()
+    : console.log("Validation Failed")
   }
 
-  // const handleSubmitForm = async () => {
-  //   const url = `${Server}/login`
-  //   const content = {
-  //     method: "POST",
-  //     body: JSON.stringify(form),
-  //   }
-  //   await fetch(url, content)
-  // }
+  const handleSubmitForm = async () => {
+    const datos = {
+      usuario: form.usuario,
+      clave: form.password
+    }
+    const url = `http://192.168.240.200:4000/login`;
+    const content = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(datos),
+    }
+    const response = await fetch(url, content)
+    const json = await response.json()
+    setData(json)
+  }
 
   useEffect(() =>{
     console.log(form)
@@ -51,40 +74,35 @@ export function Login({ navigation }) {
               onChangeText={(value) => setForm({ ...form, usuario: value })}
             />
           </View>
-          {
+          {/* {
             'usuario' in errors && <Text>{errors.usuario}</Text>
-          }
-
+          } */}
           <View style={input}>
             <TextInput
               name="password"
               style={text}
               placeholder="Contraseña"
               placeholderTextColor="#a3a3a3"
-              secureTextEntry={false}
+              secureTextEntry={ver}
               onChangeText={(value) => setForm({ ...form, password: value })}
             />
           </View>
 
-          <TouchableOpacity>
-            <Pressable onPress={() => navigation.navigate("Home")}>
-              <Text>¿Olvidaste tu contraseña?</Text>
-            </Pressable>
+          {<Text>{data.message}</Text>}
+
+          {/* <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+            <Text>¿Olvidaste tu contraseña?</Text>
+          </TouchableOpacity> */}
+
+          <TouchableOpacity onPress={() => navigation.navigate("Register")}>
+            <Text>¿Aún no tienes cuenta? Regístrate</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity>
-            <Pressable onPress={() => navigation.navigate("Register")}>
-              <Text>¿Aún no tienes cuenta? Regístrate</Text>
-            </Pressable>
-          </TouchableOpacity>
-
-          <TouchableOpacity>
-            <Pressable onPress={onSubmit}>
-              <Text style={button}>Iniciar sesión</Text>
-            </Pressable>
+          <TouchableOpacity onPress={onSubmit}>
+            <Text style={button}>Iniciar sesión</Text>
           </TouchableOpacity>
         </View>
       </View>
     </NativeBaseProvider>
-  )
+  );
 }
