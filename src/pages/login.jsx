@@ -1,28 +1,19 @@
 import { StatusBar } from "expo-status-bar"
-import { container, text, input, button, image, Label } from "../styles/styles"
+import { container, text, input, button, image } from "../styles/styles"
 import { Text, View, Image, TextInput, TouchableOpacity } from "react-native"
 import { NativeBaseProvider } from "native-base"
 import { useState, useEffect } from "react";
+import useSession from "../hooks/useSession";
 import ipf from '../imgs/IPF-logo.png'
-// import AsyncStorage from "@react-native-async-storage/async-storage";
-
-// const getData = async () => {
-//   try {
-//     const value = await AsyncStorage.getItem("@storage_Key");
-//     if (value !== null) {
-//       // value previously stored
-//     }
-//   } catch (e) {
-//     // error reading value
-//   }
-// };
 
 export function Login({ navigation }) {
   const [form, setForm] = useState({})
   const [errors, setErrors] = useState({})
   const [data, setData] = useState({})
   const [ver, setVer] = useState(true)
-  // getData()
+
+  const { login, logout } = useSession()
+
   const validate = () => {
     if (form.usuario === undefined) {
       setErrors({ ...errors, usuario: "* Campo obligatorio" })
@@ -34,18 +25,12 @@ export function Login({ navigation }) {
     return true
   }
 
-  const onSubmit = () => {
-    validate() 
-    ? handleSubmitForm()
-    : console.log("Validation Failed")
-  }
-
   const handleSubmitForm = async () => {
     const datos = {
       usuario: form.usuario,
       clave: form.password
     }
-    const url = `http://192.168.240.200:4000/login`;
+    const url = `http://192.168.216.159:4000/login`;
     const content = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -54,11 +39,12 @@ export function Login({ navigation }) {
     const response = await fetch(url, content)
     const json = await response.json()
     setData(json)
+    login(json.user)
   }
 
-  useEffect(() =>{
-    console.log(form)
-  }, [form])
+  const onSubmit = () => {
+    validate() ? handleSubmitForm() : console.log("Validation Failed");
+  }
   return (
     <NativeBaseProvider>
       <View style={container}>
@@ -100,6 +86,9 @@ export function Login({ navigation }) {
 
           <TouchableOpacity onPress={onSubmit}>
             <Text style={button}>Iniciar sesión</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={logout}>
+            <Text style={button}>CERRAR sesión</Text>
           </TouchableOpacity>
         </View>
       </View>
