@@ -1,7 +1,6 @@
-import * as React from 'react';
 import { Text, View, Image } from 'react-native';
-import ipf from '../imgs/IPF-logo.png'
 import { image, home } from '../styles/styles'
+import ipf from '../imgs/IPF-logo.png'
 
 export const Home = () => {
   return (

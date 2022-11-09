@@ -16,7 +16,7 @@ export function Map() {
   
   const capas = {
     Sin: "",
-    Acuarela: "http://c.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg",
+    Alcalina: "https://api.maptiler.com/tiles/0b9d763e-90d3-4f17-bfd2-c9c2aa1eec25/{z}/{x}/{y}.png?key=4jGye4d2Qnz1CcCTCwmj",
     Maptiler: "https://api.maptiler.com/tiles/10a72053-a2ce-4ea1-a9aa-e42853c7b427/{z}/{x}/{y}.png?key=ikvXccZmYAyuvY2spJi0",
     Terrain: "http://a.tile.stamen.com/terrain/{z}/{x}/{y}.png",
     Temp_Suelo: "http://maps.openweathermap.org/maps/2.0/weather/TS0/{z}/{x}/{y}?appid=b1b15e88fa797225412429c1c50c122a1",
@@ -25,19 +25,22 @@ export function Map() {
     Cultivos: "http://192.168.216.51/tileserver-php-master/cultivos2022/cultivos2022/{z}/{x}/{y}.png"
   };
 
-  // ESTADOS INICIALES DE LA CAPA
+  //* ESTADOS INICIALES DE LA CAPA
   const [capa, setCapa] = useState(capas.Sin);
   const [render, setRender] = useState(false);
-  // ESTADO PARA MOSTRAR LISTA DE CAPAS SELECCIONABLES
+  //* ESTADO PARA MOSTRAR LISTA DE CAPAS SELECCIONABLES
   const  [verCapa, setVerCapa]  = useState(false);
-  // ESTADO PARA MOSTRAR LA INFO DE LA CAPA SELECCIONADA
+  //* ESTADO PARA MOSTRAR LA INFO DE LA CAPA SELECCIONADA
   const  [infoCapa, setInfoCapa]  = useState(false);
 
+  //* ESTADO PARA VALIDAR EL RENDER DE MARCADORES
   const [addMark, setAddMark] = useState(false);
+  //* ESTADO EN EL CUAL SE GUARDA EL CONJUNTO DE COORDENADAS
   const [marker, setMarker] = useState([]);
+  //* VALIDACIÓN PARA INGRESAR NOMBRE DEL MARCADOR A AGREGAR 
   const [marcador, setMarcador] = useState(false);
 
-  // CAMBIO DE ESTADO DE SELECCIÓN DE CAPA PARA RENDERIZARLA
+  //* CAMBIO DE ESTADO DE SELECCIÓN DE CAPA PARA RENDERIZARLA
   useEffect(()=>{
 
     if (render) {
@@ -51,64 +54,23 @@ export function Map() {
     }, 100);
   },[capa])
 
-  // const addMarker = () => {
-  //   return (
-  //     <View>
-  //       <TextInput 
-  //         onChangeText={(value) => setMarker(value)}
-  //         placeholder = 'Nombre del lugar'
-  //       />
-  //       <View style = {{ marginVertical: 10, flexDirection: 'row', }}>
-  //         <TouchableOpacity style = { button }>
-  //           <Text
-  //             onPress = {Test} 
-  //           >Agregar</Text>
-  //         </TouchableOpacity>
-
-  //         <TouchableOpacity style = { button }>
-  //           <Text
-  //             onPress = { () => setMarker('') }
-  //           >Cancelar</Text>
-  //         </TouchableOpacity>
-  //       </View>
-  //     </View>
-  //   )
-  // }
-  
-  // const Marker = () => {
-  //   return (
-  //     <Marker
-  //         coordinate={{marker}}
-  //     />
-  //   )
-  // };
-
-  const Test = (e) => {
-    // const mark = {
-    //   nombre: marker,
-    //   latitude: e.nativeEvent.coordinate.latitude,
-    //   longitude: e.nativeEvent.coordinate.longitude
-    // }
-    //console.log(marker.longitude)
-    setAddMark(!addMark);
-    return (
-      console.log(marker)
-    )
-  }
-
   return (
     <View>
       <MapView 
         style={map} 
         initialRegion={region} 
         onLongPress={(e) => {
-          setMarcador(!marcador)
+          //* SETEO DE COORDENADAS EN CADA OBJ, PARA REGISTRAR MARCADORES
           setMarker([...marker, {latitude: e.nativeEvent.coordinate.latitude, longitude: e.nativeEvent.coordinate.longitude}])
+          //* CAMBIO DE ESTADO PARA INGRESAR NOMBRE DEL MARCADOR
+          setMarcador(!marcador)
         }}
         minZoomLevel={7}
         maxZoomLevel={18}
         >
-        {render && <MapView.UrlTile urlTemplate={capa} zIndex={-1} style={{opacity: 0.3}}/>}
+        {//* VALIDACIÓN DE ESTADO PARA RENDERIZAR CAPAS */
+        }
+        {render && <MapView.UrlTile urlTemplate={capa} zIndex={-1} style={{opacity: 1}}/>}
         <Marker
           coordinate={{ latitude : region.latitude , longitude : region.longitude }}
         >
@@ -119,10 +81,11 @@ export function Map() {
           </Callout>
         </Marker>
         {
+        //* VALIDACIÓN DE ESTADO PARA MOSTRAR MARCADORES
           addMark && (
             <View>
               <Marker
-                coordinate={{ latitude : marker[3].latitude, longitude : marker[3].longitude }}
+                coordinate={{ latitude : marker[0].latitude, longitude : marker[0].longitude }}
                 >
                 <Callout>
                   <View>
@@ -130,17 +93,18 @@ export function Map() {
                   </View>
                 </Callout>
               </Marker>
-              <Marker
+              {/* <Marker
               coordinate={{ latitude : marker[0].latitude, longitude : marker[0].longitude }}/>
               <Marker
               coordinate={{ latitude : marker[1].latitude, longitude : marker[1].longitude }}/>
               <Marker
-              coordinate={{ latitude : marker[2].latitude, longitude : marker[2].longitude }}/>
-            </View>
+              coordinate={{ latitude : marker[2].latitude, longitude : marker[2].longitude }}/>*/}
+            </View> 
           )
         }
       </MapView>
 
+      {/* VALIDACIÓN DE ESTADO PARA INGRESAR NOMBRE DE MARCADOR */}
       {
         marcador && (
           <View style={{
@@ -162,8 +126,10 @@ export function Map() {
               <TouchableOpacity style = { button }>
                 <Text
                   onPress = {()=> {
-                    setAddMark(!addMark)
+                    //* SET DE ESTADO PARA OCULTAR FORM
                     setMarcador(!marcador)
+                    //* SET DE ESTADO PARA MOSTRAR MARCADORES
+                    setAddMark(!addMark)
                   }} 
                 >Agregar</Text>
               </TouchableOpacity>
@@ -178,21 +144,8 @@ export function Map() {
         )
       }
 
-      {/* {
-        addMark && (
-          <Marker
-            coordinate={{ latitude : marker.latitude, longitude : marker.longitude }}
-          >
-            <Callout>
-              <View>
-                <Text>New</Text>
-              </View>
-            </Callout>
-          </Marker>
-
-        )
-      } */}
-
+      {//* VERIFICACIÓN DE ESTADO PARA VER LISTA DE CAPAS */
+      }
       {
         verCapa && (
         <View
@@ -202,8 +155,9 @@ export function Map() {
           alignSelf: "flex-start",
         }}
       >
-        <TouchableOpacity onPress={() => setCapa(capas.Acuarela)}>
-          <Text style={button}>Acuarela</Text>
+        {/* //* SETEO POR EVENTO PARA RENDERIZAR SEGÚN CAPA SELECCIONADA */}
+        <TouchableOpacity onPress={() => setCapa(capas.Alcalina)}>
+          <Text style={button}>Alcalina</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => setCapa(capas.Maptiler)}>
           <Text style={button}>Maptiler</Text>
@@ -223,6 +177,8 @@ export function Map() {
       </View>
       )}
 
+      {// TODO: VERIFICACIÓN DE ESTADO PARA MOSTRAR INFO, SEGÚN CAPA SELECCIONADA
+      }
       {
         infoCapa && (
           <View
