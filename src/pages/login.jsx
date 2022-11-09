@@ -1,27 +1,26 @@
-import { StatusBar } from 'expo-status-bar'
-import { container, text, input, button, image } from '../styles/styles'
-import { Text, View, Image, TextInput, TouchableOpacity } from 'react-native'
-import { NativeBaseProvider } from 'native-base'
-import { useState } from 'react';
-import useSession from '../hooks/useSession';
+import { StatusBar } from "expo-status-bar"
+import { container, text, input, button, image } from "../styles/styles"
+import { Text, View, Image, TextInput, TouchableOpacity } from "react-native"
+import { NativeBaseProvider } from "native-base"
+import { useState, useEffect } from "react";
+import useSession from "../hooks/useSession";
 import ipf from '../imgs/IPF-logo.png'
 
 export function Login({ navigation }) {
   const [form, setForm] = useState({})
   const [errors, setErrors] = useState({})
   const [data, setData] = useState({})
+  const [ver, setVer] = useState(true)
 
-  const { login } = useSession()
+  const { login, logout } = useSession()
 
   const validate = () => {
     if (form.usuario === undefined) {
-      setErrors({ ...errors, usuario: 'Este campo es obligatorio' })
+      setErrors({ ...errors, usuario: "* Campo obligatorio" })
       return false
     } else if (form.password === undefined) {
-      setErrors({ ...errors, password: 'Este campo es obligatorio' });
+      setErrors({ ...errors, password: "* Campo obligatorio" });
       return false
-    } else if(data.message !== undefined) {
-      setErrors({...errors, login: data.message})
     }
     return true
   }
@@ -33,26 +32,19 @@ export function Login({ navigation }) {
     }
     const url = `http://192.168.216.159:4000/login`;
     const content = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(datos),
     }
     const response = await fetch(url, content)
     const json = await response.json()
-    
-    if(response.ok) {   
-      login(json.user)
-      navigation.navigate('Home')
-      setForm({})
-    } else {
-      setData(json)
-    }
+    setData(json)
+    login(json.user)
   }
 
   const onSubmit = () => {
-    validate() && handleSubmitForm()
+    validate() ? handleSubmitForm() : console.log("Validation Failed");
   }
-
   return (
     <NativeBaseProvider>
       <View style={container}>
@@ -68,31 +60,41 @@ export function Login({ navigation }) {
               onChangeText={(value) => setForm({ ...form, usuario: value })}
             />
           </View>
-
-          {"usuario" in errors && <Text>{errors.usuario}</Text>}
-
+          {/* {
+            'usuario' in errors && <Text>{errors.usuario}</Text>
+          } */}
           <View style={input}>
             <TextInput
               name="password"
               style={text}
               placeholder="Contraseña"
               placeholderTextColor="#a3a3a3"
-              secureTextEntry={true}
+              secureTextEntry={ver}
               onChangeText={(value) => setForm({ ...form, password: value })}
             />
           </View>
 
-          {"password" in errors && <Text>{errors.password}</Text>}
+          {<Text>{data.message}</Text>}
 
+          {/* <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+            <Text>¿Olvidaste tu contraseña?</Text>
+          </TouchableOpacity> */}
 
           <TouchableOpacity onPress={() => navigation.navigate("Register")}>
             <Text>¿Aún no tienes cuenta? Regístrate</Text>
           </TouchableOpacity>
+
           <TouchableOpacity onPress={onSubmit}>
             <Text style={button}>Iniciar sesión</Text>
           </TouchableOpacity>
+<<<<<<< HEAD
 
           {"login" in errors && <Text>{errors.login}</Text>}
+=======
+          <TouchableOpacity onPress={logout}>
+            <Text style={button}>CERRAR sesión</Text>
+          </TouchableOpacity>
+>>>>>>> e8d1ee10dca18d0ef1803a44186513c250666681
         </View>
       </View>
     </NativeBaseProvider>

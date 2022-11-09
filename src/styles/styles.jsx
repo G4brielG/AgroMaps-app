@@ -90,6 +90,25 @@ const buttonContainer = {
   position: 'absolute'
 }
 
+const containerBox = {
+  position: "absolute",
+  top: "30%",
+  alignContent: "center",
+  width: "100%",
+  height: "100%"
+}
+
+const containerInfoCapa = {
+  position: "absolute",
+  alignSelf: "center",
+  alignItems: "center",
+  alignContent: "center",
+  justifyContent: "center",
+  height: 200,
+  width: 300,
+  backgroundColor: "white"
+}
+
 export {
   container,
   input,
@@ -102,5 +121,7 @@ export {
   regtext,
   addButton,
   addButtonText,
-  buttonContainer
+  buttonContainer,
+  containerBox,
+  containerInfoCapa
 }
