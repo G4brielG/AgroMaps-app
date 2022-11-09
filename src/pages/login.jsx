@@ -2,7 +2,7 @@ import { StatusBar } from "expo-status-bar"
 import { container, text, input, button, image } from "../styles/styles"
 import { Text, View, Image, TextInput, TouchableOpacity } from "react-native"
 import { NativeBaseProvider } from "native-base"
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import useSession from "../hooks/useSession";
 import ipf from '../imgs/IPF-logo.png'
 
@@ -12,7 +12,7 @@ export function Login({ navigation }) {
   const [data, setData] = useState({})
   const [ver, setVer] = useState(true)
 
-  const { login, logout } = useSession()
+  const { login } = useSession()
 
   const validate = () => {
     if (form.usuario === undefined) {
@@ -21,6 +21,8 @@ export function Login({ navigation }) {
     } else if (form.password === undefined) {
       setErrors({ ...errors, password: "* Campo obligatorio" });
       return false
+    } else if(data.message !== undefined) {
+      setErrors({...errors, login: data.message})
     }
     return true
   }
@@ -38,13 +40,20 @@ export function Login({ navigation }) {
     }
     const response = await fetch(url, content)
     const json = await response.json()
-    setData(json)
-    login(json.user)
+    
+    if(response.ok) {   
+      login(json.user)
+      navigation.navigate('Home')
+      setForm({})
+    } else {
+      setData(json)
+    }
   }
 
   const onSubmit = () => {
     validate() ? handleSubmitForm() : console.log("Validation Failed");
   }
+
   return (
     <NativeBaseProvider>
       <View style={container}>
@@ -60,9 +69,6 @@ export function Login({ navigation }) {
               onChangeText={(value) => setForm({ ...form, usuario: value })}
             />
           </View>
-          {/* {
-            'usuario' in errors && <Text>{errors.usuario}</Text>
-          } */}
           <View style={input}>
             <TextInput
               name="password"
@@ -74,21 +80,18 @@ export function Login({ navigation }) {
             />
           </View>
 
-          {<Text>{data.message}</Text>}
+          {
+            errors > 0 && <Text>{errors}</Text>
+          }
 
           {/* <TouchableOpacity onPress={() => navigation.navigate("Home")}>
             <Text>¿Olvidaste tu contraseña?</Text>
           </TouchableOpacity> */}
-
           <TouchableOpacity onPress={() => navigation.navigate("Register")}>
             <Text>¿Aún no tienes cuenta? Regístrate</Text>
           </TouchableOpacity>
-
           <TouchableOpacity onPress={onSubmit}>
             <Text style={button}>Iniciar sesión</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={logout}>
-            <Text style={button}>CERRAR sesión</Text>
           </TouchableOpacity>
         </View>
       </View>
