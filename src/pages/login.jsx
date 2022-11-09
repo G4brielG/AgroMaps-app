@@ -91,7 +91,7 @@ export function Login({ navigation }) {
           <TouchableOpacity onPress={onSubmit}>
             <Text style={button}>Iniciar sesión</Text>
           </TouchableOpacity>
-          
+
           {"login" in errors && <Text>{errors.login}</Text>}
         </View>
       </View>
