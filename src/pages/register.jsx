@@ -54,7 +54,7 @@ export function Register({ navigation }) {
       correo: form.correo,
       telefono: form.telefono
     }
-    const url = `http://192.168.216.159:4000/login`;
+    const url = `http://192.168.216.159:4000`;
     const content = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
