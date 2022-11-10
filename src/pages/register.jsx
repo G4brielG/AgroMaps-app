@@ -15,24 +15,55 @@ import { useForm, Controller } from 'react-hook-form'
 
 export function Register({ navigation }) {
   // const roles = ["Asesor", "Productor", "Otro"];
-  const {
-    control,
-    handleSubmit,
-    formState: { errors, isValid },
-  } = useForm({ mode: "onBlur" });
+  // const {
+  //   control,
+  //   handleSubmit,
+  //   formState: { errors, isValid },
+  // } = useForm({ mode: "onBlur" });
+
+  const validacion = () => {
+    if (form.usuario === undefined) {
+      setErrors({ ...errors, usuario: "Campo obligatorio" })
+      return false
+    } else if (form.password === undefined) {
+      setErrors({ ...errors, clave: "Campo obligatorio" });
+      return false
+    } else if (form.confClave === undefined) {
+      setErrors({ ...errors, confClave: "Campo obligatorio" })
+      return false
+    } else if (form.correo === undefined) {
+      setErrors({ ...errors, correo: "Campo obligatorio" })
+      return false
+    } else if (form.telefono) {
+      setErrors({ ...errors, telefono: "Campo obligatorio" })
+      return false
+    }
+    return true
+  }
 
   const onSubmit = (data) => {
     console.log(data);
+    validacion() ? handleSubmitForm() : console.log("Fallo al validar");
   }
 
   const handleSubmitForm = async () => {
-    const url = `${Server}/login`;
+    const datos = {
+      usuario: form.usuario,
+      clave: form.password,
+      confClave: form.confClave,
+      correo: form.correo,
+      telefono: form.telefono
+    }
+    const url = `http://192.168.216.159:4000/login`;
     const content = {
       method: "POST",
-      body: JSON.stringify(data),
-    };
-    await fetchCallBack(url, content)
-  };
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(datos),
+    }
+    const response = await fetch(url, content)
+    const json = await response.json()
+    setData(json)
+  }
 
 
   return (
@@ -126,15 +157,8 @@ export function Register({ navigation }) {
               )}
             />
           </View>
-          <TouchableOpacity>
-            <Pressable onPress={() => handleSubmitForm}></Pressable>
-            <Button
-              style={button}
-              title="Submit"
-              onPress={handleSubmit(onSubmit)}
-            >
-              Registrarme
-            </Button>
+          <TouchableOpacity onPress={onSubmit}>
+            <Text style={button}>Registrar</Text>
           </TouchableOpacity>
           <TouchableOpacity>
             <Pressable onPress={() => navigation.navigate("Login")}>
