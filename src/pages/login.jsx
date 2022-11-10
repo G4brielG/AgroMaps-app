@@ -87,9 +87,14 @@ export function Login({ navigation }) {
           <TouchableOpacity onPress={onSubmit}>
             <Text style={button}>Iniciar sesión</Text>
           </TouchableOpacity>
+<<<<<<< HEAD
+
+          {"login" in errors && <Text>{errors.login}</Text>}
+=======
           <TouchableOpacity onPress={logout}>
             <Text style={button}>CERRAR sesión</Text>
           </TouchableOpacity>
+>>>>>>> e8d1ee10dca18d0ef1803a44186513c250666681
         </View>
       </View>
     </NativeBaseProvider>

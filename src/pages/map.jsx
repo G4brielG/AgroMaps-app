@@ -1,12 +1,15 @@
 import React, {useState, useEffect} from 'react';
 import MapView, { UrlTile, Marker, Callout } from 'react-native-maps';
-import { map, button, addButton, buttonContainer, addButtonText } from '../styles/styles';
+import { map, button, addButton, buttonContainer, addButtonText, containerBox } from '../styles/styles';
 import { View, TouchableOpacity, Text, TextInput } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { Motion } from "@legendapp/motion";
+import { ContainerInfo } from '../components/ContainerInfo';
+const iconMarker = require('../../assets/pin_location_map_marker_placeholder_icon_146263.png')
 
 export function Map() {
   
-  // REGION INICIAL EN EL POLO CIENTÍFICO
+  //* REGION INICIAL EN EL POLO CIENTÍFICO
   const region = {
     latitude: -26.0822,
     longitude: -58.2784,
@@ -18,7 +21,7 @@ export function Map() {
     Sin: "",
     Alcalina: "https://api.maptiler.com/tiles/0b9d763e-90d3-4f17-bfd2-c9c2aa1eec25/{z}/{x}/{y}.png?key=4jGye4d2Qnz1CcCTCwmj",
     Maptiler: "https://api.maptiler.com/tiles/10a72053-a2ce-4ea1-a9aa-e42853c7b427/{z}/{x}/{y}.png?key=ikvXccZmYAyuvY2spJi0",
-    Terrain: "http://a.tile.stamen.com/terrain/{z}/{x}/{y}.png",
+    Terrain: "http://192.168.216.51/tileserver-php-master/ERHIDR/{z}/{x}/{y}.png",
     Temp_Suelo: "http://maps.openweathermap.org/maps/2.0/weather/TS0/{z}/{x}/{y}?appid=b1b15e88fa797225412429c1c50c122a1",
     Geoserver: `http://192.168.114.200:8080/geoserver/gwc/service/tms/1.0.0/Provincias/{z}/{x}/{-y}.png`,
     Provincia: "http://192.168.216.51/tileserver-php-master/prueba/{z}/{x}/{y}.png",
@@ -39,6 +42,9 @@ export function Map() {
   const [marker, setMarker] = useState([]);
   //* VALIDACIÓN PARA INGRESAR NOMBRE DEL MARCADOR A AGREGAR 
   const [marcador, setMarcador] = useState(false);
+
+  const [value, setValue] = useState(0);
+  const [valueCapa, setValueCapa] = useState(0);
 
   //* CAMBIO DE ESTADO DE SELECCIÓN DE CAPA PARA RENDERIZARLA
   useEffect(()=>{
@@ -61,9 +67,10 @@ export function Map() {
         initialRegion={region} 
         onLongPress={(e) => {
           //* SETEO DE COORDENADAS EN CADA OBJ, PARA REGISTRAR MARCADORES
-          setMarker([...marker, {latitude: e.nativeEvent.coordinate.latitude, longitude: e.nativeEvent.coordinate.longitude}])
+          setMarker([...marker, {nombre: 'Nuevo marcador', latitude: e.nativeEvent.coordinate.latitude, longitude: e.nativeEvent.coordinate.longitude}])
           //* CAMBIO DE ESTADO PARA INGRESAR NOMBRE DEL MARCADOR
           setMarcador(!marcador)
+          setValue(!value)
         }}
         minZoomLevel={7}
         maxZoomLevel={18}
@@ -72,6 +79,7 @@ export function Map() {
         }
         {render && <MapView.UrlTile urlTemplate={capa} zIndex={-1} style={{opacity: 1}}/>}
         <Marker
+          icon={iconMarker}
           coordinate={{ latitude : region.latitude , longitude : region.longitude }}
         >
           <Callout>
@@ -85,11 +93,12 @@ export function Map() {
           addMark && (
             <View>
               <Marker
-                coordinate={{ latitude : marker[0].latitude, longitude : marker[0].longitude }}
+                icon={iconMarker}
+                coordinate={{ latitude : marker[2].latitude, longitude : marker[2].longitude }}
                 >
                 <Callout>
                   <View>
-                    <Text>New</Text>
+                    <Text>{marker[0].nombre}</Text>
                   </View>
                 </Callout>
               </Marker>
@@ -116,13 +125,36 @@ export function Map() {
             height: 200,
             width: 300,
             backgroundColor: "white"
-          }}>
+          }}
+          >
+            
             {/* <TextInput 
-              onChangeText={(value) => ({nombre: value})}
+              onChangeText={(value) => {setMarker(marker[0].nombre: value)}}
               placeholder = 'Nombre del lugar'
               value = 
             /> */}
-            <View style = {{ marginVertical: 10, flexDirection: 'row', }}>
+            <Motion.View style = {{ marginVertical: 10, flexDirection: 'row', }}
+            animate={{
+              x: value * 100,
+              opacity: value ? 1 : 0.2,
+              scale: value ? 1 : 0.5
+            }}
+            transition={{
+                default: {
+                    type: "spring",
+                    damping: 20,
+                    stiffness: 300,
+                },
+                x: {
+                    type: "spring",
+                    damping: 20,
+                    stiffness: 1000
+                },
+                opacity: {
+                    type: "tween",
+                    duration: 1000
+                }
+            }}>
               <TouchableOpacity style = { button }>
                 <Text
                   onPress = {()=> {
@@ -139,7 +171,7 @@ export function Map() {
                   onPress = { () => setMarcador(!marcador) }
                 >Cancelar</Text>
               </TouchableOpacity>
-            </View>
+            </Motion.View>
           </View>
         )
       }
@@ -148,14 +180,37 @@ export function Map() {
       }
       {
         verCapa && (
-        <View
+        <Motion.View
+        
         style={{
           position: "absolute",
           top: "0%",
           alignSelf: "flex-start",
         }}
+        animate={{
+          x: value * 10,
+          opacity: value ? 1 : 0.2,
+          scale: value ? 1 : 0.5
+        }}
+        transition={{
+            default: {
+                type: "spring",
+                damping: 20,
+                stiffness: 300,
+            },
+            x: {
+                type: "spring",
+                damping: 20,
+                stiffness: 1000
+            },
+            opacity: {
+                type: "tween",
+                duration: 1000
+            }
+        }}
       >
-        //* SETEO POR EVENTO PARA RENDERIZAR SEGÚN CAPA SELECCIONADA
+        {//* SETEO POR EVENTO PARA RENDERIZAR SEGÚN CAPA SELECCIONADA
+        }
         <TouchableOpacity onPress={() => setCapa(capas.Alcalina)}>
           <Text style={button}>Alcalina</Text>
         </TouchableOpacity>
@@ -174,49 +229,65 @@ export function Map() {
         <TouchableOpacity onPress={() => setCapa(capas.Cultivos)}>
           <Text style={button}>Cultivos</Text>
         </TouchableOpacity>
-      </View>
+      </Motion.View>
       )}
 
       {// TODO: VERIFICACIÓN DE ESTADO PARA MOSTRAR INFO, SEGÚN CAPA SELECCIONADA
       }
       {
         infoCapa && (
-          <View
-            style={{
-              position: "absolute",
-              top: "30%",
-              alignContent: "center",
-              width: "100%",
-              height: "100%"
+          <Motion.View 
+            style={containerBox}
+            animate={{
+              x: valueCapa * 10,
+              opacity: valueCapa ? 1 : 0.2,
+              scale: valueCapa ? 1 : 0.5
             }}
-          >
-            <View
-            style={{
-              position: "absolute",
-              alignSelf: "center",
-              alignItems: "center",
-              alignContent: "center",
-              justifyContent: "center",
-              height: 200,
-              width: 300,
-              backgroundColor: "white"
-            }}
-            >
-              <Text>Aquí se muestra la información de la capa</Text>
-            </View>
-          </View>
+            transition={{
+              default: {
+                  type: "spring",
+                  damping: 20,
+                  stiffness: 300,
+              },
+              x: {
+                  type: "spring",
+                  damping: 20,
+                  stiffness: 1000
+              },
+              opacity: {
+                  type: "tween",
+                  duration: 1000
+              }
+            }}>
+            <ContainerInfo></ContainerInfo>
+          </Motion.View>
         )
       }
 
       <View style = { buttonContainer }>
           <TouchableOpacity 
           style = { addButton }
-          onPress = { () => setVerCapa(!verCapa) }>
+          onPress = { () => {
+            setVerCapa(!verCapa)
+            console.log(value)
+            if(value === 0){
+              setTimeout(() => setValue(1),1)  
+            } else {
+              setValue(0)
+            }
+            } }>
             <MaterialCommunityIcons name="layers" style = { addButtonText } size={26} />
           </TouchableOpacity>
           <TouchableOpacity 
           style = { addButton }
-          onPress = { () => setInfoCapa(!infoCapa) }>
+          onPress = { () => {
+            setInfoCapa(!infoCapa)
+            if(value === 0){
+              setTimeout(() => setValueCapa(1),1)  
+            } else {
+              setValueCapa(0)
+            }
+          }}>
             <MaterialCommunityIcons name="information" style = { addButtonText } size={26} />
           </TouchableOpacity>
           <TouchableOpacity 

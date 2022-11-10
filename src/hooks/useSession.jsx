@@ -24,10 +24,8 @@ const useSession = () => {
   }
 
   useEffect(() => {
-    getItem() === null
-      ? console.log("El usuario NO está logueado")
-      : console.log("El usuario ESTÁ logueado");
-  }, [usuario])  
+    getItem()
+  }, [])
   
   return { usuario, login, logout }
 }
