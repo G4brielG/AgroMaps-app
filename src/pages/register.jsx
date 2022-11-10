@@ -8,37 +8,33 @@ import { Text, View, Image, TextInput, TouchableOpacity } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 
 export function Register({ navigation }) {
-  // const roles = ["Asesor", "Productor", "Otro"];
-  //   const {
-  //     control,
-  //     handleSubmit,
-  //   } = useForm({ mode: "onBlur" });
+
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
   const [data, setData] = useState({});
 
   const validacion = () => {
-    if (form.usuario === undefined) {
+    if (form.usuario === undefined || " ") {
       setErrors({ ...errors, usuario: "Campo obligatorio" });
       return false;
-    } else if (form.contrasena === undefined) {
+    } else if (form.contrasena === undefined || " ") {
       setErrors({ ...errors, contrasena: "Campo obligatorio" });
       return false;
-    } else if (form.confContrasena === undefined) {
+    } else if (form.confContrasena === undefined || " ") {
       setErrors({ ...errors, confContrasena: "Campo obligatorio" });
       return false;
-    } else if (form.correo === undefined) {
+    } else if (form.correo === undefined || " ") {
       setErrors({ ...errors, correo: "Campo obligatorio" });
       return false;
-    } else if (form.telefono === undefined) {
+    } else if (form.telefono === undefined || " ") {
       setErrors({ ...errors, telefono: "Campo obligatorio" });
       return false;
     }
     return true;
-  };
+  }
   const onSubmit = () => {
     validacion() ? handleSubmitForm() : console.log("Fallo al validar");
-  };
+  }
 
   const handleSubmitForm = async () => {
     const formData = {
