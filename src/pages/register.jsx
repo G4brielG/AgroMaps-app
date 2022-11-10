@@ -39,7 +39,7 @@ export function Register({ navigation }) {
   const handleSubmitForm = async () => {
     const formData = {
       usuario: form.usuario,
-      contrasena: form.contrasena,
+      clave: form.contrasena,
       correo: form.correo,
       telefono: form.telefono,
     };
