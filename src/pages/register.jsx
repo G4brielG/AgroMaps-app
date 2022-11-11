@@ -12,6 +12,7 @@ export function Register({ navigation }) {
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
   const [data, setData] = useState({});
+  const [value, setValue] = useState({});
 
   const validacion = () => {
     if (form.usuario === undefined || " ") {
