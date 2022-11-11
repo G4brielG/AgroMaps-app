@@ -4,11 +4,7 @@ import { map, button, addButton, buttonContainer, addButtonText, containerBox, c
 import { View, TouchableOpacity, Text, TextInput } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Motion } from "@legendapp/motion";
-<<<<<<< HEAD
-// import { ContainerInfo } from '../components/ContainerInfo';
-=======
-import { Modal } from '../components/Modal';
->>>>>>> 78d401f7eb7f6d54e4b830ae3e391370e84c4d8c
+import Modal from '../components/Modal';
 import { animate, transition } from '../styles/motion';
 const iconMarker = require('../../assets/pin_location_map_marker_placeholder_icon_146263.png')
 

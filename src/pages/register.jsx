@@ -57,6 +57,7 @@ export function Register({ navigation }) {
     };
     const response = await fetch(url, content);
     const json = await response.json();
+    console.log(json.message)
   };
 
   return (
