@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import MapView, { UrlTile, Marker, Callout } from 'react-native-maps';
-import { map, button, addButton, buttonContainer, addButtonText, containerBox } from '../styles/styles';
+import { map, button, addButton, buttonContainer, addButtonText, containerBox, containerInfoCapa } from '../styles/styles';
 import { View, TouchableOpacity, Text, TextInput } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Motion } from "@legendapp/motion";
 import { ContainerInfo } from '../components/ContainerInfo';
+import { animate, transition } from '../styles/motion';
 const iconMarker = require('../../assets/pin_location_map_marker_placeholder_icon_146263.png')
 
 export function Map() {
@@ -94,7 +95,7 @@ export function Map() {
             <View>
               <Marker
                 icon={iconMarker}
-                coordinate={{ latitude : marker[2].latitude, longitude : marker[2].longitude }}
+                coordinate={{ latitude : marker[0].latitude, longitude : marker[0].longitude }}
                 >
                 <Callout>
                   <View>
@@ -116,16 +117,7 @@ export function Map() {
       {/* VALIDACIÓN DE ESTADO PARA INGRESAR NOMBRE DE MARCADOR */}
       {
         marcador && (
-          <View style={{
-            position: "absolute",
-            alignSelf: "center",
-            alignItems: "center",
-            alignContent: "center",
-            justifyContent: "center",
-            height: 200,
-            width: 300,
-            backgroundColor: "white"
-          }}
+          <View style={containerInfoCapa}
           >
             
             {/* <TextInput 
@@ -134,27 +126,8 @@ export function Map() {
               value = 
             /> */}
             <Motion.View style = {{ marginVertical: 10, flexDirection: 'row', }}
-            animate={{
-              x: value * 100,
-              opacity: value ? 1 : 0.2,
-              scale: value ? 1 : 0.5
-            }}
-            transition={{
-                default: {
-                    type: "spring",
-                    damping: 20,
-                    stiffness: 300,
-                },
-                x: {
-                    type: "spring",
-                    damping: 20,
-                    stiffness: 1000
-                },
-                opacity: {
-                    type: "tween",
-                    duration: 1000
-                }
-            }}>
+            animate={() => animate(value)}
+            transition={transition}>
               <TouchableOpacity style = { button }>
                 <Text
                   onPress = {()=> {
@@ -180,56 +153,41 @@ export function Map() {
       }
       {
         verCapa && (
-        <Motion.View
-        
-        style={{
-          position: "absolute",
-          top: "0%",
-          alignSelf: "flex-start",
-        }}
-        animate={{
-          x: value * 10,
-          opacity: value ? 1 : 0.2,
-          scale: value ? 1 : 0.5
-        }}
-        transition={{
-            default: {
-                type: "spring",
-                damping: 20,
-                stiffness: 300,
-            },
-            x: {
-                type: "spring",
-                damping: 20,
-                stiffness: 1000
-            },
-            opacity: {
-                type: "tween",
-                duration: 1000
-            }
-        }}
-      >
-        {//* SETEO POR EVENTO PARA RENDERIZAR SEGÚN CAPA SELECCIONADA
-        }
-        <TouchableOpacity onPress={() => setCapa(capas.Alcalina)}>
-          <Text style={button}>Alcalina</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setCapa(capas.Maptiler)}>
-          <Text style={button}>Maptiler</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setCapa(capas.Terrain)}>
-          <Text style={button}>Terrain</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setCapa(capas.Temp_Suelo)}>
-          <Text style={button}>Temp Suelo</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setCapa(capas.Provincia)}>
-          <Text style={button}>Provincias</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setCapa(capas.Cultivos)}>
-          <Text style={button}>Cultivos</Text>
-        </TouchableOpacity>
-      </Motion.View>
+          <Motion.View
+          
+          style={{
+            position: "absolute",
+            top: "0%",
+            alignSelf: "flex-start",
+          }}
+          animate={{
+            x: value * 10,
+            opacity: value ? 1 : 0.2,
+            scale: value ? 1 : 0.5
+          }}
+          transition={transition}
+        >
+          {//* SETEO POR EVENTO PARA RENDERIZAR SEGÚN CAPA SELECCIONADA
+          }
+          <TouchableOpacity onPress={() => setCapa(capas.Alcalina)}>
+            <Text style={button}>Alcalina</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setCapa(capas.Maptiler)}>
+            <Text style={button}>Maptiler</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setCapa(capas.Terrain)}>
+            <Text style={button}>Terrain</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setCapa(capas.Temp_Suelo)}>
+            <Text style={button}>Temp Suelo</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setCapa(capas.Provincia)}>
+            <Text style={button}>Provincias</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setCapa(capas.Cultivos)}>
+            <Text style={button}>Cultivos</Text>
+          </TouchableOpacity>
+        </Motion.View>
       )}
 
       {// TODO: VERIFICACIÓN DE ESTADO PARA MOSTRAR INFO, SEGÚN CAPA SELECCIONADA
@@ -271,7 +229,7 @@ export function Map() {
             setVerCapa(!verCapa)
             console.log(value)
             if(value === 0){
-              setTimeout(() => setValue(1),1)  
+              setTimeout(() => setValue(1),10)  
             } else {
               setValue(0)
             }
