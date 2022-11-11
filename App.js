@@ -1,30 +1,30 @@
-import { Login, Home, Map, Register, MiCuenta } from "./src/pages/index"
+import { Login, Register } from "./src/pages/index"
+import TabMenu from './src/components/TabMenu'
 import { NavigationContainer } from '@react-navigation/native'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import { NativeBaseProvider } from "native-base";
-import useSession from "./src/hooks/useSession";
-import { useEffect, useState } from "react";
-import { TouchableOpacity } from "react-native"
+import { NativeBaseProvider } from "native-base"
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { useEffect, useState } from "react"
+import useSession from "./src/hooks/useSession"
+import { LogBox } from "react-native"
 
-const Tab = createBottomTabNavigator();
-
+const Stack = createNativeStackNavigator()
+LogBox.ignoreLogs(["EventEmitter.removeListener"])
 export default function App() {
-  const [ logueado, setLogueado ] = useState(false)
-  const { usuario, logout } = useSession()
-  
+  const [initial, setInitial] = useState('')
+  const { usuario } = useSession()
+
   useEffect(() => {
-    if (usuario === null) {
-      setLogueado(false)
+    if(usuario === null) {
+      setInitial('Login')
     } else {
-      setLogueado(true)
+      setInitial('Home')
     }
-    console.log('usuario: ', usuario)
-  }, [usuario])
+  })
   return (
     <>
       <NativeBaseProvider>
         <NavigationContainer>
+<<<<<<< HEAD
           {
             logueado === false
               ?
@@ -82,6 +82,36 @@ export default function App() {
                 </Tab.Group>
               </Tab.Navigator>
           }
+=======
+
+          <Stack.Navigator initialRouteName={initial}>
+            <Stack.Screen
+              name="Login"
+              component={Login}
+              options={{
+                headerShown: false,
+                tabBarStyle: { display: 'none' }
+              }}
+            />
+            <Stack.Screen
+              name="Register"
+              component={Register}
+              options={{
+                headerShown: false,
+                tabBarStyle: { display: 'none' }
+              }}
+            />
+            <Stack.Screen
+              name="Home"
+              component={TabMenu}
+              options={{
+                headerShown: false,
+                tabBarStyle: { display: 'none' }
+              }}
+            />
+          </Stack.Navigator>
+
+>>>>>>> 4c5769ee8dbf1b7f64caa1732c01ecf76c6310a9
         </NavigationContainer>
       </NativeBaseProvider>
     </>

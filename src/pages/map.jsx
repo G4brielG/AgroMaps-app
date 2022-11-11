@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import MapView, { UrlTile, Marker, Callout } from 'react-native-maps';
+import MapView, { Marker, Callout } from 'react-native-maps';
 import { map, button, addButton, buttonContainer, addButtonText, containerBox, containerInfoCapa } from '../styles/styles';
 import { View, TouchableOpacity, Text, TextInput } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -217,7 +217,7 @@ export function Map() {
                   duration: 1000
               }
             }}>
-            <ContainerInfo></ContainerInfo>
+            <Modal></Modal>
           </Motion.View>
         )
       }
