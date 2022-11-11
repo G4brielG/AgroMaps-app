@@ -28,7 +28,7 @@ export function Login({ navigation }) {
       usuario: form.usuario,
       clave: form.password
     }
-    const url = 'http://192.168.216.159:4000/login'
+    const url = 'http://192.168.216.67:4000/login'
     const content = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
