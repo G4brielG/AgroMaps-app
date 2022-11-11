@@ -2,16 +2,15 @@ import { StatusBar } from "expo-status-bar";
 import { container, regtext, input, button, image } from "../styles/styles";
 import React, { useState } from "react";
 import ipf from "../imgs/IPF-logo.png";
-import { Pressable, Button, NativeBaseProvider } from "native-base";
+import { Button, NativeBaseProvider } from "native-base";
 import { Text, View, Image, TextInput, TouchableOpacity } from "react-native";
 // import SelectDropdown from 'react-native-select-dropdown'
-import { useForm, Controller } from "react-hook-form";
+// import { useForm, Controller } from "react-hook-form";
 
 export function Register({ navigation }) {
 
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
-  const [data, setData] = useState({});
 
   const validacion = () => {
     if (form.usuario === undefined || " ") {
