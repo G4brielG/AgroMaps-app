@@ -32,13 +32,7 @@ export function Register({ navigation }) {
     return true;
   }
   const onSubmit = () => {
-    
-    if (!validacion()){
-      console.log("Fallo al validar")
-    }else{
-      console.log("Pasa")
-      handleSubmitForm()
-    };
+    validacion() && handleSubmitForm()
   }
 
   const handleSubmitForm = async () => {
