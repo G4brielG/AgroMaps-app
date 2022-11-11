@@ -28,7 +28,7 @@ export function Login({ navigation }) {
       usuario: form.usuario,
       clave: form.password
     }
-    const url = 'http://192.168.216.159:4000/login'
+    const url = 'http://192.168.216.67:4000/login'
     const content = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -38,9 +38,9 @@ export function Login({ navigation }) {
     const json = await response.json()
     
     if(response.ok) {
-      login(json.user)
       setForm({})
       setErrors({})
+      login(json.user)
       navigation.navigate('Home')
     } else {
       setErrors({...errors, login: json.message})
@@ -63,6 +63,7 @@ export function Login({ navigation }) {
               style={text}
               placeholder="Usuario"
               placeholderTextColor="#a3a3a3"
+              value={form.usuario}
               onChangeText={(value) => setForm({ ...form, usuario: value })}
             />
           </View>
@@ -76,6 +77,7 @@ export function Login({ navigation }) {
               placeholder="Contraseña"
               placeholderTextColor="#a3a3a3"
               secureTextEntry={true}
+              value={form.password}
               onChangeText={(value) => setForm({ ...form, password: value })}
             />
           </View>
@@ -94,5 +96,5 @@ export function Login({ navigation }) {
         </View>
       </View>
     </NativeBaseProvider>
-  )
+  );
 }

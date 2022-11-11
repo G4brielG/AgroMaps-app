@@ -22,7 +22,7 @@ const transition = {
     },
     opacity: {
         type: "tween",
-        duration: 1000
+        duration: 300
     }
 }
 

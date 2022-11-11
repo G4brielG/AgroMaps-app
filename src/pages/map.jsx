@@ -4,7 +4,11 @@ import { map, button, addButton, buttonContainer, addButtonText, containerBox, c
 import { View, TouchableOpacity, Text, TextInput } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Motion } from "@legendapp/motion";
+<<<<<<< HEAD
 // import { ContainerInfo } from '../components/ContainerInfo';
+=======
+import { Modal } from '../components/Modal';
+>>>>>>> 78d401f7eb7f6d54e4b830ae3e391370e84c4d8c
 import { animate, transition } from '../styles/motion';
 const iconMarker = require('../../assets/pin_location_map_marker_placeholder_icon_146263.png')
 
@@ -22,11 +26,11 @@ export function Map() {
     Sin: "",
     Alcalina: "https://api.maptiler.com/tiles/0b9d763e-90d3-4f17-bfd2-c9c2aa1eec25/{z}/{x}/{y}.png?key=4jGye4d2Qnz1CcCTCwmj",
     Maptiler: "https://api.maptiler.com/tiles/10a72053-a2ce-4ea1-a9aa-e42853c7b427/{z}/{x}/{y}.png?key=ikvXccZmYAyuvY2spJi0",
-    Terrain: "http://192.168.216.51/tileserver-php-master/ERHIDR/{z}/{x}/{y}.png",
+    Terrain: "http://192.168.216.67/tileserver-php-master/ERHIDR/{z}/{x}/{y}.png",
     Temp_Suelo: "http://maps.openweathermap.org/maps/2.0/weather/TS0/{z}/{x}/{y}?appid=b1b15e88fa797225412429c1c50c122a1",
     Geoserver: `http://192.168.114.200:8080/geoserver/gwc/service/tms/1.0.0/Provincias/{z}/{x}/{-y}.png`,
-    Provincia: "http://192.168.216.51/tileserver-php-master/prueba/{z}/{x}/{y}.png",
-    Cultivos: "http://192.168.216.51/tileserver-php-master/cultivos2022/cultivos2022/{z}/{x}/{y}.png"
+    Provincia: "http://192.168.216.67/tileserver-php-master/prueba/{z}/{x}/{y}.png",
+    Cultivos: "http://192.168.216.67/tileserver-php-master/cultivos2022/cultivos2022/{z}/{x}/{y}.png"
   };
 
   //* ESTADOS INICIALES DE LA CAPA
@@ -46,6 +50,7 @@ export function Map() {
 
   const [value, setValue] = useState(0);
   const [valueCapa, setValueCapa] = useState(0);
+
 
   //* CAMBIO DE ESTADO DE SELECCIÓN DE CAPA PARA RENDERIZARLA
   useEffect(()=>{
@@ -103,12 +108,6 @@ export function Map() {
                   </View>
                 </Callout>
               </Marker>
-              {/* <Marker
-              coordinate={{ latitude : marker[0].latitude, longitude : marker[0].longitude }}/>
-              <Marker
-              coordinate={{ latitude : marker[1].latitude, longitude : marker[1].longitude }}/>
-              <Marker
-              coordinate={{ latitude : marker[2].latitude, longitude : marker[2].longitude }}/>*/}
             </View> 
           )
         }
@@ -126,7 +125,11 @@ export function Map() {
               value = 
             /> */}
             <Motion.View style = {{ marginVertical: 10, flexDirection: 'row', }}
-            animate={() => animate(value)}
+            animate={{
+              x: value * 10,
+              opacity: value ? 1 : 0.2,
+              scale: value ? 1 : 0.5
+            }}
             transition={transition}>
               <TouchableOpacity style = { button }>
                 <Text
@@ -154,7 +157,6 @@ export function Map() {
       {
         verCapa && (
           <Motion.View
-          
           style={{
             position: "absolute",
             top: "0%",
@@ -198,25 +200,10 @@ export function Map() {
             style={containerBox}
             animate={{
               x: valueCapa * 10,
-              opacity: valueCapa ? 1 : 0.2,
-              scale: valueCapa ? 1 : 0.5
+              opacity: valueCapa ? 1 : 0,
+              scale: valueCapa ? 1 : 0
             }}
-            transition={{
-              default: {
-                  type: "spring",
-                  damping: 20,
-                  stiffness: 300,
-              },
-              x: {
-                  type: "spring",
-                  damping: 20,
-                  stiffness: 1000
-              },
-              opacity: {
-                  type: "tween",
-                  duration: 1000
-              }
-            }}>
+            transition={transition}>
             <Modal></Modal>
           </Motion.View>
         )
@@ -229,18 +216,18 @@ export function Map() {
             setVerCapa(!verCapa)
             console.log(value)
             if(value === 0){
-              setTimeout(() => setValue(1),10)  
+              setTimeout(() => setValue(1),1)  
             } else {
               setValue(0)
-            }
-            } }>
+            }} 
+          }>
             <MaterialCommunityIcons name="layers" style = { addButtonText } size={26} />
           </TouchableOpacity>
           <TouchableOpacity 
           style = { addButton }
           onPress = { () => {
             setInfoCapa(!infoCapa)
-            if(value === 0){
+            if(valueCapa === 0){
               setTimeout(() => setValueCapa(1),1)  
             } else {
               setValueCapa(0)
