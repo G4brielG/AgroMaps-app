@@ -1,34 +1,56 @@
 import { StatusBar } from "expo-status-bar";
-import { container, regtext, input, button, image } from '../styles/styles'
+import { container, regtext, input, button, image } from "../styles/styles";
 import React, { useState } from "react";
-import ipf from '../imgs/IPF-logo.png';
-import { Pressable, Button, NativeBaseProvider } from "native-base"
-import {
-  Text,
-  View,
-  Image,
-  TextInput,
-  TouchableOpacity,
-} from "react-native";
-import SelectDropdown from 'react-native-select-dropdown'
-import { useForm, Controller } from 'react-hook-form'
+import ipf from "../imgs/IPF-logo.png";
+import { Pressable, Button, NativeBaseProvider } from "native-base";
+import { Text, View, Image, TextInput, TouchableOpacity } from "react-native";
+// import SelectDropdown from 'react-native-select-dropdown'
+import { useForm, Controller } from "react-hook-form";
 
 export function Register({ navigation }) {
-  const roles = ["Asesor", "Productor", "Otro"];
-  const {
-    control,
-    handleSubmit,
-    formState: { errors, isValid },
-  } = useForm({ mode: "onBlur" });
-  const onSubmit = (data) => console.log(data);
+
+  const [form, setForm] = useState({});
+  const [errors, setErrors] = useState({});
+  const [data, setData] = useState({});
+
+  const validacion = () => {
+    if (form.usuario === undefined || " ") {
+      setErrors({ ...errors, usuario: "Campo obligatorio" });
+      return false;
+    } else if (form.contrasena === undefined || " ") {
+      setErrors({ ...errors, contrasena: "Campo obligatorio" });
+      return false;
+    } else if (form.confContrasena === undefined || " ") {
+      setErrors({ ...errors, confContrasena: "Campo obligatorio" });
+      return false;
+    } else if (form.correo === undefined || " ") {
+      setErrors({ ...errors, correo: "Campo obligatorio" });
+      return false;
+    } else if (form.telefono === undefined || " ") {
+      setErrors({ ...errors, telefono: "Campo obligatorio" });
+      return false;
+    }
+    return true;
+  }
+  const onSubmit = () => {
+    validacion() ? handleSubmitForm() : console.log("Fallo al validar");
+  }
 
   const handleSubmitForm = async () => {
-    const url = `${Server}/login`;
+    const formData = {
+      usuario: form.usuario,
+      clave: form.contrasena,
+      correo: form.correo,
+      telefono: form.telefono,
+    };
+    const url = `https://agromaps.herokuapp.com/usuarios`;
     const content = {
       method: "POST",
-      body: JSON.stringify(data),
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
     };
-    await fetchCallBack(url, content)
+    const response = await fetch(url, content);
+    const json = await response.json();
   };
 
   return (
@@ -38,105 +60,61 @@ export function Register({ navigation }) {
         <View>
           <StatusBar style="auto" />
           <View style={input}>
-            <Controller
-              control={control}
+            <TextInput
+              style={regtext}
               name="usuario"
-              render={({ field: { onChange, onBlur } }) => (
-                <TextInput
-                  style={regtext}
-                  iconName=""
-                  iconType="MaterialIcons"
-                  placeholder="Usuario"
-                  placeholderTextColor="#a3a3a3"
-                  onBlur={onBlur}
-                  onChangeText={(value) => onChange(value)}
-                />
-              )}
+              placeholder="Usuario"
+              placeholderTextColor="#a3a3a3"
+              onChangeText={(value) => setForm({ ...form, usuario: value })}
             />
           </View>
           <View style={input}>
-            <Controller
-              control={control}
-              name="clave"
-              render={({ field: { onChange, onBlur } }) => (
-                <TextInput
-                  style={regtext}
-                  iconName=""
-                  iconType="MaterialIcons"
-                  placeholderTextColor="#a3a3a3"
-                  placeholder="Clave"
-                  onBlur={onBlur}
-                  onChangeText={(value) => onChange(value)}
-                />
-              )}
+            <TextInput
+              style={regtext}
+              name="contrasena"
+              placeholderTextColor="#a3a3a3"
+              placeholder="Contraseña"
+              onChangeText={(value) => setForm({ ...form, contrasena: value })}
             />
           </View>
           <View style={input}>
-            <Controller
-              control={control}
+            <TextInput
+              style={regtext}
+              name="confContrasena"
+              placeholderTextColor="#a3a3a3"
+              placeholder="Confirmar Contraseña"
+              onChangeText={(value) =>
+                setForm({ ...form, confContrasena: value })
+              }
+            />
+          </View>
+          <View style={input}>
+            <TextInput
+              style={regtext}
               name="correo"
-              render={({ field: { onChange, onBlur } }) => (
-                <TextInput
-                  style={regtext}
-                  iconName=""
-                  iconType="MaterialIcons"
-                  placeholderTextColor="#a3a3a3"
-                  placeholder="Correo"
-                  onBlur={onBlur}
-                  onChangeText={(value) => onChange(value)}
-                />
-              )}
+              placeholderTextColor="#a3a3a3"
+              placeholder="Correo"
+              onChangeText={(value) => setForm({ ...form, correo: value })}
             />
           </View>
           <View style={input}>
-            <Controller
-              control={control}
+            <TextInput
+              style={regtext}
               name="telefono"
-              render={({ field: { onChange, value, onBlur } }) => (
-                <TextInput
-                  style={regtext}
-                  iconName=""
-                  iconType="MaterialIcons"
-                  placeholderTextColor="#a3a3a3"
-                  placeholder="Telefono"
-                  onBlur={onBlur}
-                  onChangeText={(value) => onChange(value)}
-                />
-              )}
+              placeholderTextColor="#a3a3a3"
+              placeholder="Telefono"
+              onChangeText={(value) => setForm({ ...form, telefono: value })}
             />
           </View>
-          <View style={input}>
-            <Controller
-              control={control}
-              name="rol"
-              render={({ field: { onChange } }) => (
-                <SelectDropdown
-                  data={roles}
-                  onSelect={(selectedItem) => {
-                    onChange(selectedItem);
-                  }}
-                />
-              )}
-            />
-          </View>
-          <TouchableOpacity>
-            <Pressable onPress={() => handleSubmitForm}></Pressable>
-            <Button
-              style={button}
-              title="Submit"
-              onPress={handleSubmit(onSubmit)}
-            >
-              Registrarme
-            </Button>
+
+          <TouchableOpacity onPress={onSubmit}>
+            <Text style={button}>Registrar</Text>
           </TouchableOpacity>
-          <TouchableOpacity>
-            <Pressable onPress={() => navigation.navigate("Login")}>
-              <Text>¿Ya tienes una cuenta? Inicia sesión</Text>
-            </Pressable>
+          <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+            <Text>¿Ya tienes una cuenta? Inicia sesión</Text>
           </TouchableOpacity>
         </View>
       </View>
     </NativeBaseProvider>
   );
-};
-
+}

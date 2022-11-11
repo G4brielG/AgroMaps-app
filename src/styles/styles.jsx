@@ -29,7 +29,6 @@ const regtext = {
   textAlign: "center",
   height: 50,
   padding: 10,
-  width: 350,
 }
 
 const button = {
