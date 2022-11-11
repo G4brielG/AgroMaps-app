@@ -1,4 +1,4 @@
-import { Home, Map, MiCuenta } from "../pages/index"
+import { Home, Map, MiCuenta, Capas } from "../pages/index"
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { TouchableOpacity, View, Text } from "react-native"
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -9,8 +9,7 @@ import { Modal } from "./Modal"
 
 export default function TabMenu({ navigation }) {
   const [ver, setVer] = useState(false)
-  const { logout } = useSession()
-
+  const { usuario, logout } = useSession()
   const Tab = createBottomTabNavigator();
 
   const cerrarSesion = () => {
@@ -76,16 +75,35 @@ export default function TabMenu({ navigation }) {
               headerRight: () => buttonSalir,
             }}
           />
+          
+          {/* {console.log('desde tab', usuario.rol)} */}
+
+          {
+            usuario?.rol === 'admin' && (
+              <Tab.Screen
+                name="Capas"
+                component={Capas}
+                options={{
+                  tabBarLabel: "Capas",
+                  tabBarIcon: ({ color }) => (
+                    <MaterialCommunityIcons
+                      name="layers"
+                      color={color}
+                      size={26}
+                    />
+                  ),
+                  headerRight: () => buttonSalir,
+                }}
+              />
+            )
+          }
+
         </Tab.Navigator>
       </NativeBaseProvider>
 
       {ver && (
-        <Modal
-          header={`¿Está seguro de cerrar la sesión?`}
-          footer={buttons}
-        />
+        <Modal header={`¿Está seguro de cerrar la sesión?`} footer={buttons} />
       )}
-
     </>
   );
 }

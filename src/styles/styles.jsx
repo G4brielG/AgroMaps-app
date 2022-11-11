@@ -1,3 +1,4 @@
+import { StyleSheet } from 'react-native';
 import { Dimensions } from 'react-native';
 
 const container = {
@@ -18,12 +19,10 @@ const input = {
 }
 
 const text = {
-  textAlign: "center",
   height: 50,
-  flex: 1,
   padding: 10,
-  //marginLeft: 20,
-}
+  // flex: 1
+};
 
 const regtext = {
   textAlign: "center",
