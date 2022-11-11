@@ -13,26 +13,32 @@ export function Register({ navigation }) {
   const [errors, setErrors] = useState({});
 
   const validacion = () => {
-    if (form.usuario === undefined || " ") {
-      setErrors({ ...errors, usuario: "Campo obligatorio" });
+    if (form.usuario === undefined) {
+      setErrors({ ...errors, usuario: "Campo obligatorio" })
       return false;
-    } else if (form.contrasena === undefined || " ") {
-      setErrors({ ...errors, contrasena: "Campo obligatorio" });
+    } else if (form.contrasena === undefined) {
+      setErrors({ ...errors, contrasena: "Campo obligatorio" })
       return false;
-    } else if (form.confContrasena === undefined || " ") {
-      setErrors({ ...errors, confContrasena: "Campo obligatorio" });
+    } else if (form.confContrasena === undefined) {
+      setErrors({ ...errors, confContrasena: "Campo obligatorio" })
       return false;
-    } else if (form.correo === undefined || " ") {
-      setErrors({ ...errors, correo: "Campo obligatorio" });
+    } else if (form.correo === undefined) {
+      setErrors({ ...errors, correo: "Campo obligatorio" })
       return false;
-    } else if (form.telefono === undefined || " ") {
-      setErrors({ ...errors, telefono: "Campo obligatorio" });
+    } else if (form.telefono === undefined) {
+      setErrors({ ...errors, telefono: "Campo obligatorio" })
       return false;
     }
     return true;
   }
   const onSubmit = () => {
-    validacion() ? handleSubmitForm() : console.log("Fallo al validar");
+    
+    if (!validacion()){
+      console.log("Fallo al validar")
+    }else{
+      console.log("Pasa")
+      handleSubmitForm()
+    };
   }
 
   const handleSubmitForm = async () => {
@@ -41,12 +47,13 @@ export function Register({ navigation }) {
       clave: form.contrasena,
       correo: form.correo,
       telefono: form.telefono,
+      rol: "comun"
     };
     const url = `https://agromaps.herokuapp.com/usuarios`;
     const content = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
+      body: JSON.stringify(formData)
     };
     const response = await fetch(url, content);
     const json = await response.json();
