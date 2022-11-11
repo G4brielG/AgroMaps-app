@@ -5,6 +5,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import useSession from "../hooks/useSession"
 import { NativeBaseProvider } from "native-base";
 import { useState } from "react";
+import { Modal } from "./Modal"
 
 export default function TabMenu({ navigation }) {
   const [ver, setVer] = useState(false)
@@ -23,6 +24,15 @@ export default function TabMenu({ navigation }) {
       <MaterialCommunityIcons name="login-variant" size={26} color="#890000" />
     </TouchableOpacity>
   )
+
+  const buttons = [
+    <TouchableOpacity key="cancelar" variant="unstyled" onPress={() => setVer(!ver)}>
+      <Text>Cancelar</Text>
+    </TouchableOpacity>,
+    <TouchableOpacity key="salir" variant="unstyled" onPress={cerrarSesion}>
+      <Text>Salir</Text>
+    </TouchableOpacity>
+  ]
   return (
     <>
       <NativeBaseProvider>
@@ -70,39 +80,12 @@ export default function TabMenu({ navigation }) {
       </NativeBaseProvider>
 
       {ver && (
-        <View
-          style={{
-            position: "absolute",
-            top: "30%",
-            alignContent: "center",
-            width: "100%",
-            height: "100%",
-          }}
-        >
-          <View
-            style={{
-              position: "absolute",
-              alignSelf: "center",
-              alignItems: "center",
-              alignContent: "center",
-              justifyContent: "center",
-              height: 200,
-              width: 300,
-              backgroundColor: "white",
-            }}
-          >
-            <Text>¿Está seguro de cerrar la sesión?</Text>
-            
-            <TouchableOpacity variant="unstyled" onPress={() => setVer(!ver)}>
-              <Text>Cancelar</Text>
-            </TouchableOpacity>
-            <TouchableOpacity variant="unstyled" onPress={cerrarSesion}>
-              <Text>Salir</Text>
-            </TouchableOpacity>
-
-          </View>
-        </View>
+        <Modal
+          header={`¿Está seguro de cerrar la sesión?`}
+          footer={buttons}
+        />
       )}
+
     </>
   );
 }

@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import MapView, { UrlTile, Marker, Callout } from 'react-native-maps';
+import MapView, { Marker, Callout } from 'react-native-maps';
 import { map, button, addButton, buttonContainer, addButtonText, containerBox } from '../styles/styles';
-import { View, TouchableOpacity, Text, TextInput } from 'react-native';
+import { View, TouchableOpacity, Text } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Motion } from "@legendapp/motion";
-import { ContainerInfo } from '../components/ContainerInfo';
+import { Modal } from '../components/Modal';
 const iconMarker = require('../../assets/pin_location_map_marker_placeholder_icon_146263.png')
 
 export function Map() {
@@ -259,7 +259,7 @@ export function Map() {
                   duration: 1000
               }
             }}>
-            <ContainerInfo></ContainerInfo>
+            <Modal></Modal>
           </Motion.View>
         )
       }
