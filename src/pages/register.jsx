@@ -31,6 +31,7 @@ export function Register({ navigation }) {
     }
     return true;
   }
+  
   const onSubmit = () => {
     
     if (!validacion()){

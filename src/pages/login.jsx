@@ -5,6 +5,7 @@ import { NativeBaseProvider } from "native-base"
 import { useState } from "react"
 import useSession from "../hooks/useSession"
 import ipf from '../imgs/IPF-logo.png'
+import SERVER from "../Services";
 
 export function Login({ navigation }) {
   const [form, setForm] = useState({})
@@ -28,7 +29,7 @@ export function Login({ navigation }) {
       usuario: form.usuario,
       clave: form.password
     }
-    const url = 'http://192.168.216.67:4000/login'
+    const url = `${SERVER}/login`
     const content = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
