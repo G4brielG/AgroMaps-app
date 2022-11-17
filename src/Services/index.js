@@ -1,1 +1,1 @@
-export default SERVER = 'http://192.168.216.159:4000'
+export default SERVER = 'https://agromaps.herokuapp.com'
