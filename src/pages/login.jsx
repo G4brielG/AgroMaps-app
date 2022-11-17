@@ -37,7 +37,6 @@ export function Login({ navigation }) {
     }
     const response = await fetch(url, content)
     const json = await response.json()
-    
     if(response.ok) {
       setForm({})
       setErrors({})

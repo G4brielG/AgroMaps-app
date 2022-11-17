@@ -1,8 +1,8 @@
 import { StatusBar } from "expo-status-bar";
-import { container, regtext, input, button, image } from "../styles/styles";
+import { container, regtext, input, button, image, alertaF } from "../styles/styles";
 import React, { useState } from "react";
 import ipf from "../imgs/IPF-logo.png";
-import { Button, NativeBaseProvider } from "native-base";
+import {  NativeBaseProvider } from "native-base";
 import { Text, View, Image, TextInput, TouchableOpacity } from "react-native";
 // import SelectDropdown from 'react-native-select-dropdown'
 // import { useForm, Controller } from "react-hook-form";
@@ -11,37 +11,49 @@ export function Register({ navigation }) {
 
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
+  const [alerts, setAlerts] = useState({});
+
+  const validarEmail = (mail) => {
+    if (/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i.test(mail)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   const validacion = () => {
     if (form.usuario === undefined) {
-      setErrors({ ...errors, usuario: "Campo obligatorio" })
+      setErrors({ ...errors, usuario: "Este campo es obligatorio" })
+      return false;
+    } else if (form.usuario.length < 6 || form.usuario.length > 12) {
+      setErrors({ ...errors, usuario: "El usuario debe contener entre 6 y 12 caracteres" })
       return false;
     } else if (form.contrasena === undefined) {
-      setErrors({ ...errors, contrasena: "Campo obligatorio" })
+      setErrors({ ...errors, contrasena: "Este campo es obligatorio" })
+      return false;
+    } else if (form.contrasena.length < 6 || form.contrasena.length > 20) {
+      setErrors({ ...errors, contrasena: "La contraseña debe contener entre 6 y 20 caracteres" })
       return false;
     } else if (form.confContrasena === undefined) {
-      setErrors({ ...errors, confContrasena: "Campo obligatorio" })
+      setErrors({ ...errors, confContrasena: "Este campo es obligatorio" })
+      return false;
+    } else if (form.confContrasena != form.contrasena) {
+      setErrors({ ...errors, confContrasena: "Las contraseñas no coinciden" })
       return false;
     } else if (form.correo === undefined) {
-      setErrors({ ...errors, correo: "Campo obligatorio" })
+      setErrors({ ...errors, correo: "Este campo es obligatorio" })
       return false;
-    } else if (form.telefono === undefined) {
-      setErrors({ ...errors, telefono: "Campo obligatorio" })
+    } else if (!validarEmail(form.correo)) {
+      setErrors({ ...errors, correo: "La direccion de correo no es una direccion valida" })
       return false;
+    } else {
+      return true;
     }
-    return true;
   }
 
   const onSubmit = () => {
-    
-    if (!validacion()){
-      console.log("Fallo al validar")
-    }else{
-      console.log("Pasa")
-      handleSubmitForm()
-    };
+    validacion() && handleSubmitForm() && alertForm()
   }
-
   const handleSubmitForm = async () => {
     const formData = {
       usuario: form.usuario,
@@ -58,15 +70,23 @@ export function Register({ navigation }) {
     };
     const response = await fetch(url, content);
     const json = await response.json();
-    console.log(json.message)
+    const respuesta = await json.message;
+    console.log(respuesta)
+    alertForm(respuesta)
   };
+  const alertForm = (respuesta) => {
+    setAlerts({ ...alerts, alerta: respuesta })
+  }
 
   return (
+
     <NativeBaseProvider>
       <View style={container}>
+        {<Text style={alertaF}>{alerts.alerta}</Text>}
         <Image style={image} source={ipf} />
         <View>
           <StatusBar style="auto" />
+          {"usuario" in errors && <Text>{errors.usuario}</Text>}
           <View style={input}>
             <TextInput
               style={regtext}
@@ -76,6 +96,7 @@ export function Register({ navigation }) {
               onChangeText={(value) => setForm({ ...form, usuario: value })}
             />
           </View>
+          {"contrasena" in errors && <Text>{errors.contrasena}</Text>}
           <View style={input}>
             <TextInput
               style={regtext}
@@ -85,17 +106,18 @@ export function Register({ navigation }) {
               onChangeText={(value) => setForm({ ...form, contrasena: value })}
             />
           </View>
+          {"confContrasena" in errors && <Text>{errors.confContrasena}</Text>}
           <View style={input}>
             <TextInput
               style={regtext}
               name="confContrasena"
               placeholderTextColor="#a3a3a3"
               placeholder="Confirmar Contraseña"
-              onChangeText={(value) =>
-                setForm({ ...form, confContrasena: value })
+              onChangeText={(value) => setForm({ ...form, confContrasena: value })
               }
             />
           </View>
+          {"correo" in errors && <Text>{errors.correo}</Text>}
           <View style={input}>
             <TextInput
               style={regtext}
@@ -105,6 +127,7 @@ export function Register({ navigation }) {
               onChangeText={(value) => setForm({ ...form, correo: value })}
             />
           </View>
+          {"telefono" in errors && <Text>{errors.telefono}</Text>}
           <View style={input}>
             <TextInput
               style={regtext}
