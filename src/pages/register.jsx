@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import ipf from "../imgs/IPF-logo.png";
 import { NativeBaseProvider } from "native-base";
 import { Text, View, Image, TextInput, TouchableOpacity, Alert } from "react-native";
+import SERVER from "../Services"
 // import SelectDropdown from 'react-native-select-dropdown'
 // import { useForm, Controller } from "react-hook-form";
 
@@ -11,7 +12,6 @@ export function Register({ navigation }) {
 
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
-  const [alerts, setAlerts] = useState({});
 
   const validarEmail = (mail) => {
     if (/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i.test(mail)) {
@@ -62,7 +62,7 @@ export function Register({ navigation }) {
       telefono: form.telefono,
       rol: "comun"
     };
-    const url = `https://agromaps.herokuapp.com/usuarios`;
+    const url = `${SERVER}/usuarios`;
     const content = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
