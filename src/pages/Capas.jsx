@@ -9,14 +9,13 @@ const Capas = () => {
     <NativeBaseProvider>
       <StatusBar style="auto" />
       <View style={container}>
-        <Image style={image} source={ipf}></Image>
         <Text style={titless}>Agregar Capa</Text>
         <View style={input}>
           <TextInput
             style={regtext}
             name="tituloCapa"
             placeholderTextColor="#a3a3a3"
-            placeholder="Titulo de la capa"
+            placeholder="Titulo"
           />
         </View>
         <View style={input}>
@@ -24,7 +23,7 @@ const Capas = () => {
             style={regtext}
             name="apiCapa"
             placeholderTextColor="#a3a3a3"
-            placeholder="Enlace de la capa"
+            placeholder="Enlace"
           />
         </View>
         <View style={input}>
@@ -32,7 +31,7 @@ const Capas = () => {
             style={regtext}
             name="simbologiaCapa"
             placeholderTextColor="#a3a3a3"
-            placeholder="Simbologia de la capa"
+            placeholder="Simbologia"
           />
         </View>
         <TouchableOpacity>
