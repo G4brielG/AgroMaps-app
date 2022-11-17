@@ -18,18 +18,23 @@ const input = {
   height: 45,
   marginBottom: 20,
 }
-const alertaF ={
-width: 200,
-backgroundColor: "rgba(255, 255, 255, 0.5)",
-padding:10,
-color:"rgba(203, 0, 0, 1)",
+const alertaF = {
+  width: 200,
+  backgroundColor: "rgba(255, 255, 255, 0.5)",
+  padding: 10,
+  color: "rgba(203, 0, 0, 1)",
 }
 const text = {
   height: 50,
   padding: 10,
   // flex: 1
 };
-
+const titless = {
+  textAlign: "center",
+  height: 60,
+  padding: 10,
+  fontSize: 25,
+}
 const regtext = {
   textAlign: "center",
   height: 50,
@@ -89,7 +94,7 @@ const addButtonText = {
 }
 
 const buttonContainer = {
-  top: 30 ,
+  top: 30,
   right: 20,
   position: 'absolute'
 }
@@ -128,5 +133,6 @@ export {
   buttonContainer,
   containerBox,
   containerInfoCapa,
-  alertaF
+  alertaF,
+  titless
 }
