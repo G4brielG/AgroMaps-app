@@ -2,9 +2,15 @@ import { View, Text } from 'react-native'
 
 const Capas = () => {
   return (
-    <View>
-      <Text>LISTA DE CAPAS</Text>
-    </View>
+    <NativeBaseProvider>
+      <View style={container}>
+        <Image style={image} source={ipf} />
+        <View>
+          <StatusBar style="auto" />
+          <View style={input}></View>
+        </View>
+      </View>
+    </NativeBaseProvider>
   )
 }
 
