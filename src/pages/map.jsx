@@ -215,7 +215,7 @@ export function Map() {
           }}
           transition={transition}
         >
-          <Modal header={`${capaSelec.titulo}`} />
+          <Modal header={`INFORMACIÓN DE LA CAPA SELECCIONADA`} />
         </Motion.View>
       )}
 
