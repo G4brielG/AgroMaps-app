@@ -5,7 +5,7 @@ import { View, TouchableOpacity, Text, TextInput } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Motion } from "@legendapp/motion";
 import Modal from '../components/Modal';
-import { Modal } from '../components/Modal';
+// import { Modal } from '../components/Modal';
 import { animate, transition } from '../styles/motion';
 const iconMarker = require('../../assets/pin_location_map_marker_placeholder_icon_146263.png')
 

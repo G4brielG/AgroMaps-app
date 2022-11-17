@@ -1,3 +1,4 @@
+import { usePropsWithComponentTheme } from 'native-base';
 import { StyleSheet } from 'react-native';
 import { Dimensions } from 'react-native';
 
@@ -17,7 +18,12 @@ const input = {
   height: 45,
   marginBottom: 20,
 }
-
+const alertaF ={
+width: 200,
+backgroundColor: "rgba(255, 255, 255, 0.5)",
+padding:10,
+color:"rgba(203, 0, 0, 1)",
+}
 const text = {
   height: 50,
   padding: 10,
@@ -121,5 +127,6 @@ export {
   addButtonText,
   buttonContainer,
   containerBox,
-  containerInfoCapa
+  containerInfoCapa,
+  alertaF
 }
