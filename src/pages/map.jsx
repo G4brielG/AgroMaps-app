@@ -37,6 +37,8 @@ export function Map() {
 
   const [value, setValue] = useState(0)
   const [valueCapa, setValueCapa] = useState(0)
+  const [valueUbi, setValueUbi] = useState(0)
+  const [valueMarker, setValueMarker] = useState(0)
 
   //* REGION INICIAL EN EL POLO CIENTÍFICO
   const region = {
@@ -88,7 +90,11 @@ export function Map() {
           ]);
           //* CAMBIO DE ESTADO PARA INGRESAR NOMBRE DEL MARCADOR
           setMarcador(!marcador);
-          setValue(!value);
+          if (valueMarker === 0) {
+            setTimeout(() => setValueMarker(1), 1);
+          } else {
+            setValueMarker(0);
+          }
         }}
         minZoomLevel={6}
         maxZoomLevel={14}
@@ -151,9 +157,9 @@ export function Map() {
           <Motion.View
             style={{ marginVertical: 10, flexDirection: "row" }}
             animate={{
-              x: value * 10,
-              opacity: value ? 1 : 0.2,
-              scale: value ? 1 : 0.5,
+              x: valueMarker * 10,
+              opacity: valueMarker ? 1 : 0.2,
+              scale: valueMarker ? 1 : 0.5,
             }}
             transition={transition}
           >
@@ -223,9 +229,9 @@ export function Map() {
         <Motion.View
           style={containerBox}
           animate={{
-            x: valueCapa * 10,
-            opacity: valueCapa ? 1 : 0.2,
-            scale: valueCapa ? 1 : 0.5,
+            x: valueUbi * 10,
+            opacity: valueUbi ? 1 : 0.2,
+            scale: valueUbi ? 1 : 0.5,
           }}
           transition={transition}
         >
@@ -274,10 +280,10 @@ export function Map() {
           style={addButton}
           onPress={() => {
             setShow({ ...show, showUbi: !show.showUbi });
-            if (valueCapa === 0) {
-              setTimeout(() => setValueCapa(1), 1);
+            if (valueUbi === 0) {
+              setTimeout(() => setValueUbi(1), 1);
             } else {
-              setValueCapa(0);
+              setValueUbi(0);
             }
           }}
         >
