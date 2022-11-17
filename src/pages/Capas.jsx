@@ -1,7 +1,7 @@
 import { NativeBaseProvider } from 'native-base'
 import { View, Text, Image, TextInput, TouchableOpacity } from 'react-native'
 import { container, image, input, regtext, titless, button } from "../styles/styles";
-import ipf from '../imgs/IPF-logo.png'
+// import ipf from '../imgs/IPF-logo.png'
 import { StatusBar } from "expo-status-bar";
 
 const Capas = () => {
