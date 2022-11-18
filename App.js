@@ -7,6 +7,7 @@ import { useEffect, useState } from "react"
 import useSession from "./src/hooks/useSession"
 import { LogBox } from "react-native"
 
+
 const Stack = createNativeStackNavigator()
 LogBox.ignoreLogs(["EventEmitter.removeListener"])
 export default function App() {

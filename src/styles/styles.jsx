@@ -29,11 +29,18 @@ const text = {
   padding: 10,
   // flex: 1
 };
+
+const capaText = {
+  textAlign: "center",
+  height: 50,
+  padding: 10,
+}
 const titless = {
   textAlign: "center",
   height: 60,
   padding: 10,
   fontSize: 25,
+  color: "#000000",
 }
 const regtext = {
   textAlign: "center",
@@ -54,7 +61,6 @@ const button = {
 
 const containerMap = {
   flex: 2,
-
 }
 
 const map = {
@@ -134,5 +140,6 @@ export {
   containerBox,
   containerInfoCapa,
   alertaF,
-  titless
+  titless,
+  capaText,
 }
