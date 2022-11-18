@@ -102,13 +102,15 @@ export function Map() {
         {
           //* VALIDACIÓN DE ESTADO PARA RENDERIZAR CAPAS */
         }
-        {capaSelec.api !== undefined && render && (
-          <MapView.UrlTile
-            urlTemplate={capaSelec.api}
-            zIndex={-1}
-            style={{ opacity: 1 }}
-          />
-        )}
+        {
+          capaSelec.api !== undefined && render && (
+            <MapView.UrlTile
+              urlTemplate={capaSelec.api}
+              zIndex={-1}
+              style={{ opacity: 0.7 }}
+            />
+          )
+        }
         <Marker
           icon={iconMarker}
           coordinate={{
