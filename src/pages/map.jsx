@@ -16,6 +16,7 @@ import { Modal } from "../components/Modal"
 import { animate, transition } from "../styles/motion"
 const iconMarker = require("../../assets/pin_location_map_marker_placeholder_icon_146263.png")
 import SERVER from "../Services"
+import Markers from "../components/Markers";
 
 export function Map() {
   const [capa, setCapa] = useState([])
@@ -26,6 +27,12 @@ export function Map() {
     showCapas: false,
     showInfo: false,
     showUbi: false
+  })
+
+  const [miliMarker, setMiliMarker] = useState({
+    nombre: '',
+    latitude: 0,
+    longitude: 0
   })
 
   //* ESTADO PARA VALIDAR EL RENDER DE MARCADORES
@@ -79,22 +86,19 @@ export function Map() {
         style={map}
         initialRegion={region}
         onLongPress={(e) => {
+          const { latitude, longitude } = e.nativeEvent.coordinate;
           //* SETEO DE COORDENADAS EN CADA OBJ, PARA REGISTRAR MARCADORES
-          setMarker([
-            ...marker,
-            {
-              nombre: "Nuevo marcador",
-              latitude: e.nativeEvent.coordinate.latitude,
-              longitude: e.nativeEvent.coordinate.longitude,
-            },
-          ]);
+          setMiliMarker((prev) => ({
+            ...prev,
+            latitude,
+            longitude,
+          }));
+
           //* CAMBIO DE ESTADO PARA INGRESAR NOMBRE DEL MARCADOR
           setMarcador(!marcador);
-          if (valueMarker === 0) {
-            setTimeout(() => setValueMarker(1), 1);
-          } else {
-            setValueMarker(0);
-          }
+          setTimeout(() => setValueMarker(1), 1);
+          // if (valueMarker === 0) {
+          // }
         }}
         minZoomLevel={6}
         maxZoomLevel={14}
@@ -102,15 +106,13 @@ export function Map() {
         {
           //* VALIDACIÓN DE ESTADO PARA RENDERIZAR CAPAS */
         }
-        {
-          capaSelec.api !== undefined && render && (
-            <MapView.UrlTile
-              urlTemplate={capaSelec.api}
-              zIndex={-1}
-              style={{ opacity: 0.7 }}
-            />
-          )
-        }
+        {capaSelec.api !== undefined && render && (
+          <MapView.UrlTile
+            urlTemplate={capaSelec.api}
+            zIndex={-1}
+            style={{ opacity: 0.7 }}
+          />
+        )}
         <Marker
           icon={iconMarker}
           coordinate={{
@@ -126,23 +128,10 @@ export function Map() {
         </Marker>
         {
           //* VALIDACIÓN DE ESTADO PARA MOSTRAR MARCADORES
-          addMark && (
-            <View>
-              <Marker
-                icon={iconMarker}
-                coordinate={{
-                  latitude: marker[0].latitude,
-                  longitude: marker[0].longitude,
-                }}
-              >
-                <Callout>
-                  <View>
-                    <Text>{marker[0].nombre}</Text>
-                  </View>
-                </Callout>
-              </Marker>
-            </View>
-          )
+          marker.length > 0 &&
+            marker.map((element, index) => (
+              <Markers key={"marker-" + index} data={element} />
+            ))
         }
       </MapView>
 
@@ -151,11 +140,12 @@ export function Map() {
       }
       {marcador && (
         <View style={containerInfoCapa}>
-          {/* <TextInput 
-              onChangeText={(value) => {setMarker(marker[0].nombre: value)}}
-              placeholder = 'Nombre del lugar'
-              value = 
-            /> */}
+          <TextInput
+            onChangeText={(value) =>
+              setMiliMarker((prev) => ({ ...prev, nombre: value }))
+            }
+            placeholder="Nombre del lugar"
+          />
           <Motion.View
             style={{ marginVertical: 10, flexDirection: "row" }}
             animate={{
@@ -168,10 +158,13 @@ export function Map() {
             <TouchableOpacity style={button}>
               <Text
                 onPress={() => {
+                  console.log("presionando");
+                  setMarker([...marker, miliMarker]);
+                  console.log(marker);
+                  setMiliMarker({});
                   //* SET DE ESTADO PARA OCULTAR FORM
                   setMarcador(!marcador);
-                  //* SET DE ESTADO PARA MOSTRAR MARCADORES
-                  setAddMark(!addMark);
+                  setValueMarker(0);
                 }}
               >
                 Agregar
@@ -179,7 +172,14 @@ export function Map() {
             </TouchableOpacity>
 
             <TouchableOpacity style={button}>
-              <Text onPress={() => setMarcador(!marcador)}>Cancelar</Text>
+              <Text
+                onPress={() => {
+                  setMarcador(!marcador);
+                  setValueMarker(0);
+                }}
+              >
+                Cancelar
+              </Text>
             </TouchableOpacity>
           </Motion.View>
         </View>
@@ -223,7 +223,12 @@ export function Map() {
           }}
           transition={transition}
         >
-          <Modal header={`INFORMACIÓN DE LA CAPA SELECCIONADA`} />
+          <Modal header={`INFORMACIÓN DE LA CAPA SELECCIONADA`}>
+            <Image
+              source={{ uri: capaSelec.simbologia }}
+              style={{ width: 100, height: 100, resizeMode: 'contain' }}
+            />
+          </Modal>
         </Motion.View>
       )}
 
@@ -237,7 +242,13 @@ export function Map() {
           }}
           transition={transition}
         >
-          <Modal header={`UBICACIONES DEL USUARIO`} />
+          <Modal header={`UBICACIONES DEL USUARIO`}>
+              {
+                marker.map((element, index) => (
+                  <Text key={index}>{element.nombre}</Text>
+                ))
+              }
+          </Modal>
         </Motion.View>
       )}
 
