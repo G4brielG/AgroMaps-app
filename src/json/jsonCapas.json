@@ -1,0 +1,31 @@
+[{
+  "titulo": "ALCALIN",
+  "api": "https://api.maptiler.com/tiles/0b9d763e-90d3-4f17-bfd2-c9c2aa1eec25/{z}/{x}/{y}.png?key=4jGye4d2Qnz1CcCTCwmj",
+  "simbologia": "https://i.imgur.com/JNXJdLp.png"
+},
+{
+  "titulo": "ERHIDR",
+  "api": "https://api.maptiler.com/tiles/537f6b9a-5fa5-4c2c-8bb5-f98217657537/{z}/{x}/{y}.png?key=jVPzGKbT60fIaXIHQDki",
+  "simbologia": "https://i.imgur.com/LtJi7eE.png"
+},
+{
+  "titulo": "LIMIT_PPAL",
+  "api": "https://api.maptiler.com/tiles/0c7fbaa2-c478-41eb-b6c6-0a8522248fe9/{z}/{x}/{y}.jpg?key=eNnCqIO5wjTAkW6pTiw3",
+  "simbologia": "https://i.imgur.com/VtNCqgM.png"
+},
+{
+  "titulo": "TEXT_SUP",
+  "api": "https://api.maptiler.com/tiles/c3515d16-abeb-401d-9a3f-c1b74b1afabc/{z}/{x}/{y}.png?key=Z4GRylNYj6GgaHLVzDmJ",
+  "simbologia": "https://i.imgur.com/HpgdzIA.png"
+},
+{
+  "titulo": "ORDEN",
+  "api": "https://api.maptiler.com/tiles/4071fd59-da59-4b47-b3a4-6cc708d9db64/{z}/{x}/{y}.png?key=zGt9l6isHJMzVS10lPpW",
+  "simbologia": "https://i.imgur.com/VI3KeM8.png"
+},
+{
+  "titulo": "DRENAJE",
+  "api": "https://api.maptiler.com/tiles/6951cad1-2241-4e0c-a297-d8b7e3f1289b/{z}/{x}/{y}.jpg?key=EI8whAXE5sj7oVk9IX1w",
+  "simbologia": "https://i.imgur.com/T8FsyiR.png"
+}
+]

@@ -9,7 +9,7 @@ import {
   containerBox,
   containerInfoCapa,
 } from "../styles/styles"
-import { View, TouchableOpacity, Text, TextInput } from "react-native"
+import { View, TouchableOpacity, Text, Image, TextInput } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
 import { Motion } from "@legendapp/motion"
 import { Modal } from "../components/Modal"
@@ -21,7 +21,8 @@ export function Map() {
   const [capa, setCapa] = useState([])
   const [capaSelec, setCapaSelec] = useState({})
   const [render, setRender] = useState(false)
-  const [ show, setShow ] = useState({
+
+  const [show, setShow] = useState({
     showCapas: false,
     showInfo: false,
     showUbi: false
@@ -65,9 +66,9 @@ export function Map() {
 
     setTimeout(() => {
       setRender(true)
-      return capa
+      return capaSelec
     }, 100)
-  }, [capa])
+  }, [capaSelec])
 
   useEffect(() => {
     handleFindLayers()
@@ -101,13 +102,15 @@ export function Map() {
         {
           //* VALIDACIÓN DE ESTADO PARA RENDERIZAR CAPAS */
         }
-          {capaSelec.api !== undefined && render && (
+        {
+          capaSelec.api !== undefined && render && (
             <MapView.UrlTile
               urlTemplate={capaSelec.api}
               zIndex={-1}
-              style={{ opacity: 1 }}
+              style={{ opacity: 0.7 }}
             />
-          )}
+          )
+        }
         <Marker
           icon={iconMarker}
           coordinate={{
@@ -220,7 +223,7 @@ export function Map() {
           }}
           transition={transition}
         >
-          <Modal header={`Info de la capa`} />
+          <Modal header={`INFORMACIÓN DE LA CAPA SELECCIONADA`} />
         </Motion.View>
       )}
 
@@ -234,7 +237,7 @@ export function Map() {
           }}
           transition={transition}
         >
-          <Modal header={`UBI`} />
+          <Modal header={`UBICACIONES DEL USUARIO`} />
         </Motion.View>
       )}
 
