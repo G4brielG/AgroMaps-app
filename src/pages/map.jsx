@@ -71,6 +71,7 @@ export function Map() {
 
   useEffect(() => {
     handleFindLayers()
+    console.log(capa)
   }, [])
   return (
     <View>
