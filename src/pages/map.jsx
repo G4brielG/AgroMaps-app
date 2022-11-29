@@ -17,6 +17,7 @@ import { animate, transition } from "../styles/motion"
 const iconMarker = require("../../assets/pin_location_map_marker_placeholder_icon_146263.png")
 import SERVER from "../Services"
 import Markers from "../components/Markers";
+import useSession from "../hooks/useSession";
 
 export function Map() {
   const [capa, setCapa] = useState([])
@@ -35,8 +36,8 @@ export function Map() {
     longitude: 0
   })
 
-  //* ESTADO PARA VALIDAR EL RENDER DE MARCADORES
-  const [addMark, setAddMark] = useState(false)
+  const { usuario } = useSession()
+
   //* ESTADO EN EL CUAL SE GUARDA EL CONJUNTO DE COORDENADAS
   const [marker, setMarker] = useState([])
   //* VALIDACIÓN PARA INGRESAR NOMBRE DEL MARCADOR A AGREGAR
@@ -66,6 +67,18 @@ export function Map() {
     response.ok && setCapa(json)
   }
 
+  const handleSubmitMarker = async () => {
+    const url = `${SERVER}/ubicaciones/${usuario._id}`
+    const content = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: { ubicacion: miliMarker }
+    }
+    const response = await fetch(url, content)
+    const json = await response.json()
+    response.ok && setCapa(json)
+  }
+
   useEffect(() => {
     if (render) {
       setRender(false)
@@ -79,7 +92,7 @@ export function Map() {
 
   useEffect(() => {
     handleFindLayers()
-    console.log(capa)
+    console.log(usuario)
   }, [])
   return (
     <View>
@@ -159,9 +172,9 @@ export function Map() {
             <TouchableOpacity style={button}>
               <Text
                 onPress={() => {
-                  console.log("presionando");
                   setMarker([...marker, miliMarker]);
-                  console.log(marker);
+                  console.log(miliMarker); 
+                  handleSubmitMarker()
                   setMiliMarker({});
                   //* SET DE ESTADO PARA OCULTAR FORM
                   setMarcador(!marcador);
