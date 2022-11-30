@@ -1,7 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { container, regtext, input, button, image, alertaF } from "../styles/styles";
 import React, { useState } from "react";
-import ipf from "../imgs/IPF-logo.png";
+import ipf from "../imgs/Agromaps.png";
 import { NativeBaseProvider } from "native-base";
 import { Text, View, Image, TextInput, TouchableOpacity, Alert } from "react-native";
 import SERVER from "../Services"

@@ -2,25 +2,29 @@ import { usePropsWithComponentTheme } from 'native-base';
 import { StyleSheet } from 'react-native';
 import { Dimensions } from 'react-native';
 
+const body = {
+  
+}
+
 const container = {
   justifyContent: 'center',
   alignItems: 'center',
   borderWidth: 1,
   //flex: 1,
   height: '100%',
-  backgroundColor: '#75ffaa'
+  backgroundColor: '#142c4c'
 }
 
 const input = {
   backgroundColor: 'rgba(255, 255, 255, 0.5)',
-  borderRadius: 20,
+  borderRadius: 10,
   width: 300,
   height: 45,
   marginBottom: 20,
 }
 const alertaF = {
   width: 200,
-  backgroundColor: "rgba(255, 255, 255, 0.5)",
+  backgroundColor: "#28b296",
   padding: 10,
   color: "rgba(203, 0, 0, 1)",
 }
@@ -53,10 +57,10 @@ const button = {
   textSize: '15px',
   margin: 10,
   padding: 10,
-  borderRadius: 20,
+  borderRadius: 10,
   alignItems: 'center',
   color: 'white',
-  backgroundColor: '#00963a'
+  backgroundColor: '#28b296'
 }
 
 const containerMap = {
