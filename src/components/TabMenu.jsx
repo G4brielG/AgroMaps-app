@@ -34,52 +34,65 @@ export default function TabMenu({ navigation }) {
   ]
   return (
     <>
-      <NativeBaseProvider>
-        <Tab.Navigator initialRouteName="Inicio">
-          <Tab.Screen
-            name="Inicio"
-            component={Home}
-            options={{
-              tabBarLabel: "Inicio",
-              tabBarIcon: ({ color }) => (
-                <MaterialCommunityIcons name="home" color={color} size={26} />
-              ),
-              headerRight: () => buttonSalir,
-            }}
-          />
+      <NativeBaseProvider >
+          <Tab.Navigator screenOptions={{
+            tabBarShowLabel: false,
+            tabBarStyle: {
+              position: "absolute",
+              bottom: 25,
+              left: 10,
+              right: 20,
+              elevation: 3,
+              borderRadius: 15,
+              height: 80,
+              backgroundColor: "#E8ECF1",
+              width: 480
+            },
+          }} initialRouteName="Inicio">
+            <Tab.Screen
+              name="Inicio"
+              component={Home}
+              options={{
+                tabBarLabel: "Inicio",
+                tabBarIcon: ({ color }) => (
+                  <MaterialCommunityIcons name="home" color={color} size={26} />
+                ),
+                headerRight: () => buttonSalir,
+              }}
+            />
 
-          <Tab.Screen
-            name="Mapa"
-            component={Map}
-            options={{
-              tabBarLabel: "Mapa",
-              tabBarIcon: ({ color }) => (
-                <MaterialCommunityIcons name="map" color={color} size={26} />
-              ),
-              headerRight: () => buttonSalir,
-            }}
-          />
+            <Tab.Screen
+              name="Mapa"
+              component={Map}
+              options={{
+                tabBarLabel: "Mapa",
+                tabBarIcon: ({ color }) => (
+                  <MaterialCommunityIcons name="map" color={color} size={26} />
+                ),
+                headerRight: () => buttonSalir,
+              }}
+            />
 
-          <Tab.Screen
-            name="Cuenta"
-            component={MiCuenta}
-            options={{
-              tabBarLabel: "Mi cuenta",
-              tabBarIcon: ({ color }) => (
-                <MaterialCommunityIcons
-                  name="account"
-                  color={color}
-                  size={26}
-                />
-              ),
-              headerRight: () => buttonSalir,
-            }}
-          />
-          
-          {/* {console.log('desde tab', usuario.rol)} */}
+            <Tab.Screen
+              name="Cuenta"
+              component={MiCuenta}
+              options={{
+                tabBarLabel: "Mi cuenta",
+                tabBarIcon: ({ color }) => (
+                  <MaterialCommunityIcons
+                    name="account"
+                    color={color}
+                    size={26}
+                  />
+                ),
+                headerRight: () => buttonSalir,
+              }}
+            />
 
-          {
-            usuario?.rol === 'admin' && (
+            {/* {console.log('desde tab', usuario.rol)} */}
+
+            {
+              // usuario?.rol === 'admin' && (
               <Tab.Screen
                 name="Capas"
                 component={Capas}
@@ -95,10 +108,10 @@ export default function TabMenu({ navigation }) {
                   headerRight: () => buttonSalir,
                 }}
               />
-            )
-          }
+              // )
+            }
 
-        </Tab.Navigator>
+          </Tab.Navigator>
       </NativeBaseProvider>
 
       {ver && (

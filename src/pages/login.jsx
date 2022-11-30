@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar"
-import { container, text, input, button, image } from "../styles/styles"
+import { container, text, input, button, image, container2 } from "../styles/styles"
 import { Text, View, Image, TextInput, TouchableOpacity } from "react-native"
 import { NativeBaseProvider } from "native-base"
 import { useState } from "react"
@@ -54,9 +54,10 @@ export function Login({ navigation }) {
   return (
     <NativeBaseProvider>
       <View style={container}>
+      <View style={container2}>
         <Image style={image} source={ipf} />
         <View>
-          <StatusBar style="auto" />
+        
           <View style={input}>
             <TextInput
               name="usuario"
@@ -93,6 +94,7 @@ export function Login({ navigation }) {
           </TouchableOpacity>
 
           {"login" in errors && <Text>{errors.login}</Text>}
+        </View>
         </View>
       </View>
     </NativeBaseProvider>

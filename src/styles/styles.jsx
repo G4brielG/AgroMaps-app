@@ -9,10 +9,14 @@ const body = {
 const container = {
   justifyContent: 'center',
   alignItems: 'center',
-  borderWidth: 1,
+  // borderWidth: 1,
   //flex: 1,
   height: '100%',
+<<<<<<< HEAD
   backgroundColor: '#142c4c'
+=======
+  backgroundColor: '#18934C'
+>>>>>>> 4bec56e4404267f00acfdc5930cdeb41ecac9ef2
 }
 
 const input = {
@@ -20,7 +24,7 @@ const input = {
   borderRadius: 10,
   width: 300,
   height: 45,
-  marginBottom: 20,
+  margin: 5,
 }
 const alertaF = {
   width: 200,
@@ -88,7 +92,7 @@ const image = {
 const home = {
   //flex: 1,
   alignItems: 'center',
-  
+
 }
 
 const addButton = {
@@ -131,6 +135,34 @@ const containerInfoCapa = {
   backgroundColor: "white"
 }
 
+const fontF = {
+  fontFamily: ""
+}
+
+const container2 = {
+  justifyContent: 'center',
+  alignItems: 'center',
+  // borderWidth: 10,
+  height: 500,
+  width: "80%",
+  backgroundColor: '#7CC89C',
+  borderRadius: 5,
+}
+const perfil = {
+  justifyContent: 'center',
+  height: '100%',
+  backgroundColor: '#18934C',
+  width:"100%",
+  position: "absolute",
+}
+const containerProfile = {
+  elevation: 0,
+  borderRadius: 15,
+  height: 930,
+  backgroundColor: "#E8ECF1",
+  width: "100%",
+  bottom:"0%"
+}
 export {
   container,
   input,
@@ -149,4 +181,8 @@ export {
   alertaF,
   titless,
   capaText,
+  fontF,
+  container2,
+  containerProfile,
+  perfil
 }
