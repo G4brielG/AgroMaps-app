@@ -1,6 +1,6 @@
 import { Marker, Callout } from 'react-native-maps'
 import { View, Text } from 'react-native'
-import iconMarker from "../../assets/pin_location_map_marker_placeholder_icon_146263.png"
+import iconMarker from "../imgs/pin_location_map_marker_placeholder_icon_146263.png"
 
 const Markers = ({ data }) => {
   const { latitude, longitude, nombre } = data

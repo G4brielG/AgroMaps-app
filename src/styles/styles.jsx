@@ -75,13 +75,16 @@ const nav = {
 }
 
 const image = {
-  width: 200,
-  height: 200
+  width: '40%',
+  height: '30%',
+  resizeMode: 'contain',
+  margin: 20
 }
 
 const home = {
-  flex: 1,
+  //flex: 1,
   alignItems: 'center',
+  
 }
 
 const addButton = {

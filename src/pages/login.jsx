@@ -4,7 +4,7 @@ import { Text, View, Image, TextInput, TouchableOpacity } from "react-native"
 import { NativeBaseProvider } from "native-base"
 import { useState } from "react"
 import useSession from "../hooks/useSession"
-import ipf from '../imgs/IPF-logo.png'
+import ipf from '../imgs/Agromaps.png'
 import SERVER from "../Services";
 
 export function Login({ navigation }) {

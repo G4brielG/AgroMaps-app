@@ -14,7 +14,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import { Motion } from "@legendapp/motion"
 import { Modal } from "../components/Modal"
 import { animate, transition } from "../styles/motion"
-const iconMarker = require("../../assets/pin_location_map_marker_placeholder_icon_146263.png")
+const iconMarker = require("../imgs/pin_location_map_marker_placeholder_icon_146263.png")
 import SERVER from "../Services"
 import Markers from "../components/Markers";
 
