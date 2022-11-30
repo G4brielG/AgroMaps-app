@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { useEffect, useState } from "react"
 import useSession from "./src/hooks/useSession"
 import { LogBox } from "react-native"
+import {fontF} from "./src/styles/styles"
 
 
 const Stack = createNativeStackNavigator()
@@ -23,7 +24,7 @@ export default function App() {
   })
   return (
     <>
-      <NativeBaseProvider>
+      <NativeBaseProvider style={fontF}>
         <NavigationContainer>
 
           <Stack.Navigator initialRouteName={initial}>

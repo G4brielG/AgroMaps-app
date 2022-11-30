@@ -8,12 +8,12 @@ const container = {
   borderWidth: 1,
   //flex: 1,
   height: '100%',
-  backgroundColor: '#75ffaa'
+  backgroundColor: '#18934C'
 }
 
 const input = {
   backgroundColor: 'rgba(255, 255, 255, 0.5)',
-  borderRadius: 20,
+  borderRadius: 8,
   width: 300,
   height: 45,
   marginBottom: 20,
@@ -53,10 +53,10 @@ const button = {
   textSize: '15px',
   margin: 10,
   padding: 10,
-  borderRadius: 20,
+  borderRadius: 5,
   alignItems: 'center',
   color: 'white',
-  backgroundColor: '#00963a'
+  backgroundColor: '#18934C'
 }
 
 const containerMap = {
@@ -124,6 +124,20 @@ const containerInfoCapa = {
   backgroundColor: "white"
 }
 
+const fontF = {
+  fontFamily: ""
+}
+
+const container2 ={
+  justifyContent: 'center',
+  alignItems: 'center',
+  // borderWidth: 10,
+  height: 500,
+  width:"80%",
+  backgroundColor: '#7CC89C',
+  borderRadius: 5,
+}
+
 export {
   container,
   input,
@@ -142,4 +156,6 @@ export {
   alertaF,
   titless,
   capaText,
+  fontF,
+  container2
 }
