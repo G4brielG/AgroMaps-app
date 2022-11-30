@@ -95,7 +95,6 @@ export function Register({ navigation }) {
       <View style={container}>
         <Image style={image} source={ipf} />
         <View>
-          <StatusBar style="auto" />
           {"usuario" in errors && <Text>{errors.usuario}</Text>}
           <View style={input}>
             <TextInput

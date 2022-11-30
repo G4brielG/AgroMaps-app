@@ -57,7 +57,7 @@ export function Login({ navigation }) {
       <View style={container2}>
         <Image style={image} source={ipf} />
         <View>
-          <StatusBar style="auto" />
+        
           <View style={input}>
             <TextInput
               name="usuario"

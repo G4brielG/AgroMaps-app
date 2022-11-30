@@ -1,6 +1,6 @@
 import { NativeBaseProvider } from 'native-base'
 import { View, Text, Image, TextInput, TouchableOpacity, Alert } from 'react-native'
-import { container, image, input, capaText, titless, button } from "../styles/styles";
+import { container, image, input, capaText, titless, button, container2 } from "../styles/styles";
 // import ipf from '../imgs/IPF-logo.png'
 import { StatusBar } from "expo-status-bar";
 import { useState } from 'react';
@@ -8,20 +8,33 @@ import { useState } from 'react';
 const Capas = ({navigation}) => {
 
   const [form, setForm] = useState({})
+  const [errors, setErrors] = useState({});
 
+
+  
   const validacion = () => {
-    if (form.api === undefined) {
-      console.log("Api vacia")
+
+    if (form.titulo === undefined || "") {
+      console.log("ASD")
+      setErrors({...errors, Error: "Asegurese de no dejar campos vacios"})
       return false
+    }else{
+      setErrors({...errors, Error: " "})
+      return true
     }
-    if (form.simbologia === undefined) {
-      console.log("Simbologia vacia")
-      return false
-    }
-    if (form.titulo === undefined) {
-      console.log("Titulo vacio")
-      return false
-    }
+
+    // if (form.api === undefined || "") {
+    //   console.log("Api vacia")
+    //   setErrors({...errors, Api: "Este campo no puede estar vacio"})
+    //   return false
+    // }
+
+    // if (form.simbologia === undefined || "") {
+    //   console.log("Simbologia vacia")
+    //   setErrors({...errors, Simbologia: "Este campo no puede estar vacio"})
+    //   return false
+    // }
+
     return true
   }
 
@@ -64,8 +77,10 @@ const Capas = ({navigation}) => {
   };
   return (
     <NativeBaseProvider>
-      <StatusBar style="auto" />
+     
       <View style={container}>
+        <View style={container2}>
+      {"Error" in errors && <Text style={{color:"red", fontFamily: "monospace"}}>{errors.Error}</Text>}
         <Text style={titless}>Agregar Capa</Text>
         <View style={input}>
           <TextInput
@@ -76,6 +91,8 @@ const Capas = ({navigation}) => {
             onChangeText={(value) => setForm({ ...form, titulo: value })}
           />
         </View>
+
+
         <View style={input}>
           <TextInput
             style={capaText}
@@ -97,6 +114,7 @@ const Capas = ({navigation}) => {
         <TouchableOpacity onPress={onSubmit}>
           <Text style={button}>Subir capa</Text>
         </TouchableOpacity>
+      </View>
       </View>
     </NativeBaseProvider>
   )

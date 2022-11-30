@@ -1,9 +1,14 @@
 import { Text, View } from "react-native"
+import { perfil, containerBox, containerProfile } from "../styles/styles"
 
-export function MiCuenta () {
+export function MiCuenta() {
   return (
-    <View>
-      <Text>Mi cuenta</Text>
-    </View>
+    <>
+      <View style={perfil}>
+      <View style={containerProfile}>
+        <Text>ASD</Text>
+      </View>
+      </View>
+    </>
   )
 }
