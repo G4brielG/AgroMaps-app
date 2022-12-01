@@ -12,15 +12,11 @@ const container = {
   // borderWidth: 1,
   //flex: 1,
   height: '100%',
-<<<<<<< HEAD
   backgroundColor: '#142c4c'
-=======
-  backgroundColor: '#18934C'
->>>>>>> 4bec56e4404267f00acfdc5930cdeb41ecac9ef2
 }
 
 const input = {
-  backgroundColor: 'rgba(255, 255, 255, 0.5)',
+  backgroundColor: 'rgba(20, 44, 76, 0.5)',
   borderRadius: 10,
   width: 300,
   height: 45,
@@ -118,7 +114,7 @@ const buttonContainer = {
 
 const containerBox = {
   position: "absolute",
-  top: "30%",
+  top: "15%",
   alignContent: "center",
   width: "100%",
   height: "100%"
@@ -127,8 +123,8 @@ const containerBox = {
 const containerInfoCapa = {
   position: "absolute",
   alignSelf: "center",
-  alignItems: "center",
-  alignContent: "center",
+  //alignItems: "center",
+  //alignContent: "center",
   justifyContent: "center",
   height: 200,
   width: 300,
@@ -143,9 +139,9 @@ const container2 = {
   justifyContent: 'center',
   alignItems: 'center',
   // borderWidth: 10,
-  height: 500,
+  height: '60%',
   width: "80%",
-  backgroundColor: '#7CC89C',
+  backgroundColor: 'white',
   borderRadius: 5,
 }
 const perfil = {

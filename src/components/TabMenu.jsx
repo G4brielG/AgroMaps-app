@@ -39,12 +39,12 @@ export default function TabMenu({ navigation }) {
             tabBarShowLabel: false,
             tabBarStyle: {
               position: "absolute",
-              bottom: 25,
-              left: 10,
-              right: 20,
+              bottom: 15,
+              // left: 10,
+              // right: 10,
               elevation: 3,
               borderRadius: 15,
-              height: 80,
+              height: 60,
               backgroundColor: "#E8ECF1",
               width: 480
             },
