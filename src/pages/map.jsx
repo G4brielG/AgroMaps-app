@@ -14,7 +14,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import { Motion } from "@legendapp/motion"
 import { Modal } from "../components/Modal"
 import { animate, transition } from "../styles/motion"
-const iconMarker = require("../imgs/pin_location_map_marker_placeholder_icon_146263.png")
+const iconMarker = require("../imgs/iconblue-location-agromaps.png")
 import SERVER from "../Services"
 import Markers from "../components/Markers";
 import useSession from "../hooks/useSession";
@@ -240,7 +240,7 @@ export function Map() {
           <Modal header={`INFORMACIÓN DE LA CAPA SELECCIONADA`}>
             <Image
               source={{ uri: capaSelec.simbologia }}
-              style={{ width: 100, height: 100, resizeMode: 'contain' }}
+              style={{ width: 180, height: 100, resizeMode: 'cover' }}
             />
           </Modal>
         </Motion.View>
