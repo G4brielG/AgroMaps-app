@@ -19,6 +19,12 @@ import SERVER from "../Services"
 import Markers from "../components/Markers";
 import useSession from "../hooks/useSession";
 
+const capaTest = {
+  hidrico: 'http://192.168.216.178/tileserver-php-master/ERHIDR/{z}/{x}/{y}.png',
+  alcalin: 'http://192.168.216.178/tileserver-php-master/ALCALIN/{z}/{x}/{y}.png',
+  drenaje: 'http://192.168.216.178/tileserver-php-master/DRENAJE/{z}/{x}/{y}.png'
+}
+
 export function Map() {
   const [capa, setCapa] = useState([])
   const [capaSelec, setCapaSelec] = useState({})
@@ -94,6 +100,7 @@ export function Map() {
     handleFindLayers()
     console.log(usuario)
   }, [])
+
   return (
     <View>
       <MapView
@@ -120,13 +127,19 @@ export function Map() {
         {
           //* VALIDACIÓN DE ESTADO PARA RENDERIZAR CAPAS */
         }
-        {capaSelec.api !== undefined && render && (
+        {/* {capaSelec.api !== undefined && render && (
           <MapView.UrlTile
-            urlTemplate={capaSelec.api}
+            urlTemplate={capaTest}
             zIndex={-1}
             style={{ opacity: 0.7 }}
           />
-        )}
+        )} */}
+        <MapView.UrlTile
+          urlTemplate={capaTest.alcalin}
+          zIndex={-1}
+          style={{ opacity: 0.7 }}
+        />
+          
         <Marker
           icon={iconMarker}
           coordinate={{

@@ -72,7 +72,6 @@ const Capas = ({navigation}) => {
     const response = await fetch(url, content);
     const json = await response.json();
     const respuesta = await json.message;
-    console.log(respuesta)
     alertForm(respuesta)
   };
   return (
