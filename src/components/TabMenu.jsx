@@ -39,14 +39,14 @@ export default function TabMenu({ navigation }) {
             tabBarShowLabel: false,
             tabBarStyle: {
               position: "absolute",
-              bottom: 15,
+              bottom: '1.5%',
               // left: 10,
               // right: 10,
-              elevation: 3,
+              elevation: 2,
               borderRadius: 15,
-              height: 60,
+              height: '6%',
               backgroundColor: "#E8ECF1",
-              width: 480
+              width: '98%'
             },
           }} initialRouteName="Inicio">
             <Tab.Screen
@@ -92,7 +92,7 @@ export default function TabMenu({ navigation }) {
             {/* {console.log('desde tab', usuario.rol)} */}
 
             {
-              usuario?.rol === 'admin' && (
+              usuario?.rol === "admin" && (
               <Tab.Screen
                 name="Capas"
                 component={Capas}
