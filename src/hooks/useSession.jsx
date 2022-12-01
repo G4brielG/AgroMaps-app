@@ -22,7 +22,6 @@ const useSession = () => {
   const logout = async () => {
     await AsyncStorage.removeItem('user')
     setUsuario(null)
-    console.log('* c ejecuta el logout O//w//O *')
   }
 
   useEffect(() => {

@@ -2,25 +2,29 @@ import { usePropsWithComponentTheme } from 'native-base';
 import { StyleSheet } from 'react-native';
 import { Dimensions } from 'react-native';
 
+const body = {
+  
+}
+
 const container = {
   justifyContent: 'center',
   alignItems: 'center',
-  borderWidth: 1,
+  // borderWidth: 1,
   //flex: 1,
   height: '100%',
-  backgroundColor: '#75ffaa'
+  backgroundColor: '#142c4c'
 }
 
 const input = {
-  backgroundColor: 'rgba(255, 255, 255, 0.5)',
-  borderRadius: 20,
+  backgroundColor: 'white',
+  borderRadius: 10,
   width: 300,
   height: 45,
-  marginBottom: 20,
+  margin: 5,
 }
 const alertaF = {
   width: 200,
-  backgroundColor: "rgba(255, 255, 255, 0.5)",
+  backgroundColor: "#28b296",
   padding: 10,
   color: "rgba(203, 0, 0, 1)",
 }
@@ -53,10 +57,10 @@ const button = {
   textSize: '15px',
   margin: 10,
   padding: 10,
-  borderRadius: 20,
+  borderRadius: 10,
   alignItems: 'center',
   color: 'white',
-  backgroundColor: '#00963a'
+  backgroundColor: '#28b296'
 }
 
 const containerMap = {
@@ -75,13 +79,15 @@ const nav = {
 }
 
 const image = {
-  width: 200,
-  height: 200
+  width: '50%',
+  height: '40%',
+  resizeMode: 'contain',
 }
 
 const home = {
-  flex: 1,
+  //flex: 1,
   alignItems: 'center',
+
 }
 
 const addButton = {
@@ -107,7 +113,7 @@ const buttonContainer = {
 
 const containerBox = {
   position: "absolute",
-  top: "30%",
+  top: "15%",
   alignContent: "center",
   width: "100%",
   height: "100%"
@@ -124,6 +130,34 @@ const containerInfoCapa = {
   backgroundColor: "white"
 }
 
+const fontF = {
+  fontFamily: ""
+}
+
+const container2 = {
+  // justifyContent: 'center',
+  // alignItems: 'center',
+  // // borderWidth: 10,
+  // height: '60%',
+  // width: "80%",
+  // backgroundColor: 'white',
+  // borderRadius: 5,
+}
+const perfil = {
+  justifyContent: 'center',
+  height: '100%',
+  backgroundColor: '#18934C',
+  width:"100%",
+  position: "absolute",
+}
+const containerProfile = {
+  elevation: 0,
+  borderRadius: 15,
+  height: 930,
+  backgroundColor: "#E8ECF1",
+  width: "100%",
+  bottom:"0%"
+}
 export {
   container,
   input,
@@ -142,4 +176,8 @@ export {
   alertaF,
   titless,
   capaText,
+  fontF,
+  container2,
+  containerProfile,
+  perfil
 }

@@ -6,6 +6,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { useEffect, useState } from "react"
 import useSession from "./src/hooks/useSession"
 import { LogBox } from "react-native"
+import {fontF} from "./src/styles/styles"
+import { StatusBar } from "expo-status-bar"
+
 
 const Stack = createNativeStackNavigator()
 LogBox.ignoreLogs(["EventEmitter.removeListener"])
@@ -22,10 +25,10 @@ export default function App() {
   })
   return (
     <>
-      <NativeBaseProvider>
+      <NativeBaseProvider style={fontF}>
         <NavigationContainer>
-
-          <Stack.Navigator initialRouteName={initial}>
+        <StatusBar style="auto" />
+          <Stack.Navigator  initialRouteName={initial}>
             <Stack.Screen
               name="Login"
               component={Login}
