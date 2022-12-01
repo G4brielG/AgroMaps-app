@@ -15,7 +15,7 @@ import { Motion } from "@legendapp/motion"
 import { Modal } from "../components/Modal"
 import { animate, transition } from "../styles/motion"
 const iconMarker = require("../../assets/pin_location_map_marker_placeholder_icon_146263.png")
-import SERVER from "../Services"
+import SERVER from "../Services";
 
 export function Map() {
   const [capa, setCapa] = useState([])
@@ -66,7 +66,7 @@ export function Map() {
     setTimeout(() => {
       setRender(true)
       return capa
-    }, 100)
+    }, 300)
   }, [capa])
 
   useEffect(() => {
@@ -76,7 +76,7 @@ export function Map() {
     <View>
       <MapView
         style={map}
-        initialRegion={region}
+        // initialRegion={region}
         onLongPress={(e) => {
           //* SETEO DE COORDENADAS EN CADA OBJ, PARA REGISTRAR MARCADORES
           setMarker([
@@ -96,7 +96,7 @@ export function Map() {
           }
         }}
         minZoomLevel={6}
-        maxZoomLevel={14}
+        maxZoomLevel={16}
       >
         {
           //* VALIDACIÓN DE ESTADO PARA RENDERIZAR CAPAS */
@@ -104,7 +104,7 @@ export function Map() {
         {capaSelec !== null ||
           (capaSelec !== undefined && render && (
             <MapView.UrlTile
-              urlTemplate={capaSelec.api}
+              urlTemplate={capaSelec?.api}
               zIndex={-1}
               style={{ opacity: 1 }}
             />
