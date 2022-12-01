@@ -1,7 +1,7 @@
 import { NativeBaseProvider } from 'native-base'
 import { View, Text, Image, TextInput, TouchableOpacity, Alert } from 'react-native'
 import { container, image, input, capaText, titless, button, container2 } from "../styles/styles";
-// import ipf from '../imgs/IPF-logo.png'
+import ipf from '../imgs/Agromaps.png'
 import { StatusBar } from "expo-status-bar";
 import { useState } from 'react';
 
@@ -79,6 +79,7 @@ const Capas = ({navigation}) => {
      
       <View style={container}>
         <View style={container2}>
+        <Image style={image} source={ipf} />
       {"Error" in errors && <Text style={{color:"red", fontFamily: "monospace"}}>{errors.Error}</Text>}
         <Text style={titless}>Agregar Capa</Text>
         <View style={input}>
