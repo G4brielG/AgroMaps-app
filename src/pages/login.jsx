@@ -4,7 +4,7 @@ import { Text, View, Image, TextInput, TouchableOpacity } from "react-native"
 import { NativeBaseProvider } from "native-base"
 import { useState } from "react"
 import useSession from "../hooks/useSession"
-import ipf from '../imgs/Agromaps.png'
+import ipf from '../imgs/Agromaps-blanco.png'
 import SERVER from "../Services";
 
 export function Login({ navigation }) {
@@ -54,7 +54,7 @@ export function Login({ navigation }) {
   return (
     <NativeBaseProvider>
       <View style={container}>
-      <View style={container2}>
+      {/* <View style={container2}> */}
         <Image style={image} source={ipf} />
         <View>
         
@@ -84,18 +84,18 @@ export function Login({ navigation }) {
           </View>
 
           {"password" in errors && <Text>{errors.usuario}</Text>}
-
-          <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-            <Text>¿Aún no tienes cuenta? Regístrate</Text>
-          </TouchableOpacity>
-
+          
           <TouchableOpacity onPress={onSubmit}>
             <Text style={button}>Iniciar sesión</Text>
           </TouchableOpacity>
 
+          <TouchableOpacity onPress={() => navigation.navigate("Register")}>
+            <Text style={{color: 'white', alignSelf: 'center'}}>¿Aún no tienes cuenta? Regístrate</Text>
+          </TouchableOpacity>
+
           {"login" in errors && <Text>{errors.login}</Text>}
         </View>
-        </View>
+        {/* </View> */}
       </View>
     </NativeBaseProvider>
   );

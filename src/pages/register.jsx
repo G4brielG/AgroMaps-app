@@ -1,7 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { container, regtext, input, button, image, alertaF } from "../styles/styles";
 import React, { useState } from "react";
-import ipf from "../imgs/Agromaps.png";
+import ipf from "../imgs/Agromaps-blanco.png";
 import { NativeBaseProvider } from "native-base";
 import { Text, View, Image, TextInput, TouchableOpacity, Alert } from "react-native";
 import SERVER from "../Services"
@@ -152,7 +152,7 @@ export function Register({ navigation }) {
             <Text style={button}>Registrar</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-            <Text>¿Ya tienes una cuenta? Inicia sesión</Text>
+            <Text style={{color: 'white', alignSelf: 'center'}}>¿Ya tienes una cuenta? Inicia sesión</Text>
           </TouchableOpacity>
         </View>
       </View>

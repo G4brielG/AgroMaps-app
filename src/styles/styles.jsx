@@ -16,7 +16,7 @@ const container = {
 }
 
 const input = {
-  backgroundColor: 'rgba(20, 44, 76, 0.5)',
+  backgroundColor: 'white',
   borderRadius: 10,
   width: 300,
   height: 45,
@@ -79,10 +79,9 @@ const nav = {
 }
 
 const image = {
-  width: '40%',
-  height: '30%',
+  width: '50%',
+  height: '40%',
   resizeMode: 'contain',
-  margin: 20
 }
 
 const home = {
@@ -123,8 +122,8 @@ const containerBox = {
 const containerInfoCapa = {
   position: "absolute",
   alignSelf: "center",
-  //alignItems: "center",
-  //alignContent: "center",
+  alignItems: "center",
+  alignContent: "center",
   justifyContent: "center",
   height: 200,
   width: 300,
