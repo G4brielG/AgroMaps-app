@@ -92,7 +92,7 @@ export default function TabMenu({ navigation }) {
             {/* {console.log('desde tab', usuario.rol)} */}
 
             {
-              // usuario?.rol === 'admin' && (
+              usuario?.rol === 'admin' && (
               <Tab.Screen
                 name="Capas"
                 component={Capas}
@@ -108,7 +108,7 @@ export default function TabMenu({ navigation }) {
                   headerRight: () => buttonSalir,
                 }}
               />
-              // )
+              )
             }
 
           </Tab.Navigator>
