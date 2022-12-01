@@ -1,36 +1,25 @@
 import { Text, View } from "react-native"
-import {useState, useEffect} from 'react'
+import { useState } from "react"
 import useSession from "../hooks/useSession"
+import { perfil, containerBox, containerProfile, container, container2 } from "../styles/styles"
 
-export function MiCuenta () {
-  const [ user, setUser ] = useState({})
-  const { usuario } = useSession()
+export function MiCuenta() {
+  // const [ usuario, setUsuario ] = useState({})
+  const { usuario, logout } = useSession()
+  console.log(usuario)
 
-  const handleFindUser = async () => {
-    const url = `${SERVER}/usuarios/${usuario._id}`
-    const content = {
-      method: "GET",
-      headers: { "Content-Type": "application/json", "auth-token": `${usuario.token}` },
-    }
-    const response = await fetch(url, content)
-    const json = await response.json()
-    response.ok && setUser(json)
-  }
-  useEffect(() => {
-    usuario !== null &&
-    handleFindUser()
-  }, [])
-  useEffect(() => {
-    console.log(user)
-  }, [user])
   return (
-    <View>
-      <View>
-        <Text>Mi cuenta</Text>
-      </View>
-      <View>
-        <Text>a</Text>
-      </View>
-    </View>
+    <>
+    {
+      usuario?.usuario && (
+      <View style={container}>
+        <View style={container2}> 
+          <Text>Usuario: {usuario.usuario}</Text>
+          <Text>Correo: {usuario.email}</Text>
+          <Text>Teléfono: {usuario.telefono}</Text>
+        </View>
+      </View>)
+    }
+    </>
   )
 }
