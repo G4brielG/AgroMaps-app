@@ -135,13 +135,13 @@ const fontF = {
 }
 
 const container2 = {
-  justifyContent: 'center',
-  alignItems: 'center',
-  // borderWidth: 10,
-  height: '60%',
-  width: "80%",
-  backgroundColor: 'white',
-  borderRadius: 5,
+  // justifyContent: 'center',
+  // alignItems: 'center',
+  // // borderWidth: 10,
+  // height: '60%',
+  // width: "80%",
+  // backgroundColor: 'white',
+  // borderRadius: 5,
 }
 const perfil = {
   justifyContent: 'center',

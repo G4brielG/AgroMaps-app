@@ -39,14 +39,14 @@ export default function TabMenu({ navigation }) {
             tabBarShowLabel: false,
             tabBarStyle: {
               position: "absolute",
-              bottom: 15,
-              // left: 10,
-              // right: 10,
+              bottom: "1%",
+              left: "2%",
+              right: "2%",
               elevation: 3,
               borderRadius: 15,
-              height: 60,
+              height: "5%",
               backgroundColor: "#E8ECF1",
-              width: 480
+              // width: "98%"
             },
           }} initialRouteName="Inicio">
             <Tab.Screen
