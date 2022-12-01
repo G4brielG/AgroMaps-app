@@ -15,21 +15,20 @@ import { Motion } from "@legendapp/motion"
 import { Modal } from "../components/Modal"
 import { animate, transition } from "../styles/motion"
 const iconMarker = require("../imgs/iconblue-location-agromaps.png")
-import { SERVER } from "../Services"
+import { SERVER, IP } from "../Services"
 import Markers from "../components/Markers";
 import useSession from "../hooks/useSession";
 
-const capaTest = {
-  hidrico: 'http://192.168.216.178/tileserver-php-master/ERHIDR/{z}/{x}/{y}.png',
-  alcalin: 'http://192.168.216.178/tileserver-php-master/ALCALIN/{z}/{x}/{y}.png',
-  drenaje: 'http://192.168.216.178/tileserver-php-master/DRENAJE/{z}/{x}/{y}.png'
-}
+// const capaTest = {
+//   hidrico: 'http://192.168.216.178/tileserver-php-master/ERHIDR/{z}/{x}/{y}.png',
+//   alcalin: 'http://192.168.216.178/tileserver-php-master/ALCALIN/{z}/{x}/{y}.png',
+//   drenaje: 'http://192.168.216.178/tileserver-php-master/DRENAJE/{z}/{x}/{y}.png'
+// }
 
 export function Map() {
   const [capa, setCapa] = useState([])
   const [capaSelec, setCapaSelec] = useState({})
   const [render, setRender] = useState(false)
-  const [location, setLocation] = useState(null);
 
   const [show, setShow] = useState({
     showCapas: false,
@@ -42,8 +41,6 @@ export function Map() {
     latitude: 0,
     longitude: 0
   })
-
-  const { usuario } = useSession()
 
   //* ESTADO EN EL CUAL SE GUARDA EL CONJUNTO DE COORDENADAS
   const [marker, setMarker] = useState([])
@@ -74,17 +71,17 @@ export function Map() {
     response.ok && setCapa(json)
   }
 
-  const handleSubmitMarker = async () => {
-    const url = `${SERVER}/ubicaciones/${usuario._id}`
-    const content = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: { ubicacion: miliMarker }
-    }
-    const response = await fetch(url, content)
-    const json = await response.json()
-    response.ok && setCapa(json)
-  }
+  // const handleSubmitMarker = async () => {
+  //   const url = `${SERVER}/ubicaciones/${usuario._id}`
+  //   const content = {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: { ubicacion: miliMarker }
+  //   }
+  //   const response = await fetch(url, content)
+  //   const json = await response.json()
+  //   response.ok && setCapa(json)
+  // }
 
   const requestPermission = async () => {
     try {
@@ -128,7 +125,7 @@ export function Map() {
     <View>
       <MapView
         style={map}
-        // initialRegion={region}
+        initialRegion={region}
         onLongPress={(e) => {
           const { latitude, longitude } = e.nativeEvent.coordinate;
           //* SETEO DE COORDENADAS EN CADA OBJ, PARA REGISTRAR MARCADORES
@@ -150,16 +147,11 @@ export function Map() {
         }
         {capaSelec.local !== undefined && render && (
           <MapView.UrlTile
-            urlTemplate={capaTest}
+            urlTemplate={`${IP}/${capaSelec.local}`}
             zIndex={-1}
             style={{ opacity: 0.7 }}
           />
         )}
-        <MapView.UrlTile
-          urlTemplate={capaTest.alcalin}
-          zIndex={-1}
-          style={{ opacity: 0.7 }}
-        />
 
         <Marker
           icon={iconMarker}
