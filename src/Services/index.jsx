@@ -1,0 +1,1 @@
+export default SERVER = 'https://agromaps.herokuapp.com';

@@ -15,7 +15,7 @@ import { Motion } from "@legendapp/motion"
 import { Modal } from "../components/Modal"
 import { animate, transition } from "../styles/motion"
 const iconMarker = require("../../assets/pin_location_map_marker_placeholder_icon_146263.png")
-import SERVER from "../Services"
+import SERVER from "../Services/index"
 
 export function Map() {
   const [capa, setCapa] = useState([])
@@ -62,7 +62,6 @@ export function Map() {
     if (render) {
       setRender(false)
     }
-
     setTimeout(() => {
       setRender(true)
       return capa
@@ -72,6 +71,7 @@ export function Map() {
   useEffect(() => {
     handleFindLayers()
   }, [])
+  
   return (
     <View>
       <MapView
@@ -101,14 +101,15 @@ export function Map() {
         {
           //* VALIDACIÓN DE ESTADO PARA RENDERIZAR CAPAS */
         }
-        {capaSelec !== null ||
-          (capaSelec !== undefined && render && (
+        {/* {capaSelec !== null ||
+          (capaSelec !== undefined &&  */}
+          {  (capaSelec !== null || capaSelec !== undefined) && (
             <MapView.UrlTile
               urlTemplate={capaSelec.api}
               zIndex={-1}
               style={{ opacity: 1 }}
             />
-          ))}
+          )}
         <Marker
           icon={iconMarker}
           coordinate={{
@@ -203,7 +204,10 @@ export function Map() {
           {capa.map(({ titulo, api, simbologia }, index) => (
             <TouchableOpacity
               key={"capa-" + index}
-              onPress={() => setCapaSelec({ titulo, api, simbologia })}
+              onPress={() => {
+                setCapaSelec({ titulo, api, simbologia })
+                console.log(capaSelec)
+              }}
             >
               <Text style={button}>{titulo}</Text>
             </TouchableOpacity>
