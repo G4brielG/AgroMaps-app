@@ -253,7 +253,7 @@ export function Map() {
           <Modal header={`INFORMACIÓN DE LA CAPA SELECCIONADA`}>
             <Image
               source={{ uri: capaSelec.simbologia }}
-              style={{ width: 180, height: 100, resizeMode: 'cover' }}
+              style={{ width: 300, height: 370, resizeMode: 'contain' }}
             />
           </Modal>
         </Motion.View>

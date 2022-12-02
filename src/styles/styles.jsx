@@ -125,9 +125,10 @@ const containerInfoCapa = {
   alignItems: "center",
   alignContent: "center",
   justifyContent: "center",
-  height: 200,
-  width: 300,
-  backgroundColor: "white"
+  height: 400,
+  width: 350,
+  backgroundColor: "white",
+  borderRadius: 15
 }
 
 const fontF = {
