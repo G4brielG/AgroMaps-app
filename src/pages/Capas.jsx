@@ -15,7 +15,7 @@ const Capas = ({navigation}) => {
   const validacion = () => {
 
     if (form.titulo === undefined || "") {
-      
+      console.log("Capas, linea 18")
       setErrors({...errors, Error: "Asegurese de no dejar campos vacios"})
       return false
     }else{
