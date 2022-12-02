@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 import { Dimensions } from 'react-native';
 
 const body = {
-  
+
 }
 
 const container = {
@@ -43,9 +43,10 @@ const titless = {
   textAlign: "center",
   height: 60,
   padding: 10,
-  fontSize: 25,
-  color: "#000000",
+  fontSize: 35,
+  color: "#ffffff",
 }
+
 const regtext = {
   textAlign: "center",
   height: 50,
@@ -146,18 +147,62 @@ const container2 = {
 const perfil = {
   justifyContent: 'center',
   height: '100%',
-  backgroundColor: '#18934C',
-  width:"100%",
-  position: "absolute",
+  backgroundColor: '#aaaaaa',
+  width: "100%",
+
+}
+
+const linearGradient = {
+  justifyContent: 'center',
+  alignItems: 'center',
+  // borderWidth: 1,
+  //flex: 1,
+  height: '15%',
+  // backgroundColor: '#142c4c'
 }
 const containerProfile = {
+  padding: "4%",
   elevation: 0,
   borderRadius: 15,
-  height: 930,
-  backgroundColor: "#E8ECF1",
+  height: "100%",
+  backgroundColor: "#142c4c",
+  bottom: "2%",
   width: "100%",
-  bottom:"0%"
+  // left: "0.1%"
 }
+
+const titleProfile = {
+  // textAlign: "center",
+  height: 60,
+  paddingTop: 20,
+  fontSize: 20,
+  color: "#ffffff",
+}
+
+const nameProfile = {
+  textAlign: "center",
+  height: 60,
+  padding: 0,
+  fontSize: 35,
+  color: "#ffffff",
+}
+
+const infoProfile = {
+  // textAlign: "center",
+  // height: 25,
+  padding: 5,
+  fontSize: 15,
+  color: "#ffffff",
+}
+
+const picProfile = {
+  justifyContent: 'center',
+  alignItems: 'center',
+  // borderWidth: 1,
+  //flex: 1,
+  height: '15%',
+}
+
 export {
   container,
   input,
@@ -179,5 +224,10 @@ export {
   fontF,
   container2,
   containerProfile,
-  perfil
+  perfil,
+  linearGradient,
+  infoProfile,
+  titleProfile,
+  picProfile,
+  nameProfile
 }
