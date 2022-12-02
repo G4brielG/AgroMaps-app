@@ -5,7 +5,7 @@ import { NativeBaseProvider } from "native-base"
 import { useState } from "react"
 import useSession from "../hooks/useSession"
 import ipf from '../imgs/Agromaps-blanco.png'
-import SERVER from "../Services";
+import {SERVER} from "../Services";
 
 export function Login({ navigation }) {
   const [form, setForm] = useState({})

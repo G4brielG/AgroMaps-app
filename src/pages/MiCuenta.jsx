@@ -1,36 +1,25 @@
 import { Text, View } from "react-native"
-import { perfil, containerBox, containerProfile, button, nameProfile, linearGradient, picProfile, text, titless, titleProfile, infoProfile } from "../styles/styles"
-import { LinearGradient } from 'expo-linear-gradient';
-import { Avatar, Button, Divider, List } from 'react-native-paper';
-import React from "react";
-import useSession from "../hooks/useSession";
-
-
+import { useState } from "react"
+import useSession from "../hooks/useSession"
+import { perfil, containerBox, containerProfile, container, container2 } from "../styles/styles"
 
 export function MiCuenta() {
-
-  const { usuario } = useSession()
+  // const [ usuario, setUsuario ] = useState({})
+  const { usuario, logout } = useSession()
   console.log(usuario)
 
   return (
     <>
-      <LinearGradient
-        style={linearGradient}
-        colors={['#81A5FC', '#E4EBFB']}>
-      </LinearGradient>
-      <View style={containerProfile}>
-        <View style={picProfile}>
-          <Avatar.Icon size={80} icon="code-braces-box" />
+    {
+      usuario?.usuario && (
+      <View style={container}>
+        <View style={container2}> 
+          <Text>Usuario: {usuario.usuario}</Text>
+          <Text>Correo: {usuario.email}</Text>
+          <Text>Teléfono: {usuario.telefono}</Text>
         </View>
-
-        <Text style={nameProfile}>{usuario.usuario}</Text>
-        <Text style={infoProfile}>{usuario.rol}</Text>
-        <Divider />
-
-        <Text style={titleProfile}>Informacion de contacto:</Text>
-        <Text style={infoProfile}>Correo:</Text>
-        <Text style={infoProfile}>Telefono:</Text>
-      </View>
+      </View>)
+    }
     </>
   )
 }

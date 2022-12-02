@@ -9,15 +9,21 @@ import {
   containerBox,
   containerInfoCapa,
 } from "../styles/styles"
-import { View, TouchableOpacity, Text, Image, TextInput } from "react-native";
+import { View, TouchableOpacity, Text, Image, TextInput, PermissionsAndroid } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
 import { Motion } from "@legendapp/motion"
 import { Modal } from "../components/Modal"
 import { animate, transition } from "../styles/motion"
 const iconMarker = require("../imgs/iconblue-location-agromaps.png")
-import SERVER from "../Services"
+import { SERVER, IP } from "../Services"
 import Markers from "../components/Markers";
 import useSession from "../hooks/useSession";
+
+// const capaTest = {
+//   hidrico: 'http://192.168.216.178/tileserver-php-master/ERHIDR/{z}/{x}/{y}.png',
+//   alcalin: 'http://192.168.216.178/tileserver-php-master/ALCALIN/{z}/{x}/{y}.png',
+//   drenaje: 'http://192.168.216.178/tileserver-php-master/DRENAJE/{z}/{x}/{y}.png'
+// }
 
 export function Map() {
   const [capa, setCapa] = useState([])
@@ -36,8 +42,6 @@ export function Map() {
     longitude: 0
   })
 
-  const { usuario } = useSession()
-
   //* ESTADO EN EL CUAL SE GUARDA EL CONJUNTO DE COORDENADAS
   const [marker, setMarker] = useState([])
   //* VALIDACIÓN PARA INGRESAR NOMBRE DEL MARCADOR A AGREGAR
@@ -52,8 +56,8 @@ export function Map() {
   const region = {
     latitude: -26.0822,
     longitude: -58.2784,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
+    latitudeDelta: 0.0722,
+    longitudeDelta: 0.0321,
   }
 
   const handleFindLayers = async () => {
@@ -67,23 +71,45 @@ export function Map() {
     response.ok && setCapa(json)
   }
 
-  const handleSubmitMarker = async () => {
-    const url = `${SERVER}/ubicaciones/${usuario._id}`
-    const content = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: { ubicacion: miliMarker }
+  // const handleSubmitMarker = async () => {
+  //   const url = `${SERVER}/ubicaciones/${usuario._id}`
+  //   const content = {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: { ubicacion: miliMarker }
+  //   }
+  //   const response = await fetch(url, content)
+  //   const json = await response.json()
+  //   response.ok && setCapa(json)
+  // }
+
+  const requestPermission = async () => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        {
+          title: "¿Desea permitir el acceso a su ubicación?",
+          message:
+            "La aplicación requiere de su ubicación para una mejor experiencia",
+          buttonNegative: "Cancelar",
+          buttonPositive: "Permitir"
+        }
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        console.log("You can use the camera");
+        // Geolocation.getCurrentPosition(info => console.log(info));
+      } else {
+        console.log("Camera permission denied");
+      }
+    } catch (err) {
+      console.warn(err);
     }
-    const response = await fetch(url, content)
-    const json = await response.json()
-    response.ok && setCapa(json)
-  }
+  };
 
   useEffect(() => {
     if (render) {
       setRender(false)
     }
-
     setTimeout(() => {
       setRender(true)
       return capaSelec
@@ -92,8 +118,9 @@ export function Map() {
 
   useEffect(() => {
     handleFindLayers()
-    console.log(usuario)
+    requestPermission()
   }, [])
+  
   return (
     <View>
       <MapView
@@ -110,23 +137,23 @@ export function Map() {
 
           //* CAMBIO DE ESTADO PARA INGRESAR NOMBRE DEL MARCADOR
           setMarcador(!marcador);
-          setTimeout(() => setValueMarker(1), 1);
-          // if (valueMarker === 0) {
-          // }
+          setTimeout(() => setValueMarker(1), 1)
         }}
         minZoomLevel={6}
-        maxZoomLevel={14}
+        maxZoomLevel={16}
       >
         {
           //* VALIDACIÓN DE ESTADO PARA RENDERIZAR CAPAS */
         }
-        {capaSelec.api !== undefined && render && (
-          <MapView.UrlTile
-            urlTemplate={capaSelec.api}
-            zIndex={-1}
-            style={{ opacity: 0.7 }}
-          />
-        )}
+        {/* {capaSelec !== null ||
+          (capaSelec !== undefined &&  */}
+          {  (capaSelec !== null || capaSelec !== undefined) && (
+            <MapView.UrlTile
+              urlTemplate={capaSelec.api}
+              zIndex={-1}
+              style={{ opacity: 1 }}
+            />
+          )}
         <Marker
           icon={iconMarker}
           coordinate={{
@@ -143,9 +170,9 @@ export function Map() {
         {
           //* VALIDACIÓN DE ESTADO PARA MOSTRAR MARCADORES
           marker.length > 0 &&
-            marker.map((element, index) => (
-              <Markers key={"marker-" + index} data={element} />
-            ))
+          marker.map((element, index) => (
+            <Markers key={"marker-" + index} data={element} />
+          ))
         }
       </MapView>
 
@@ -173,8 +200,8 @@ export function Map() {
               <Text
                 onPress={() => {
                   setMarker([...marker, miliMarker]);
-                  console.log(miliMarker); 
-                  handleSubmitMarker()
+                  console.log(miliMarker);
+                  // handleSubmitMarker()
                   setMiliMarker({});
                   //* SET DE ESTADO PARA OCULTAR FORM
                   setMarcador(!marcador);
@@ -216,10 +243,10 @@ export function Map() {
           <TouchableOpacity onPress={() => setCapaSelec({})}>
             <Text style={button}>X</Text>
           </TouchableOpacity>
-          {capa.map(({ titulo, api, simbologia }, index) => (
+          {capa.map(({ titulo, api, simbologia, local }, index) => (
             <TouchableOpacity
               key={"capa-" + index}
-              onPress={() => setCapaSelec({ titulo, api, simbologia })}
+              onPress={() => setCapaSelec({ titulo, api, simbologia, local })}
             >
               <Text style={button}>{titulo}</Text>
             </TouchableOpacity>
@@ -257,11 +284,11 @@ export function Map() {
           transition={transition}
         >
           <Modal header={`UBICACIONES DEL USUARIO`}>
-              {
-                marker.map((element, index) => (
-                  <Text key={index}>{element.nombre}</Text>
-                ))
-              }
+            {
+              marker.map((element, index) => (
+                <Text key={index}>{element.nombre}</Text>
+              ))
+            }
           </Modal>
         </Motion.View>
       )}

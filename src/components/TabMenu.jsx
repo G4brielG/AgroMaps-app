@@ -39,6 +39,7 @@ export default function TabMenu({ navigation }) {
             tabBarShowLabel: false,
             tabBarStyle: {
               position: "absolute",
+<<<<<<< HEAD
               bottom: "1%",
               left: "2%",
               right: "2%",
@@ -47,6 +48,16 @@ export default function TabMenu({ navigation }) {
               height: "5%",
               backgroundColor: "#E8ECF1",
               // width: "98%"
+=======
+              bottom: '1.5%',
+              // left: 10,
+              // right: 10,
+              elevation: 2,
+              borderRadius: 15,
+              height: '6%',
+              backgroundColor: "#E8ECF1",
+              width: '98%'
+>>>>>>> f279212b6c8af4d4f3de31bb72d20e2e852979bd
             },
           }} initialRouteName="Inicio">
             <Tab.Screen
