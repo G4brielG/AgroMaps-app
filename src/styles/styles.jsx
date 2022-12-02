@@ -54,13 +54,18 @@ const regtext = {
 
 const button = {
   textAlign: 'center',
-  textSize: '15px',
+  textSize: '26px',
+  //display: 'flow',
   margin: 10,
   padding: 10,
   borderRadius: 10,
   alignItems: 'center',
   color: 'white',
-  backgroundColor: '#28b296'
+  backgroundColor: '#28b296',
+}
+
+const buttonSalir = {
+
 }
 
 const containerMap = {
@@ -86,8 +91,9 @@ const image = {
 
 const home = {
   //flex: 1,
+  
   alignItems: 'center',
-
+  width: '100%',
 }
 
 const addButton = {
@@ -128,7 +134,8 @@ const containerInfoCapa = {
   height: 400,
   width: 350,
   backgroundColor: "white",
-  borderRadius: 15
+  borderRadius: 15,
+  margin: 20
 }
 
 const fontF = {
