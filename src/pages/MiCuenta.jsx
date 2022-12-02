@@ -40,6 +40,8 @@ export function MiCuenta() {
             <Text style={infoProfile}>Telefono: {usuario.telefono}</Text>
           )}
         <Divider />
+        <Text style={titleProfile}>Gestion de usuario:</Text>
+        <Button style={button}>Cerrar sesion</Button>
       </View>
     </>
   )
