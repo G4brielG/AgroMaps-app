@@ -26,12 +26,8 @@
     "react": "18.0.0",
     "react-dom": "^18.0.0",
     "react-hook-form": "^7.37.0",
-<<<<<<< HEAD
-    "react-native": "^0.69.6",
-=======
     "react-native": "0.69.6",
     "react-native-geolocation-service": "^5.3.1",
->>>>>>> f279212b6c8af4d4f3de31bb72d20e2e852979bd
     "react-native-hide-show-password-input": "^1.2.0",
     "react-native-input-select": "^0.18.0",
     "react-native-linear-gradient": "^2.6.2",
