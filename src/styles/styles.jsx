@@ -1,5 +1,5 @@
-import { usePropsWithComponentTheme } from 'native-base';
-import { StyleSheet } from 'react-native';
+// import { usePropsWithComponentTheme } from 'native-base';
+// import { StyleSheet } from 'react-native';
 import { Dimensions } from 'react-native';
 
 const body = {
@@ -10,7 +10,7 @@ const container = {
   justifyContent: 'center',
   alignItems: 'center',
   // borderWidth: 1,
-  //flex: 1,
+  flex: 1,
   height: '100%',
   backgroundColor: '#142c4c'
 }
@@ -65,8 +65,26 @@ const button = {
   backgroundColor: '#28b296',
 }
 
-const buttonSalir = {
-
+const containerProfile = {
+  padding: "4%",
+  elevation: 0,
+  borderRadius: 0,
+  height: "100%",
+  backgroundColor: "#142c4c",
+  bottom: "0%",
+  width: "100%",
+  // left: "0.1%"
+}
+const button2 = {
+  textAlign: 'center',
+  textSize: '26px',
+  color: 'white',
+  backgroundColor: '#28b296',
+  borderRadius: 10,
+  margin: 10,
+  alignItems: 'center',
+  padding: 10,
+  width:"40%",
 }
 
 const containerMap = {
@@ -168,16 +186,6 @@ const linearGradient = {
   height: '15%',
   // backgroundColor: '#142c4c'
 }
-const containerProfile = {
-  padding: "4%",
-  elevation: 0,
-  borderRadius: 15,
-  height: "100%",
-  backgroundColor: "#142c4c",
-  bottom: "2%",
-  width: "100%",
-  // left: "0.1%"
-}
 
 const titleProfile = {
   // textAlign: "center",
@@ -237,5 +245,6 @@ export {
   infoProfile,
   titleProfile,
   picProfile,
-  nameProfile
+  nameProfile,
+  button2
 }
