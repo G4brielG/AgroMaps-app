@@ -145,7 +145,6 @@ export function Map() {
         {
           //* VALIDACIÓN DE ESTADO PARA RENDERIZAR CAPAS */
         }
-<<<<<<< HEAD
         {capaSelec.local !== undefined && render && (
           <MapView.UrlTile
             urlTemplate={`${IP}/${capaSelec.local}`}
@@ -154,17 +153,6 @@ export function Map() {
           />
         )}
 
-=======
-        {/* {capaSelec !== null ||
-          (capaSelec !== undefined &&  */}
-          {  (capaSelec !== null || capaSelec !== undefined) && (
-            <MapView.UrlTile
-              urlTemplate={capaSelec.api}
-              zIndex={-1}
-              style={{ opacity: 1 }}
-            />
-          )}
->>>>>>> 3c9d3b48d2dec40795432792cf58551bfb7d20ae
         <Marker
           icon={iconMarker}
           coordinate={{

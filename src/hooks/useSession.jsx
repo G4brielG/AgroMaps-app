@@ -16,6 +16,7 @@ const useSession = () => {
     if (user !== null) {
       await AsyncStorage.setItem("user", JSON.stringify(user));
       setUsuario(user);
+      console.log(user)
     }
   }
 
