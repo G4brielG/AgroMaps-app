@@ -12,6 +12,7 @@ import { StatusBar } from "expo-status-bar"
 
 const Stack = createNativeStackNavigator()
 LogBox.ignoreLogs(["EventEmitter.removeListener"])
+// LogBox.ignoreAllLogs()
 export default function App() {
   const [initial, setInitial] = useState('')
   const { usuario } = useSession()
