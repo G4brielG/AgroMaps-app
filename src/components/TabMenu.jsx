@@ -6,6 +6,7 @@ import useSession from "../hooks/useSession"
 import { NativeBaseProvider } from "native-base";
 import { useState } from "react";
 import { Modal } from "./Modal"
+import { useEffect } from "react"
 
 export default function TabMenu({ navigation }) {
   const [ver, setVer] = useState(false)
@@ -17,6 +18,9 @@ export default function TabMenu({ navigation }) {
     setVer(false)
     navigation.navigate("Login")
   }
+useEffect(() => {
+
+}, [usuario])
 
   const buttonSalir = (
     <TouchableOpacity variant="unstyled" onPress={() => setVer(!ver)}>
@@ -58,6 +62,13 @@ export default function TabMenu({ navigation }) {
                 <MaterialCommunityIcons name="home" color={color} size={26} />
               ),
               headerRight: () => buttonSalir,
+              headerStyle: {
+                backgroundColor: '#142c4c',
+              },
+              headerTintColor: '#fff',
+              headerTitleStyle: {
+                fontWeight: 'bold',
+              },
             }}
           />
 
@@ -70,6 +81,13 @@ export default function TabMenu({ navigation }) {
                 <MaterialCommunityIcons name="map" color={color} size={26} />
               ),
               headerRight: () => buttonSalir,
+              headerStyle: {
+                backgroundColor: '#142c4c',
+              },
+              headerTintColor: '#fff',
+              headerTitleStyle: {
+                fontWeight: 'bold',
+              },
             }}
           />
 
@@ -86,6 +104,13 @@ export default function TabMenu({ navigation }) {
                 />
               ),
               headerRight: () => buttonSalir,
+              headerStyle: {
+                backgroundColor: '#142c4c',
+              },
+              headerTintColor: '#fff',
+              headerTitleStyle: {
+                fontWeight: 'bold',
+              },
             }}
           />
 
@@ -106,6 +131,13 @@ export default function TabMenu({ navigation }) {
                     />
                   ),
                   headerRight: () => buttonSalir,
+                  headerStyle: {
+                    backgroundColor: '#142c4c',
+                  },
+                  headerTintColor: '#fff',
+                  headerTitleStyle: {
+                    fontWeight: 'bold',
+                  },
                 }}
               />
             )

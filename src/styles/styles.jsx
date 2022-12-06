@@ -76,15 +76,15 @@ const containerProfile = {
   // left: "0.1%"
 }
 const button2 = {
-  textAlign: 'center',
-  textSize: '26px',
-  color: 'white',
-  backgroundColor: '#28b296',
-  borderRadius: 10,
-  margin: 10,
-  alignItems: 'center',
-  padding: 10,
-  width:"40%",
+  margin:"1%",
+  width:"30%",
+  borderRadius:10,
+}
+
+const button3 = {
+  margin:"1%",
+  width:"100%",
+  borderRadius:10,
 }
 
 const containerMap = {
@@ -246,5 +246,6 @@ export {
   titleProfile,
   picProfile,
   nameProfile,
-  button2
+  button2,
+  button3,
 }

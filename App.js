@@ -28,7 +28,7 @@ export default function App() {
     <>
       <NativeBaseProvider style={fontF}>
         <NavigationContainer>
-        <StatusBar style="auto" />
+        <StatusBar style="light" />
           <Stack.Navigator  initialRouteName={initial}>
             <Stack.Screen
               name="Login"
