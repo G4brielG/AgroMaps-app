@@ -6,6 +6,7 @@ import useSession from "../hooks/useSession"
 import { NativeBaseProvider } from "native-base";
 import { useState } from "react";
 import { Modal } from "./Modal"
+import { useEffect } from "react"
 
 export default function TabMenu({ navigation }) {
   const [ver, setVer] = useState(false)
@@ -17,6 +18,9 @@ export default function TabMenu({ navigation }) {
     setVer(false)
     navigation.navigate("Login")
   }
+useEffect(() => {
+
+}, [usuario])
 
   const buttonSalir = (
     <TouchableOpacity variant="unstyled" onPress={() => setVer(!ver)}>
