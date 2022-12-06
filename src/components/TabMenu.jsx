@@ -45,7 +45,7 @@ export default function TabMenu({ navigation }) {
             elevation: 3,
             borderRadius: 15,
             height: "5%",
-            backgroundColor: "#E8ECF1",
+            backgroundColor: "#142c4c",
             // width: "98%"
           },
         }} initialRouteName="Inicio">

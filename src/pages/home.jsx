@@ -51,7 +51,9 @@ export const Home = () => {
 
       <View>
         {capa.map(({ titulo, simbologia }, index) => (
-          <View style={containerInfoCapa}>
+          <View 
+          key={index}
+          style={containerInfoCapa}>
             <Text>{titulo}</Text>
             <Image
               source={{ uri: simbologia }}

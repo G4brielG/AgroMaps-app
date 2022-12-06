@@ -49,7 +49,7 @@ export function Map() {
   const { position } = useLocation()
 
   const handleFindLayers = async () => {
-    const url = `${IP}/layers`
+    const url = `${IP}:4000/layers`
     const content = {
       method: "GET",
       headers: { "Content-Type": "application/json" },
@@ -77,6 +77,7 @@ export function Map() {
     }
     setTimeout(() => {
       setRender(true)
+      console.log(capaSelec.local)
       return capaSelec
     }, 100)
   }, [capaSelec])
@@ -114,7 +115,7 @@ export function Map() {
           <MapView.UrlTile
             urlTemplate={`${IP}/${capaSelec.local}`}
             zIndex={-1}
-            style={{ opacity: 0.7 }}
+            style={{ opacity: 1 }}
           />
         )}
 
@@ -192,11 +193,7 @@ export function Map() {
 
       {show?.showCapas && (
         <Motion.View
-          style={{
-            position: "absolute",
-            top: "0%",
-            alignSelf: "flex-start",
-          }}
+          style={containerBox}
           animate={{
             x: value * 10,
             opacity: value ? 1 : 0.2,
@@ -204,17 +201,16 @@ export function Map() {
           }}
           transition={transition}
         >
-          <TouchableOpacity onPress={() => setCapaSelec({})}>
-            <Text style={button}>X</Text>
-          </TouchableOpacity>
-          {capa.map(({ titulo, api, simbologia, local }, index) => (
-            <TouchableOpacity
-              key={"capa-" + index}
-              onPress={() => setCapaSelec({ titulo, api, simbologia, local })}
-            >
-              <Text style={button}>{titulo}</Text>
-            </TouchableOpacity>
-          ))}
+          <Modal>
+            {capa.map(({ titulo, api, simbologia, local }, index) => (
+              <TouchableOpacity
+                key={"capa-" + index}
+                onPress={() => capaSelec?.titulo ? setCapaSelec({}) : setCapaSelec({ titulo, api, simbologia, local })}
+              >
+                <Text style={button}>{titulo}</Text>
+              </TouchableOpacity>
+            ))}
+          </Modal>
         </Motion.View>
       )}
 
