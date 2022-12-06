@@ -1,6 +1,6 @@
 import { Text, View } from "react-native"
-import { perfil, containerBox, container, container2, containerProfile, button, nameProfile, linearGradient, picProfile, text, titless, titleProfile, infoProfile } from "../styles/styles"
-//import { LinearGradient } from 'react-native-linear-gradient';
+import { perfil, containerBox, container, container2, containerProfile, button, nameProfile, linearGradient, picProfile, text, titless, titleProfile, infoProfile, button2 } from "../styles/styles"
+// import { LinearGradient } from 'expo-linear-gradient';
 import { Avatar, Button, Divider, List } from 'react-native-paper';
 import React, { useState } from "react";
 import useSession from "../hooks/useSession";
@@ -30,8 +30,7 @@ export function MiCuenta() {
               <Divider />
 
               <Text style={titleProfile}>Informacion de contacto:</Text>
-              <Text style={infoProfile}>Correo: prueba@gmail.com</Text>
-              <Text style={infoProfile}>Telefono: 3704090814</Text>
+              <Text style={infoProfile}>Correo: {usuario.correo}</Text>
             </>
           )
         }
@@ -41,7 +40,8 @@ export function MiCuenta() {
           )}
         <Divider />
         <Text style={titleProfile}>Gestion de usuario:</Text>
-        <Button style={button}>Cerrar sesion</Button>
+        <Button style={button2}>Cerrar sesion</Button>
+        <Button style={button2}>ASD</Button>
       </View>
     </>
   )
