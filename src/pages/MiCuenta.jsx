@@ -1,6 +1,6 @@
 import { Text, View } from "react-native"
 import { perfil, containerBox, container, container2, containerProfile, button, nameProfile, linearGradient, picProfile, text, titless, titleProfile, infoProfile } from "../styles/styles"
-import { LinearGradient } from 'expo-linear-gradient';
+//import { LinearGradient } from 'react-native-linear-gradient';
 import { Avatar, Button, Divider, List } from 'react-native-paper';
 import React, { useState } from "react";
 import useSession from "../hooks/useSession";
@@ -15,10 +15,10 @@ export function MiCuenta() {
   console.log("Usuario", usuario)
   return (
     <>
-      <LinearGradient
+      {/* <LinearGradient
         style={linearGradient}
         colors={['#81A5FC', '#E4EBFB']}>
-      </LinearGradient>
+      </LinearGradient> */}
       <View style={containerProfile}>
         <View style={picProfile}>
           <Avatar.Icon size={80} icon="code-braces-box" />
