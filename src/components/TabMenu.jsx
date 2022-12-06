@@ -58,6 +58,13 @@ export default function TabMenu({ navigation }) {
                 <MaterialCommunityIcons name="home" color={color} size={26} />
               ),
               headerRight: () => buttonSalir,
+              headerStyle: {
+                backgroundColor: '#142c4c',
+              },
+              headerTintColor: '#fff',
+              headerTitleStyle: {
+                fontWeight: 'bold',
+              },
             }}
           />
 
@@ -70,6 +77,13 @@ export default function TabMenu({ navigation }) {
                 <MaterialCommunityIcons name="map" color={color} size={26} />
               ),
               headerRight: () => buttonSalir,
+              headerStyle: {
+                backgroundColor: '#142c4c',
+              },
+              headerTintColor: '#fff',
+              headerTitleStyle: {
+                fontWeight: 'bold',
+              },
             }}
           />
 
@@ -86,6 +100,13 @@ export default function TabMenu({ navigation }) {
                 />
               ),
               headerRight: () => buttonSalir,
+              headerStyle: {
+                backgroundColor: '#142c4c',
+              },
+              headerTintColor: '#fff',
+              headerTitleStyle: {
+                fontWeight: 'bold',
+              },
             }}
           />
 
@@ -106,6 +127,13 @@ export default function TabMenu({ navigation }) {
                     />
                   ),
                   headerRight: () => buttonSalir,
+                  headerStyle: {
+                    backgroundColor: '#142c4c',
+                  },
+                  headerTintColor: '#fff',
+                  headerTitleStyle: {
+                    fontWeight: 'bold',
+                  },
                 }}
               />
             )
