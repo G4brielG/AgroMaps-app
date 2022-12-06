@@ -18,7 +18,6 @@
     "@react-navigation/native": "^6.0.12",
     "@react-navigation/native-stack": "^6.9.0",
     "expo": "~46.0.9",
-    "expo-linear-gradient": "~11.4.0",
     "expo-status-bar": "~1.4.0",
     "expo-storage": "^46.0.0",
     "link": "^1.5.1",
@@ -39,7 +38,8 @@
     "react-native-storage": "^1.0.1",
     "react-native-user-avatar": "^1.0.8",
     "react-native-web": "^0.18.9",
-    "react-native-webview": "^11.23.0"
+    "react-native-webview": "^11.23.0",
+    "expo-location": "~14.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
