@@ -9,21 +9,15 @@ import {
   containerBox,
   containerInfoCapa,
 } from "../styles/styles"
-import { View, TouchableOpacity, Text, Image, TextInput, PermissionsAndroid } from "react-native";
+import { View, TouchableOpacity, Text, Image, TextInput,  } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
 import { Motion } from "@legendapp/motion"
 import { Modal } from "../components/Modal"
-import { animate, transition } from "../styles/motion"
-const iconMarker = require("../imgs/iconblue-location-agromaps.png")
+import { transition } from "../styles/motion"
 import { SERVER, IP } from "../Services"
 import Markers from "../components/Markers";
-import useSession from "../hooks/useSession";
-
-// const capaTest = {
-//   hidrico: 'http://192.168.216.178/tileserver-php-master/ERHIDR/{z}/{x}/{y}.png',
-//   alcalin: 'http://192.168.216.178/tileserver-php-master/ALCALIN/{z}/{x}/{y}.png',
-//   drenaje: 'http://192.168.216.178/tileserver-php-master/DRENAJE/{z}/{x}/{y}.png'
-// }
+import useLocation from "../hooks/useLocation";
+const iconMarker = require("../imgs/iconblue-location-agromaps.png")
 
 export function Map() {
   const [capa, setCapa] = useState([])
@@ -52,16 +46,10 @@ export function Map() {
   const [valueUbi, setValueUbi] = useState(0)
   const [valueMarker, setValueMarker] = useState(0)
 
-  //* REGION INICIAL EN EL POLO CIENTÍFICO
-  const region = {
-    latitude: -26.0822,
-    longitude: -58.2784,
-    latitudeDelta: 0.0722,
-    longitudeDelta: 0.0321,
-  }
+  const { position } = useLocation()
 
   const handleFindLayers = async () => {
-    const url = `${SERVER}/layers`
+    const url = `${IP}/layers`
     const content = {
       method: "GET",
       headers: { "Content-Type": "application/json" },
@@ -83,29 +71,6 @@ export function Map() {
   //   response.ok && setCapa(json)
   // }
 
-  const requestPermission = async () => {
-    try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-        {
-          title: "¿Desea permitir el acceso a su ubicación?",
-          message:
-            "La aplicación requiere de su ubicación para una mejor experiencia",
-          buttonNegative: "Cancelar",
-          buttonPositive: "Permitir"
-        }
-      );
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        console.log("You can use the camera");
-        // Geolocation.getCurrentPosition(info => console.log(info));
-      } else {
-        console.log("Camera permission denied");
-      }
-    } catch (err) {
-      console.warn(err);
-    }
-  };
-
   useEffect(() => {
     if (render) {
       setRender(false)
@@ -118,14 +83,14 @@ export function Map() {
 
   useEffect(() => {
     handleFindLayers()
-    requestPermission()
-  }, [])
-  
+  }, [])  
   return (
     <View>
       <MapView
         style={map}
-        initialRegion={region}
+        region={
+          position
+        }
         onLongPress={(e) => {
           const { latitude, longitude } = e.nativeEvent.coordinate;
           //* SETEO DE COORDENADAS EN CADA OBJ, PARA REGISTRAR MARCADORES
@@ -156,13 +121,13 @@ export function Map() {
         <Marker
           icon={iconMarker}
           coordinate={{
-            latitude: region.latitude,
-            longitude: region.longitude,
+            latitude: position.latitude,
+            longitude: position.longitude,
           }}
         >
           <Callout>
             <View>
-              <Text>Polo Científico</Text>
+              <Text>Ubicación actual</Text>
             </View>
           </Callout>
         </Marker>

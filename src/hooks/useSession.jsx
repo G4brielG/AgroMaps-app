@@ -5,6 +5,7 @@ const useSession = () => {
   const [usuario, setUsuario] = useState(null)
 
   const getItem = async () => {
+    
     const user = JSON.parse(await AsyncStorage.getItem("user"));
     setUsuario(user)
   }
@@ -12,6 +13,7 @@ const useSession = () => {
   const login = async (user) => {
     await AsyncStorage.removeItem('user')
     setUsuario(null)
+    console.log("a")
 
     if (user !== null) {
       await AsyncStorage.setItem("user", JSON.stringify(user));
