@@ -1,16 +1,16 @@
-import { usePropsWithComponentTheme } from 'native-base';
-import { StyleSheet } from 'react-native';
+// import { usePropsWithComponentTheme } from 'native-base';
+// import { StyleSheet } from 'react-native';
 import { Dimensions } from 'react-native';
 
 const body = {
-  
+
 }
 
 const container = {
   justifyContent: 'center',
   alignItems: 'center',
   // borderWidth: 1,
-  //flex: 1,
+  flex: 1,
   height: '100%',
   backgroundColor: '#142c4c'
 }
@@ -43,9 +43,10 @@ const titless = {
   textAlign: "center",
   height: 60,
   padding: 10,
-  fontSize: 25,
-  color: "#000000",
+  fontSize: 35,
+  color: "#ffffff",
 }
+
 const regtext = {
   textAlign: "center",
   height: 50,
@@ -54,13 +55,36 @@ const regtext = {
 
 const button = {
   textAlign: 'center',
-  textSize: '15px',
+  textSize: '26px',
+  //display: 'flow',
   margin: 10,
   padding: 10,
   borderRadius: 10,
   alignItems: 'center',
   color: 'white',
-  backgroundColor: '#28b296'
+  backgroundColor: '#28b296',
+}
+
+const containerProfile = {
+  padding: "4%",
+  elevation: 0,
+  borderRadius: 0,
+  height: "100%",
+  backgroundColor: "#142c4c",
+  bottom: "0%",
+  width: "100%",
+  // left: "0.1%"
+}
+const button2 = {
+  margin:"1%",
+  width:"30%",
+  borderRadius:10,
+}
+
+const button3 = {
+  margin:"1%",
+  width:"100%",
+  borderRadius:10,
 }
 
 const containerMap = {
@@ -86,8 +110,9 @@ const image = {
 
 const home = {
   //flex: 1,
+  
   alignItems: 'center',
-
+  width: '100%',
 }
 
 const addButton = {
@@ -125,9 +150,11 @@ const containerInfoCapa = {
   alignItems: "center",
   alignContent: "center",
   justifyContent: "center",
-  height: 200,
-  width: 300,
-  backgroundColor: "white"
+  height: 400,
+  width: 350,
+  backgroundColor: "white",
+  borderRadius: 15,
+  margin: 20
 }
 
 const fontF = {
@@ -146,18 +173,52 @@ const container2 = {
 const perfil = {
   justifyContent: 'center',
   height: '100%',
-  backgroundColor: '#18934C',
-  width:"100%",
-  position: "absolute",
-}
-const containerProfile = {
-  elevation: 0,
-  borderRadius: 15,
-  height: 930,
-  backgroundColor: "#E8ECF1",
+  backgroundColor: '#aaaaaa',
   width: "100%",
-  bottom:"0%"
+
 }
+
+const linearGradient = {
+  justifyContent: 'center',
+  alignItems: 'center',
+  // borderWidth: 1,
+  //flex: 1,
+  height: '15%',
+  // backgroundColor: '#142c4c'
+}
+
+const titleProfile = {
+  // textAlign: "center",
+  height: 60,
+  paddingTop: 20,
+  fontSize: 20,
+  color: "#ffffff",
+}
+
+const nameProfile = {
+  textAlign: "center",
+  height: 60,
+  padding: 0,
+  fontSize: 35,
+  color: "#ffffff",
+}
+
+const infoProfile = {
+  // textAlign: "center",
+  // height: 25,
+  padding: 5,
+  fontSize: 15,
+  color: "#ffffff",
+}
+
+const picProfile = {
+  justifyContent: 'center',
+  alignItems: 'center',
+  // borderWidth: 1,
+  //flex: 1,
+  height: '15%',
+}
+
 export {
   container,
   input,
@@ -179,5 +240,12 @@ export {
   fontF,
   container2,
   containerProfile,
-  perfil
+  perfil,
+  linearGradient,
+  infoProfile,
+  titleProfile,
+  picProfile,
+  nameProfile,
+  button2,
+  button3,
 }

@@ -6,6 +6,7 @@ import useSession from "../hooks/useSession"
 import { NativeBaseProvider } from "native-base";
 import { useState } from "react";
 import { Modal } from "./Modal"
+import { useEffect } from "react"
 
 export default function TabMenu({ navigation }) {
   const [ver, setVer] = useState(false)
@@ -17,6 +18,9 @@ export default function TabMenu({ navigation }) {
     setVer(false)
     navigation.navigate("Login")
   }
+useEffect(() => {
+
+}, [usuario])
 
   const buttonSalir = (
     <TouchableOpacity variant="unstyled" onPress={() => setVer(!ver)}>
@@ -35,64 +39,85 @@ export default function TabMenu({ navigation }) {
   return (
     <>
       <NativeBaseProvider >
-          <Tab.Navigator screenOptions={{
-            tabBarShowLabel: false,
-            tabBarStyle: {
-              position: "absolute",
-              bottom: '1.5%',
-              // left: 10,
-              // right: 10,
-              elevation: 2,
-              borderRadius: 15,
-              height: '6%',
-              backgroundColor: "#E8ECF1",
-              width: '98%'
-            },
-          }} initialRouteName="Inicio">
-            <Tab.Screen
-              name="Inicio"
-              component={Home}
-              options={{
-                tabBarLabel: "Inicio",
-                tabBarIcon: ({ color }) => (
-                  <MaterialCommunityIcons name="home" color={color} size={26} />
-                ),
-                headerRight: () => buttonSalir,
-              }}
-            />
+        <Tab.Navigator screenOptions={{
+          tabBarShowLabel: false,
+          tabBarStyle: {
+            position: "absolute",
+            bottom: "1%",
+            left: "2%",
+            right: "2%",
+            elevation: 3,
+            borderRadius: 15,
+            height: "5%",
+            backgroundColor: "#142c4c",
+            // width: "98%"
+          },
+        }} initialRouteName="Inicio">
+          <Tab.Screen
+            name="Inicio"
+            component={Home}
+            options={{
+              tabBarLabel: "Inicio",
+              tabBarIcon: ({ color }) => (
+                <MaterialCommunityIcons name="home" color={color} size={26} />
+              ),
+              headerRight: () => buttonSalir,
+              headerStyle: {
+                backgroundColor: '#142c4c',
+              },
+              headerTintColor: '#fff',
+              headerTitleStyle: {
+                fontWeight: 'bold',
+              },
+            }}
+          />
 
-            <Tab.Screen
-              name="Mapa"
-              component={Map}
-              options={{
-                tabBarLabel: "Mapa",
-                tabBarIcon: ({ color }) => (
-                  <MaterialCommunityIcons name="map" color={color} size={26} />
-                ),
-                headerRight: () => buttonSalir,
-              }}
-            />
+          <Tab.Screen
+            name="Mapa"
+            component={Map}
+            options={{
+              tabBarLabel: "Mapa",
+              tabBarIcon: ({ color }) => (
+                <MaterialCommunityIcons name="map" color={color} size={26} />
+              ),
+              headerRight: () => buttonSalir,
+              headerStyle: {
+                backgroundColor: '#142c4c',
+              },
+              headerTintColor: '#fff',
+              headerTitleStyle: {
+                fontWeight: 'bold',
+              },
+            }}
+          />
 
-            <Tab.Screen
-              name="Cuenta"
-              component={MiCuenta}
-              options={{
-                tabBarLabel: "Mi cuenta",
-                tabBarIcon: ({ color }) => (
-                  <MaterialCommunityIcons
-                    name="account"
-                    color={color}
-                    size={26}
-                  />
-                ),
-                headerRight: () => buttonSalir,
-              }}
-            />
+          <Tab.Screen
+            name="Cuenta"
+            component={MiCuenta}
+            options={{
+              tabBarLabel: "Mi cuenta",
+              tabBarIcon: ({ color }) => (
+                <MaterialCommunityIcons
+                  name="account"
+                  color={color}
+                  size={26}
+                />
+              ),
+              headerRight: () => buttonSalir,
+              headerStyle: {
+                backgroundColor: '#142c4c',
+              },
+              headerTintColor: '#fff',
+              headerTitleStyle: {
+                fontWeight: 'bold',
+              },
+            }}
+          />
 
-            {/* {console.log('desde tab', usuario.rol)} */}
+          {/* {console.log('desde tab', usuario.rol)} */}
 
-            {
-              usuario?.rol === "admin" && (
+          {
+            usuario?.rol === "admin" && (
               <Tab.Screen
                 name="Capas"
                 component={Capas}
@@ -106,12 +131,19 @@ export default function TabMenu({ navigation }) {
                     />
                   ),
                   headerRight: () => buttonSalir,
+                  headerStyle: {
+                    backgroundColor: '#142c4c',
+                  },
+                  headerTintColor: '#fff',
+                  headerTitleStyle: {
+                    fontWeight: 'bold',
+                  },
                 }}
               />
-              )
-            }
+            )
+          }
 
-          </Tab.Navigator>
+        </Tab.Navigator>
       </NativeBaseProvider>
 
       {ver && (

@@ -9,21 +9,15 @@ import {
   containerBox,
   containerInfoCapa,
 } from "../styles/styles"
-import { View, TouchableOpacity, Text, Image, TextInput, PermissionsAndroid } from "react-native";
+import { View, TouchableOpacity, Text, Image, TextInput,  } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
 import { Motion } from "@legendapp/motion"
 import { Modal } from "../components/Modal"
-import { animate, transition } from "../styles/motion"
-const iconMarker = require("../imgs/iconblue-location-agromaps.png")
+import { transition } from "../styles/motion"
 import { SERVER, IP } from "../Services"
 import Markers from "../components/Markers";
-import useSession from "../hooks/useSession";
-
-// const capaTest = {
-//   hidrico: 'http://192.168.216.178/tileserver-php-master/ERHIDR/{z}/{x}/{y}.png',
-//   alcalin: 'http://192.168.216.178/tileserver-php-master/ALCALIN/{z}/{x}/{y}.png',
-//   drenaje: 'http://192.168.216.178/tileserver-php-master/DRENAJE/{z}/{x}/{y}.png'
-// }
+import useLocation from "../hooks/useLocation";
+const iconMarker = require("../imgs/iconblue-location-agromaps.png")
 
 export function Map() {
   const [capa, setCapa] = useState([])
@@ -52,16 +46,10 @@ export function Map() {
   const [valueUbi, setValueUbi] = useState(0)
   const [valueMarker, setValueMarker] = useState(0)
 
-  //* REGION INICIAL EN EL POLO CIENTÍFICO
-  const region = {
-    latitude: -26.0822,
-    longitude: -58.2784,
-    latitudeDelta: 0.0722,
-    longitudeDelta: 0.0321,
-  }
+  const { position } = useLocation()
 
   const handleFindLayers = async () => {
-    const url = `${SERVER}/layers`
+    const url = `${IP}:4000/layers`
     const content = {
       method: "GET",
       headers: { "Content-Type": "application/json" },
@@ -83,49 +71,27 @@ export function Map() {
   //   response.ok && setCapa(json)
   // }
 
-  const requestPermission = async () => {
-    try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-        {
-          title: "¿Desea permitir el acceso a su ubicación?",
-          message:
-            "La aplicación requiere de su ubicación para una mejor experiencia",
-          buttonNegative: "Cancelar",
-          buttonPositive: "Permitir"
-        }
-      );
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        console.log("You can use the camera");
-        // Geolocation.getCurrentPosition(info => console.log(info));
-      } else {
-        console.log("Camera permission denied");
-      }
-    } catch (err) {
-      console.warn(err);
-    }
-  };
-
   useEffect(() => {
     if (render) {
       setRender(false)
     }
     setTimeout(() => {
       setRender(true)
+      console.log(capaSelec.local)
       return capaSelec
     }, 100)
   }, [capaSelec])
 
   useEffect(() => {
     handleFindLayers()
-    requestPermission()
-  }, [])
-  
+  }, [])  
   return (
     <View>
       <MapView
         style={map}
-        initialRegion={region}
+        region={
+          position
+        }
         onLongPress={(e) => {
           const { latitude, longitude } = e.nativeEvent.coordinate;
           //* SETEO DE COORDENADAS EN CADA OBJ, PARA REGISTRAR MARCADORES
@@ -149,20 +115,20 @@ export function Map() {
           <MapView.UrlTile
             urlTemplate={`${IP}/${capaSelec.local}`}
             zIndex={-1}
-            style={{ opacity: 0.7 }}
+            style={{ opacity: 1 }}
           />
         )}
 
         <Marker
           icon={iconMarker}
           coordinate={{
-            latitude: region.latitude,
-            longitude: region.longitude,
+            latitude: position.latitude,
+            longitude: position.longitude,
           }}
         >
           <Callout>
             <View>
-              <Text>Polo Científico</Text>
+              <Text>Ubicación actual</Text>
             </View>
           </Callout>
         </Marker>
@@ -227,11 +193,7 @@ export function Map() {
 
       {show?.showCapas && (
         <Motion.View
-          style={{
-            position: "absolute",
-            top: "0%",
-            alignSelf: "flex-start",
-          }}
+          style={containerBox}
           animate={{
             x: value * 10,
             opacity: value ? 1 : 0.2,
@@ -239,17 +201,16 @@ export function Map() {
           }}
           transition={transition}
         >
-          <TouchableOpacity onPress={() => setCapaSelec({})}>
-            <Text style={button}>X</Text>
-          </TouchableOpacity>
-          {capa.map(({ titulo, api, simbologia, local }, index) => (
-            <TouchableOpacity
-              key={"capa-" + index}
-              onPress={() => setCapaSelec({ titulo, api, simbologia, local })}
-            >
-              <Text style={button}>{titulo}</Text>
-            </TouchableOpacity>
-          ))}
+          <Modal>
+            {capa.map(({ titulo, api, simbologia, local }, index) => (
+              <TouchableOpacity
+                key={"capa-" + index}
+                onPress={() => capaSelec?.titulo ? setCapaSelec({}) : setCapaSelec({ titulo, api, simbologia, local })}
+              >
+                <Text style={button}>{titulo}</Text>
+              </TouchableOpacity>
+            ))}
+          </Modal>
         </Motion.View>
       )}
 
@@ -266,7 +227,7 @@ export function Map() {
           <Modal header={`INFORMACIÓN DE LA CAPA SELECCIONADA`}>
             <Image
               source={{ uri: capaSelec.simbologia }}
-              style={{ width: 180, height: 100, resizeMode: 'cover' }}
+              style={{ width: 300, height: 370, resizeMode: 'contain' }}
             />
           </Modal>
         </Motion.View>

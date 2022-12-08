@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import ipf from "../imgs/Agromaps-blanco.png";
 import { NativeBaseProvider } from "native-base";
 import { Text, View, Image, TextInput, TouchableOpacity, Alert } from "react-native";
-import SERVER from "../Services"
+import SERVER, { IP } from "../Services"
 // import SelectDropdown from 'react-native-select-dropdown'
 // import { useForm, Controller } from "react-hook-form";
 
@@ -23,28 +23,36 @@ export function Register({ navigation }) {
 
   const validacion = () => {
     if (form.usuario === undefined) {
-      setErrors({ ...errors, usuario: "Este campo es obligatorio" })
+      // setErrors({ ...errors, usuario: "Este campo es obligatorio" })
+      console.log("fallo 1")
       return false;
     } else if (form.usuario.length < 6 || form.usuario.length > 12) {
-      setErrors({ ...errors, usuario: "El usuario debe contener entre 6 y 12 caracteres" })
+      // setErrors({ ...errors, usuario: "El usuario debe contener entre 6 y 12 caracteres" })
+      console.log("fallo 1")
       return false;
     } else if (form.contrasena === undefined) {
-      setErrors({ ...errors, contrasena: "Este campo es obligatorio" })
+      // setErrors({ ...errors, contrasena: "Este campo es obligatorio" })
+      console.log("fallo 1")
       return false;
     } else if (form.contrasena.length < 6 || form.contrasena.length > 20) {
-      setErrors({ ...errors, contrasena: "La contraseña debe contener entre 6 y 20 caracteres" })
+      // setErrors({ ...errors, contrasena: "La contraseña debe contener entre 6 y 20 caracteres" })
+      console.log("fallo 1")
       return false;
     } else if (form.confContrasena === undefined) {
-      setErrors({ ...errors, confContrasena: "Este campo es obligatorio" })
+      // setErrors({ ...errors, confContrasena: "Este campo es obligatorio" })
+      console.log("fallo 1")
       return false;
     } else if (form.confContrasena != form.contrasena) {
-      setErrors({ ...errors, confContrasena: "Las contraseñas no coinciden" })
+      // setErrors({ ...errors, confContrasena: "Las contraseñas no coinciden" })
+      console.log("fallo 1")
       return false;
     } else if (form.correo === undefined) {
-      setErrors({ ...errors, correo: "Este campo es obligatorio" })
+      // setErrors({ ...errors, correo: "Este campo es obligatorio" })
+      console.log("fallo 1")
       return false;
     } else if (!validarEmail(form.correo)) {
-      setErrors({ ...errors, correo: "La direccion de correo no es una direccion valida" })
+      // setErrors({ ...errors, correo: "La direccion de correo no es una direccion valida" })
+      console.log("fallo 1")
       return false;
     } else {
       return true;
