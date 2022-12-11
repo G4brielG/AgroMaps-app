@@ -18,12 +18,10 @@ export default function App() {
   const { usuario } = useSession()
 
   useEffect(() => {
-    if(usuario === null) {
-      setInitial('Login')
-    } else {
-      setInitial('Home')
-    }
-  })
+    usuario === null
+    ? setInitial('Login')
+    : setInitial('Home')
+  }, [usuario])
   return (
     <>
       <NativeBaseProvider style={fontF}>

@@ -56,13 +56,41 @@ const regtext = {
 const button = {
   textAlign: 'center',
   textSize: '26px',
-  //display: 'flow',
   margin: 10,
   padding: 10,
   borderRadius: 10,
   alignItems: 'center',
   color: 'white',
   backgroundColor: '#28b296',
+}
+
+const buttonModal = {
+  marginBottom: 10,
+  textSize: '26px',
+  padding: 10,
+  borderRadius: 10,
+  alignItems: 'center',
+  backgroundColor: '#B5071E',
+}
+
+const buttonSecondary = {
+  marginBottom: 10,
+  textSize: '26px',
+  padding: 10,
+  borderRadius: 10,
+  alignItems: 'center',
+  backgroundColor: '#60687E',
+}
+
+const buttonCapaSelect = {
+  textAlign: 'center',
+  textSize: '26px',
+  margin: 10,
+  padding: 10,
+  borderRadius: 10,
+  alignItems: 'center',
+  color: 'white',
+  backgroundColor: "#142c4c",
 }
 
 const containerProfile = {
@@ -125,6 +153,16 @@ const addButton = {
   margin: 3
 }
 
+const addButtonDisabled = {
+  alignItems: 'center',
+  backgroundColor: '#666666',
+  justifyContent: 'center',
+  width: 50,
+  height: 50,
+  borderRadius: 25,
+  margin: 3
+}
+
 const addButtonText = {
   color: 'white',
   fontSize: 30,
@@ -155,6 +193,35 @@ const containerInfoCapa = {
   backgroundColor: "white",
   borderRadius: 15,
   margin: 20
+}
+
+const containerSalir = {
+  position: "absolute",
+  alignSelf: "center",
+  alignItems: "center",
+  alignContent: "center",
+  justifyContent: "center",
+  height: 200,
+  width: 350,
+  backgroundColor: "white",
+  borderRadius: 15
+}
+
+const headerStylee = {
+  marginBottom: 20,
+  fontSize: 17
+}
+
+const containerMarkers = {
+  position: "absolute",
+  alignSelf: "center",
+  alignItems: "center",
+  alignContent: "center",
+  justifyContent: "center",
+  height: 400,
+  width: 350,
+  backgroundColor: "white",
+  borderRadius: 15
 }
 
 const fontF = {
@@ -224,16 +291,23 @@ export {
   input,
   text,
   button,
+  buttonModal,
+  buttonSecondary,
+  buttonCapaSelect,
   map,
   containerMap,
   image,
   home,
   regtext,
   addButton,
+  addButtonDisabled,
   addButtonText,
   buttonContainer,
   containerBox,
   containerInfoCapa,
+  containerMarkers,
+  containerSalir,
+  headerStylee,
   alertaF,
   titless,
   capaText,

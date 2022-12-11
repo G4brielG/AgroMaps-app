@@ -1,22 +1,25 @@
 import React, { useState, useEffect } from "react"
 import MapView, { Marker, Callout } from "react-native-maps"
-import {
-  map,
-  button,
-  addButton,
-  buttonContainer,
-  addButtonText,
-  containerBox,
-  containerInfoCapa,
-} from "../styles/styles"
 import { View, TouchableOpacity, Text, Image, TextInput,  } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
 import { Motion } from "@legendapp/motion"
 import { Modal } from "../components/Modal"
 import { transition } from "../styles/motion"
-import { SERVER, IP } from "../Services"
+import { IP } from "../Services"
 import Markers from "../components/Markers";
 import useLocation from "../hooks/useLocation";
+import {
+  map,
+  button,
+  buttonCapaSelect,
+  addButton,
+  addButtonDisabled,
+  buttonContainer,
+  addButtonText,
+  containerBox,
+  containerInfoCapa,
+  containerMarkers
+} from "../styles/styles"
 const iconMarker = require("../imgs/iconblue-location-agromaps.png")
 
 export function Map() {
@@ -59,25 +62,12 @@ export function Map() {
     response.ok && setCapa(json)
   }
 
-  // const handleSubmitMarker = async () => {
-  //   const url = `${SERVER}/ubicaciones/${usuario._id}`
-  //   const content = {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: { ubicacion: miliMarker }
-  //   }
-  //   const response = await fetch(url, content)
-  //   const json = await response.json()
-  //   response.ok && setCapa(json)
-  // }
-
   useEffect(() => {
     if (render) {
       setRender(false)
     }
     setTimeout(() => {
       setRender(true)
-      console.log(capaSelec.local)
       return capaSelec
     }, 100)
   }, [capaSelec])
@@ -89,7 +79,7 @@ export function Map() {
     <View>
       <MapView
         style={map}
-        region={
+        initialRegion={
           position
         }
         onLongPress={(e) => {
@@ -145,12 +135,12 @@ export function Map() {
         // VALIDACIÓN DE ESTADO PARA INGRESAR NOMBRE DE MARCADOR
       }
       {marcador && (
-        <View style={containerInfoCapa}>
+        <View>
           <TextInput
             onChangeText={(value) =>
               setMiliMarker((prev) => ({ ...prev, nombre: value }))
             }
-            placeholder="Nombre del lugar"
+            placeholder="Nombre del marcador"
           />
           <Motion.View
             style={{ marginVertical: 10, flexDirection: "row" }}
@@ -164,11 +154,8 @@ export function Map() {
             <TouchableOpacity style={button}>
               <Text
                 onPress={() => {
-                  setMarker([...marker, miliMarker]);
-                  console.log(miliMarker);
-                  // handleSubmitMarker()
+                  setMarker([...marker, miliMarker])
                   setMiliMarker({});
-                  //* SET DE ESTADO PARA OCULTAR FORM
                   setMarcador(!marcador);
                   setValueMarker(0);
                 }}
@@ -202,12 +189,18 @@ export function Map() {
           transition={transition}
         >
           <Modal>
-            {capa.map(({ titulo, api, simbologia, local }, index) => (
+            {capa.map((element, index) => (
               <TouchableOpacity
                 key={"capa-" + index}
-                onPress={() => capaSelec?.titulo ? setCapaSelec({}) : setCapaSelec({ titulo, api, simbologia, local })}
+                onPress={() => capaSelec?.titulo ? setCapaSelec({}) : setCapaSelec(element)}
               >
-                <Text style={button}>{titulo}</Text>
+                <Text
+                  style={
+                    element.titulo === capaSelec.titulo
+                    ? buttonCapaSelect
+                    : button
+                  }
+                >{element.titulo}</Text>
               </TouchableOpacity>
             ))}
           </Modal>
@@ -224,7 +217,9 @@ export function Map() {
           }}
           transition={transition}
         >
-          <Modal header={`INFORMACIÓN DE LA CAPA SELECCIONADA`}>
+          <Modal
+            header={`INFORMACIÓN DE LA CAPA SELECCIONADA`}
+          >
             <Image
               source={{ uri: capaSelec.simbologia }}
               style={{ width: 300, height: 370, resizeMode: 'contain' }}
@@ -243,7 +238,10 @@ export function Map() {
           }}
           transition={transition}
         >
-          <Modal header={`UBICACIONES DEL USUARIO`}>
+          <Modal
+            estilo={containerMarkers}
+          >
+            <Text>MIS UBICACIONES</Text>
             {
               marker.map((element, index) => (
                 <Text key={index}>{element.nombre}</Text>
@@ -273,7 +271,16 @@ export function Map() {
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={addButton}
+          style={
+            capaSelec.titulo === undefined
+            ? addButtonDisabled
+            : addButton
+          }
+          disabled={
+            capaSelec.titulo === undefined
+            ? true
+            : false
+          }
           onPress={() => {
             setShow({ ...show, showInfo: !show.showInfo });
             if (valueCapa === 0) {

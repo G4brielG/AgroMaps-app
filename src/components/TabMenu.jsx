@@ -1,12 +1,13 @@
 import { Home, Map, MiCuenta, Capas } from "../pages/index"
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { TouchableOpacity, View, Text } from "react-native"
+import { TouchableOpacity, Text, View } from "react-native"
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import useSession from "../hooks/useSession"
 import { NativeBaseProvider } from "native-base";
 import { useState } from "react";
 import { Modal } from "./Modal"
-import { useEffect } from "react"
+import { containerSalir, headerStylee, button2 } from '../styles/styles'
+import { Button } from 'react-native-paper';
 
 export default function TabMenu({ navigation }) {
   const [ver, setVer] = useState(false)
@@ -18,9 +19,6 @@ export default function TabMenu({ navigation }) {
     setVer(false)
     navigation.navigate("Login")
   }
-useEffect(() => {
-
-}, [usuario])
 
   const buttonSalir = (
     <TouchableOpacity variant="unstyled" onPress={() => setVer(!ver)}>
@@ -28,14 +26,6 @@ useEffect(() => {
     </TouchableOpacity>
   )
 
-  const buttons = [
-    <TouchableOpacity key="cancelar" variant="unstyled" onPress={() => setVer(!ver)}>
-      <Text>Cancelar</Text>
-    </TouchableOpacity>,
-    <TouchableOpacity key="salir" variant="unstyled" onPress={cerrarSesion}>
-      <Text>Salir</Text>
-    </TouchableOpacity>
-  ]
   return (
     <>
       <NativeBaseProvider >
@@ -147,7 +137,16 @@ useEffect(() => {
       </NativeBaseProvider>
 
       {ver && (
-        <Modal header={`¿Está seguro de cerrar la sesión?`} footer={buttons} />
+        <Modal estilo={containerSalir}>
+
+          <Text style={headerStylee}>¿Está seguro de cerrar la sesión?</Text>
+          
+          <View style={{ flexDirection: "row" }}>
+            <Button style={button2} mode="contained" onPress={() => setVer(!ver)}>Cancelar</Button>
+            <Button style={button2} mode="contained" buttonColor="#B5071E" onPress={cerrarSesion}>Cerrar sesion</Button>
+          </View>
+          
+        </Modal>
       )}
     </>
   );
