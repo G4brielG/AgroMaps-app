@@ -1,4 +1,4 @@
-import { Text, View, TouchableOpacity } from "react-native"
+import { Text, View } from "react-native"
 import { containerProfile, nameProfile, picProfile, titleProfile, infoProfile, button2, button3 } from "../styles/styles"
 // import { LinearGradient } from 'expo-linear-gradient';
 import { Avatar, Button, Divider } from 'react-native-paper';

@@ -18,6 +18,7 @@ export default function TabMenu({ navigation }) {
     setVer(false)
     navigation.navigate("Login")
   }
+
 useEffect(() => {
 
 }, [usuario])
