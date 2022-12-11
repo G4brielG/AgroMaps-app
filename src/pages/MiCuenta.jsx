@@ -26,7 +26,7 @@ export function MiCuenta(navigation) {
   }, [usuario])
 
   const buttons = [
-    <View style={{alignContent:"center"}}>
+    <View style={{ alignContent: "center" }}>
       <Button key="cancelar" variant="unstyled" mode="contained" style={button3} onPress={() => setVer(!ver)}>
         <Text>Cancelar</Text>
       </Button>
@@ -38,10 +38,6 @@ export function MiCuenta(navigation) {
 
   return (
     <>
-      {/* <LinearGradient
-        style={linearGradient}
-        colors={['#81A5FC', '#E4EBFB']}>
-      </LinearGradient> */}
       <View style={containerProfile}>
         <View style={picProfile}>
           <Avatar.Icon size={80} icon="code-braces-box" />
@@ -61,16 +57,7 @@ export function MiCuenta(navigation) {
           usuario?.telefono === !null && (
             <Text style={infoProfile}>Telefono: {usuario.telefono}</Text>
           )}
-        <Divider />
-        <Text style={titleProfile}>Gestion de usuario:</Text>
-        <View style={{ flexDirection: "row" }}>
-          <Button style={button2} mode="contained">Editar Perfil</Button>
-          <Button style={button2} mode="contained" buttonColor="#B5071E" onPress={() => setVer(!ver)}>Cerrar sesion</Button>
-        </View>
       </View>
-      {ver && (
-        <Modal header={`¿Está seguro de cerrar la sesión?`} footer={buttons} />
-      )}
     </>
   )
 }

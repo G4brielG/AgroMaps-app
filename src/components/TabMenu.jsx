@@ -7,6 +7,8 @@ import { NativeBaseProvider } from "native-base";
 import { useState } from "react";
 import { Modal } from "./Modal"
 import { useEffect } from "react"
+import { Button } from 'react-native-paper';
+import { button3 } from "../styles/styles"
 
 export default function TabMenu({ navigation }) {
   const [ver, setVer] = useState(false)
@@ -30,12 +32,14 @@ useEffect(() => {
   )
 
   const buttons = [
-    <TouchableOpacity key="cancelar" variant="unstyled" onPress={() => setVer(!ver)}>
+    <View style={{alignContent:"center"}}>
+    <Button key="cancelar" variant="unstyled" mode="contained" style={button3} onPress={() => setVer(!ver)}>
       <Text>Cancelar</Text>
-    </TouchableOpacity>,
-    <TouchableOpacity key="salir" variant="unstyled" onPress={cerrarSesion}>
+    </Button>
+    <Button key="salir" variant="unstyled" mode="contained" style={button3} buttonColor="#B5071E" onPress={cerrarSesion}>
       <Text>Salir</Text>
-    </TouchableOpacity>
+    </Button>
+  </View>
   ]
   return (
     <>
