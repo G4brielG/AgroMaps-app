@@ -1,96 +1,97 @@
-import React, { useState, useEffect } from "react"
-import MapView, { Marker, Callout } from "react-native-maps"
+import React, { useState, useEffect } from "react";
+import MapView, { Marker, Callout } from "react-native-maps";
 import {
   map,
   button,
+  buttonCapaSelect,
   addButton,
+  addButtonDisabled,
   buttonContainer,
   addButtonText,
   containerBox,
   containerInfoCapa,
-} from "../styles/styles"
-import { View, TouchableOpacity, Text, Image, TextInput, ScrollView  } from "react-native";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
-import { Motion } from "@legendapp/motion"
-import { Modal } from "../components/Modal"
-import { transition } from "../styles/motion"
-import { SERVER, IP } from "../Services"
+  containerFormUbi,
+  containerUbi,
+} from "../styles/styles";
+import {
+  View,
+  TouchableOpacity,
+  Text,
+  Image,
+  TextInput,
+  ScrollView,
+} from "react-native";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { Motion } from "@legendapp/motion";
+import { Modal } from "../components/Modal";
+import { transition } from "../styles/motion";
+import { SERVER, IP } from "../Services";
 import Markers from "../components/Markers";
 import useLocation from "../hooks/useLocation";
-const iconMarker = require("../imgs/iconblue-location-agromaps.png")
+const iconMarker = require("../imgs/iconblue-location-agromaps.png");
 
 export function Map() {
-  const [capa, setCapa] = useState([])
-  const [capaSelec, setCapaSelec] = useState({})
-  const [render, setRender] = useState(false)
+  const [capa, setCapa] = useState([]);
+  const [capaSelec, setCapaSelec] = useState({});
+  const [render, setRender] = useState(false);
 
   const [show, setShow] = useState({
     showInfo: false,
-    showUbi: false
-  })
+    showUbi: false,
+  });
 
   const [miliMarker, setMiliMarker] = useState({
-    nombre: '',
+    nombre: "",
     latitude: 0,
-    longitude: 0
-  })
+    longitude: 0,
+  });
 
   //* ESTADO EN EL CUAL SE GUARDA EL CONJUNTO DE COORDENADAS
-  const [marker, setMarker] = useState([])
+  const [marker, setMarker] = useState([]);
   //* VALIDACIÓN PARA INGRESAR NOMBRE DEL MARCADOR A AGREGAR
-  const [marcador, setMarcador] = useState(false)
+  const [marcador, setMarcador] = useState(false);
 
-  const [value, setValue] = useState(0)
-  const [valueCapa, setValueCapa] = useState(0)
-  const [valueUbi, setValueUbi] = useState(0)
-  const [valueMarker, setValueMarker] = useState(0)
+  const [value, setValue] = useState(0);
+  const [valueCapa, setValueCapa] = useState(0);
+  const [valueUbi, setValueUbi] = useState(0);
+  const [valueMarker, setValueMarker] = useState(0);
+  const [zoomRegion, setZoomRegion] = useState(null)
 
-  const { position } = useLocation()
+  const { position } = useLocation();
 
   const handleFindLayers = async () => {
-    const url = `${IP}:4000/layers`
+    const url = `${IP}:4000/layers`;
     const content = {
       method: "GET",
       headers: { "Content-Type": "application/json" },
-    }
-    const response = await fetch(url, content)
-    const json = await response.json()
-    response.ok && setCapa(json)
-  }
-
-  // const handleSubmitMarker = async () => {
-  //   const url = `${SERVER}/ubicaciones/${usuario._id}`
-  //   const content = {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: { ubicacion: miliMarker }
-  //   }
-  //   const response = await fetch(url, content)
-  //   const json = await response.json()
-  //   response.ok && setCapa(json)
-  // }
+    };
+    const response = await fetch(url, content);
+    const json = await response.json();
+    response.ok && setCapa(json);
+  };
 
   useEffect(() => {
     if (render) {
-      setRender(false)
+      setRender(false);
     }
     setTimeout(() => {
-      setRender(true)
-      console.log(capaSelec.local)
-      return capaSelec
-    }, 100)
-  }, [capaSelec])
+      setRender(true);
+      return capaSelec;
+    }, 100);
+  }, [capaSelec]);
 
   useEffect(() => {
-    handleFindLayers()
-  }, [])  
+    handleFindLayers();
+  }, []);
   return (
     <View>
       <MapView
+        zoomEnabled={true}
+        zoomControlEnabled={true}
         style={map}
-        region={
-          position
-        }
+        initialRegion={position}
+        region={zoomRegion}
+        // onRegionChangeComplete={(value) => setZoomRegion(value)}
         onLongPress={(e) => {
           const { latitude, longitude } = e.nativeEvent.coordinate;
           //* SETEO DE COORDENADAS EN CADA OBJ, PARA REGISTRAR MARCADORES
@@ -102,7 +103,7 @@ export function Map() {
 
           //* CAMBIO DE ESTADO PARA INGRESAR NOMBRE DEL MARCADOR
           setMarcador(!marcador);
-          setTimeout(() => setValueMarker(1), 1)
+          setTimeout(() => setValueMarker(1), 1);
         }}
         minZoomLevel={6}
         maxZoomLevel={16}
@@ -134,9 +135,9 @@ export function Map() {
         {
           //* VALIDACIÓN DE ESTADO PARA MOSTRAR MARCADORES
           marker.length > 0 &&
-          marker.map((element, index) => (
-            <Markers key={"marker-" + index} data={element} />
-          ))
+            marker.map((element, index) => (
+              <Markers key={"marker-" + index} data={element} />
+            ))
         }
       </MapView>
 
@@ -144,12 +145,21 @@ export function Map() {
         // VALIDACIÓN DE ESTADO PARA INGRESAR NOMBRE DE MARCADOR
       }
       {marcador && (
-        <View style={containerInfoCapa}>
+        <View style={containerFormUbi}>
+          <Text style={{ marginTop: 30, marginBottom: 20, fontSize: 16 }}>
+            Agregar un nuevo marcador
+          </Text>
           <TextInput
+            style={{
+              borderWidth: 0.5,
+              width: 200,
+              borderRadius: 5,
+              padding: 2,
+            }}
             onChangeText={(value) =>
               setMiliMarker((prev) => ({ ...prev, nombre: value }))
             }
-            placeholder="Nombre del lugar"
+            placeholder="Nombre"
           />
           <Motion.View
             style={{ marginVertical: 10, flexDirection: "row" }}
@@ -160,23 +170,16 @@ export function Map() {
             }}
             transition={transition}
           >
-            <TouchableOpacity style={button}>
-              <Text
-                onPress={() => {
-                  setMarker([...marker, miliMarker]);
-                  console.log(miliMarker);
-                  // handleSubmitMarker()
-                  setMiliMarker({});
-                  //* SET DE ESTADO PARA OCULTAR FORM
-                  setMarcador(!marcador);
-                  setValueMarker(0);
-                }}
-              >
-                Agregar
-              </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={button}>
+            <TouchableOpacity
+              style={{
+                margin: 0,
+                marginLeft: -30,
+                marginRight: 10,
+                padding: 11,
+                borderRadius: 10,
+                backgroundColor: "#686868",
+              }}
+            >
               <Text
                 onPress={() => {
                   setMarcador(!marcador);
@@ -184,6 +187,25 @@ export function Map() {
                 }}
               >
                 Cancelar
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                margin: 0,
+                padding: 11,
+                borderRadius: 10,
+                backgroundColor: "#28b296",
+              }}
+            >
+              <Text
+                onPress={() => {
+                  setMarker([...marker, miliMarker]);
+                  setMiliMarker({});
+                  setMarcador(!marcador);
+                  setValueMarker(0);
+                }}
+              >
+                Agregar
               </Text>
             </TouchableOpacity>
           </Motion.View>
@@ -222,10 +244,11 @@ export function Map() {
           }}
           transition={transition}
         >
-          <Modal header={`INFORMACIÓN DE LA CAPA SELECCIONADA`}>
+          <Modal estilo={containerInfoCapa}>
+            <Text>INFORMACIÓN DE LA CAPA SELECCIONADA</Text>
             <Image
               source={{ uri: capaSelec.simbologia }}
-              style={{ width: 300, height: 370, resizeMode: 'contain' }}
+              style={{ width: 300, height: 370, resizeMode: "contain" }}
             />
           </Modal>
         </Motion.View>
@@ -241,12 +264,56 @@ export function Map() {
           }}
           transition={transition}
         >
-          <Modal header={`UBICACIONES DEL USUARIO`}>
-            {
-              marker.map((element, index) => (
-                <Text key={index}>{element.nombre}</Text>
-              ))
-            }
+          <Modal estilo={containerUbi}>
+            <Text
+              style={{
+                marginBottom: 10,
+                fontSize: 24,
+                alignSelf: "center"
+              }}
+            >
+              Mis ubicaciones
+            </Text>
+            <View style={{marginVertical: 10, flexDirection: "row"}}>
+                <Text style={{ fontSize: 24, width: 200 }}>Ubicación actual</Text>
+                <View>
+                  <TouchableOpacity
+                    style={{
+                      width: 40,
+                      alignItems: "center",
+                      padding: 10,
+                      borderRadius: 10,
+                      backgroundColor: "#6166FF",
+                      position: "absolute"
+                    }}
+                  >
+                    <Text onPress={() => setZoomRegion({...position })}>A</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            {marker.map((element, index) => (
+              <View key={index} style={{marginVertical: 10, flexDirection: "row"}}>
+                <Text style={{ fontSize: 24, width: 200 }}>{element.nombre}</Text>
+                <View>
+                  <TouchableOpacity
+                    style={{
+                      width: 40,
+                      alignItems: "center",
+                      padding: 10,
+                      borderRadius: 10,
+                      backgroundColor: "#6166FF",
+                      position: "absolute"
+                    }}
+                  >
+                    <Text onPress={() => (
+                      setTimeout(() => {
+                        setZoomRegion({ latitude: element.latitude, longitude: element.longitude, latitudeDelta: 5, longitudeDelta: 3})
+                      }, 100)
+                    )}>A</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            ))}
           </Modal>
         </Motion.View>
       )}
