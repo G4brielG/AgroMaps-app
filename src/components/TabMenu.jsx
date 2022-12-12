@@ -6,7 +6,7 @@ import useSession from "../hooks/useSession"
 import { NativeBaseProvider } from "native-base";
 import { useState } from "react";
 import { Modal } from "./Modal"
-import { containerSalir, headerStylee, button2 } from '../styles/styles'
+import { containerSalir, headerStylee, button3 } from '../styles/styles'
 import { Button } from 'react-native-paper';
 
 export default function TabMenu({ navigation }) {
@@ -25,7 +25,6 @@ export default function TabMenu({ navigation }) {
       <MaterialCommunityIcons name="login-variant" size={26} color="#890000" />
     </TouchableOpacity>
   )
-
   return (
     <>
       <NativeBaseProvider >
@@ -139,8 +138,12 @@ export default function TabMenu({ navigation }) {
           <Text style={headerStylee}>¿Está seguro de cerrar la sesión?</Text>
           
           <View style={{ flexDirection: "row" }}>
-            <Button style={button2} mode="contained" onPress={() => setVer(!ver)}>Cancelar</Button>
-            <Button style={button2} mode="contained" buttonColor="#B5071E" onPress={cerrarSesion}>Cerrar sesion</Button>
+            <Button key="cancelar" variant="unstyled" mode="contained" style={button3} onPress={() => setVer(!ver)}>
+              <Text>Cancelar</Text>
+            </Button>
+            <Button key="salir" variant="unstyled" mode="contained" style={button3} buttonColor="#B5071E" onPress={cerrarSesion}>
+              <Text>Salir</Text>
+            </Button>
           </View>
           
         </Modal>

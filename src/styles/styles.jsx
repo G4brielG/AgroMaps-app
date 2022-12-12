@@ -111,7 +111,7 @@ const button2 = {
 
 const button3 = {
   margin:"1%",
-  width:"100%",
+  width:"auto",
   borderRadius:10,
 }
 
@@ -188,11 +188,11 @@ const containerInfoCapa = {
   alignItems: "center",
   alignContent: "center",
   justifyContent: "center",
-  height: 400,
-  width: 350,
+  height: "auto",
+  width: "auto",
   backgroundColor: "white",
   borderRadius: 15,
-  margin: 20
+  margin: "5%"
 }
 
 const containerUbi = {
