@@ -195,6 +195,30 @@ const containerInfoCapa = {
   margin: 20
 }
 
+const containerUbi = {
+  position: "absolute",
+  alignSelf: "center",
+  padding: 30,
+  alignContent: "center",
+  height: 300,
+  width: 300,
+  backgroundColor: "white",
+  borderRadius: 15,
+  margin: 20
+}
+
+const containerFormUbi = {
+  position: "absolute",
+  alignSelf: "center",
+  alignItems: "center",
+  alignContent: "center",
+  height: 200,
+  width: 350,
+  backgroundColor: "white",
+  borderRadius: 15,
+  margin: 20
+}
+
 const containerSalir = {
   position: "absolute",
   alignSelf: "center",
@@ -305,6 +329,8 @@ export {
   buttonContainer,
   containerBox,
   containerInfoCapa,
+  containerFormUbi,
+  containerUbi,
   containerMarkers,
   containerSalir,
   headerStylee,

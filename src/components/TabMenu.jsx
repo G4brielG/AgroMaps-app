@@ -81,31 +81,6 @@ export default function TabMenu({ navigation }) {
             }}
           />
 
-          <Tab.Screen
-            name="Cuenta"
-            component={MiCuenta}
-            options={{
-              tabBarLabel: "Mi cuenta",
-              tabBarIcon: ({ color }) => (
-                <MaterialCommunityIcons
-                  name="account"
-                  color={color}
-                  size={26}
-                />
-              ),
-              headerRight: () => buttonSalir,
-              headerStyle: {
-                backgroundColor: '#142c4c',
-              },
-              headerTintColor: '#fff',
-              headerTitleStyle: {
-                fontWeight: 'bold',
-              },
-            }}
-          />
-
-          {/* {console.log('desde tab', usuario.rol)} */}
-
           {
             usuario?.rol === "admin" && (
               <Tab.Screen
@@ -133,6 +108,28 @@ export default function TabMenu({ navigation }) {
             )
           }
 
+          <Tab.Screen
+            name="Cuenta"
+            component={MiCuenta}
+            options={{
+              tabBarLabel: "Mi cuenta",
+              tabBarIcon: ({ color }) => (
+                <MaterialCommunityIcons
+                  name="account"
+                  color={color}
+                  size={26}
+                />
+              ),
+              headerRight: () => buttonSalir,
+              headerStyle: {
+                backgroundColor: '#142c4c',
+              },
+              headerTintColor: '#fff',
+              headerTitleStyle: {
+                fontWeight: 'bold',
+              },
+            }}
+          />
         </Tab.Navigator>
       </NativeBaseProvider>
 
