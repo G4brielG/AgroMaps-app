@@ -9,7 +9,7 @@ import {
   containerBox,
   containerInfoCapa,
 } from "../styles/styles"
-import { View, TouchableOpacity, Text, Image, TextInput,  } from "react-native";
+import { View, TouchableOpacity, Text, Image, TextInput, ScrollView  } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
 import { Motion } from "@legendapp/motion"
 import { Modal } from "../components/Modal"
@@ -25,7 +25,6 @@ export function Map() {
   const [render, setRender] = useState(false)
 
   const [show, setShow] = useState({
-    showCapas: false,
     showInfo: false,
     showUbi: false
   })
@@ -191,28 +190,27 @@ export function Map() {
         </View>
       )}
 
-      {show?.showCapas && (
-        <Motion.View
-          style={containerBox}
-          animate={{
-            x: value * 10,
-            opacity: value ? 1 : 0.2,
-            scale: value ? 1 : 0.5,
-          }}
-          transition={transition}
+      <View
+        style={{ width: '100%', height: '6%', position: 'absolute' }}
+      >
+        <ScrollView
+        horizontal={true}
         >
-          <Modal>
-            {capa.map(({ titulo, api, simbologia, local }, index) => (
-              <TouchableOpacity
-                key={"capa-" + index}
-                onPress={() => capaSelec?.titulo ? setCapaSelec({}) : setCapaSelec({ titulo, api, simbologia, local })}
-              >
-                <Text style={button}>{titulo}</Text>
-              </TouchableOpacity>
-            ))}
-          </Modal>
-        </Motion.View>
-      )}
+          {capa.map(({ titulo, api, simbologia, local }, index) => (
+            <TouchableOpacity
+              key={"capa-" + index}
+              nextFocusDown={0.7}
+              onPress={() => {
+                capaSelec?.titulo ? 
+                setCapaSelec({}) 
+                : setCapaSelec({ titulo, api, simbologia, local })
+              console.log(capaSelec.titulo)}}
+            >
+              <Text style={button}>{titulo}</Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+      </View>
 
       {show?.showInfo && (
         <Motion.View
@@ -256,25 +254,7 @@ export function Map() {
       <View style={buttonContainer}>
         <TouchableOpacity
           style={addButton}
-          onPress={() => {
-            setShow({ ...show, showCapas: !show.showCapas });
-            if (value === 0) {
-              setTimeout(() => setValue(1), 1);
-            } else {
-              setValue(0);
-            }
-          }}
-        >
-          <MaterialCommunityIcons
-            name="layers"
-            style={addButtonText}
-            size={26}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={addButton}
-          onPress={() => {
+          onPress={() => { 
             setShow({ ...show, showInfo: !show.showInfo });
             if (valueCapa === 0) {
               setTimeout(() => setValueCapa(1), 1);

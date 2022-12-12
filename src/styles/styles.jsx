@@ -2,10 +2,6 @@
 // import { StyleSheet } from 'react-native';
 import { Dimensions } from 'react-native';
 
-const body = {
-
-}
-
 const container = {
   justifyContent: 'center',
   alignItems: 'center',
@@ -76,7 +72,7 @@ const containerProfile = {
   // left: "0.1%"
 }
 const button2 = {
-  margin:"1%",
+  //margin:"1%",
   width:"30%",
   borderRadius:10,
 }
@@ -131,7 +127,7 @@ const addButtonText = {
 }
 
 const buttonContainer = {
-  top: 30,
+  top: 60,
   right: 20,
   position: 'absolute'
 }
