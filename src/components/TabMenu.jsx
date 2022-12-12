@@ -32,7 +32,7 @@ useEffect(() => {
   )
 
   const buttons = [
-    <View style={{alignContent:"center"}}>
+    <View>
     <Button key="cancelar" variant="unstyled" mode="contained" style={button3} onPress={() => setVer(!ver)}>
       <Text>Cancelar</Text>
     </Button>
