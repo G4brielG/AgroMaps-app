@@ -4,19 +4,21 @@ import { Dimensions } from 'react-native';
 
 const container = {
   justifyContent: 'center',
-  alignItems: 'center',
+  //alignItems: 'center',
   // borderWidth: 1,
-  flex: 1,
-  height: '100%',
+  //flex: 1,
+  height: 'auto',
   backgroundColor: '#142c4c'
 }
 
 const input = {
+  borderWidth: 0.5,
   backgroundColor: 'white',
   borderRadius: 10,
   width: 300,
   height: 45,
-  margin: 5,
+  padding: 5,
+  marginVertical: 10
 }
 const alertaF = {
   width: 200,
@@ -25,7 +27,7 @@ const alertaF = {
   color: "rgba(203, 0, 0, 1)",
 }
 const text = {
-  height: 50,
+  height: 40,
   padding: 10,
   // flex: 1
 };
@@ -87,6 +89,7 @@ const buttonCapaSelect = {
   alignItems: 'center',
   color: 'white',
   backgroundColor: "#142c4c",
+  width: 'auto'
 }
 
 const containerProfile = {
@@ -106,9 +109,10 @@ const button2 = {
 }
 
 const button3 = {
-  margin:"1%",
-  width:"auto",
-  borderRadius:10,
+  fontSize: 20,
+  color: 'white',
+  justifyContent: "center",
+  margin: 10
 }
 
 const containerMap = {
@@ -127,16 +131,20 @@ const nav = {
 }
 
 const image = {
-  width: '50%',
-  height: '40%',
-  resizeMode: 'contain',
+  width: '90%',
+  height: '90%',
+  resizeMode: 'cover',
+  margin: 20
 }
 
 const home = {
   //flex: 1,
-  
+  backgroundColor: '#142c4c',
   alignItems: 'center',
   width: '100%',
+  height: '100%',
+  //justifyContent: 'center',
+
 }
 
 const addButton = {
@@ -167,15 +175,18 @@ const addButtonText = {
 const buttonContainer = {
   top: 60,
   right: 20,
-  position: 'absolute'
+  position: 'absolute',
+  
 }
 
 const containerBox = {
   position: "absolute",
-  top: "15%",
+  alignSelf: "center",
+  alignItems: "center",
   alignContent: "center",
+  top: "15%",
   width: "100%",
-  height: "100%"
+  height: "100%",
 }
 
 const containerInfoCapa = {
@@ -207,12 +218,12 @@ const containerFormUbi = {
   position: "absolute",
   alignSelf: "center",
   alignItems: "center",
-  alignContent: "center",
-  height: 200,
-  width: 350,
+  justifyContent: "center",
+  padding: "6%",
+  height: "auto",
+  width: "auto",
   backgroundColor: "white",
   borderRadius: 15,
-  margin: 20
 }
 
 const containerSalir = {
@@ -245,15 +256,15 @@ const containerMarkers = {
 }
 
 const fontF = {
-  fontFamily: ""
+  fontFamily: "Cambria"
 }
 
 const container2 = {
-  // justifyContent: 'center',
-  // alignItems: 'center',
-  // // borderWidth: 10,
+  alignItems: 'center',
+  alignSelf: 'center',
+  // borderWidth: 10,
   // height: '60%',
-  // width: "80%",
+  //width: "80%",
   // backgroundColor: 'white',
   // borderRadius: 5,
 }

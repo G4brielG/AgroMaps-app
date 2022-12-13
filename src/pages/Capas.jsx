@@ -1,8 +1,7 @@
 import { NativeBaseProvider } from 'native-base'
 import { View, Text, Image, TextInput, TouchableOpacity, Alert } from 'react-native'
-import { container, image, input, capaText, titless, button, container2 } from "../styles/styles";
-import ipf from '../imgs/Agromaps-blanco.png';
-import { StatusBar } from "expo-status-bar";
+import { container, image, input, text, button, container2, home, button3, nameProfile } from "../styles/styles";
+import ipf from '../imgs/Agromaps-capas.png';
 import { useState } from 'react';
 
 const Capas = ({navigation}) => {
@@ -77,14 +76,18 @@ const Capas = ({navigation}) => {
   return (
     <NativeBaseProvider>
      
-      <View style={container}>
-      <Image style={image} source={ipf} />
+      <View style={home}>
+      
+        <View style={{ width: '65%', height: '30%', alignItems: 'center', marginVertical: 30}}>
+          <Image style={image} source={ipf} />
+        </View>
         <View style={container2}>
+          <Text style={nameProfile}>Agregar nueva capa</Text>
       {"Error" in errors && <Text style={{color:"red", fontFamily: "monospace"}}>{errors.Error}</Text>}
         
         <View style={input}>
           <TextInput
-            style={capaText}
+            style={text}
             name="tituloCapa"
             placeholderTextColor="#a3a3a3"
             placeholder="Titulo"
@@ -95,7 +98,7 @@ const Capas = ({navigation}) => {
 
         <View style={input}>
           <TextInput
-            style={capaText}
+            style={text}
             name="apiCapa"
             placeholderTextColor="#a3a3a3"
             placeholder="Enlace"
@@ -104,7 +107,7 @@ const Capas = ({navigation}) => {
         </View>
         <View style={input}>
           <TextInput
-            style={capaText}
+            style={text}
             name="simbologiaCapa"
             placeholderTextColor="#a3a3a3"
             placeholder="Simbologia"

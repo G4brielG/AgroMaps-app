@@ -1,5 +1,4 @@
-import { StatusBar } from "expo-status-bar"
-import { container, text, input, button, image, container2 } from "../styles/styles"
+import { container, text, input, button, image, container2, home } from "../styles/styles"
 import { Text, View, Image, TextInput, TouchableOpacity } from "react-native"
 import { NativeBaseProvider } from "native-base"
 import { useState } from "react"
@@ -53,9 +52,11 @@ export function Login({ navigation }) {
 
   return (
     <NativeBaseProvider>
-      <View style={container}>
+      <View style={home}>
       {/* <View style={container2}> */}
-        <Image style={image} source={ipf} />
+        <View style={{ width: '73%', height: '40%', justifyContent: 'center', marginTop: '30%'}}>
+          <Image style={image} source={ipf} />
+        </View>
         <View>
         
           <View style={input}>

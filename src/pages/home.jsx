@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, Image, TouchableOpacity, Button } from 'react-native';
+import { Text, View, Image } from 'react-native';
 // import Carousel from 'react-native-reanimated-carousel';
 import ipf from '../imgs/Agromap.png';
-import { image, home, button, containerInfoCapa } from '../styles/styles';
-import { Motion } from "@legendapp/motion";
+import { image, home, containerBox, containerInfoCapa, button3, nameProfile } from '../styles/styles';
 import { SERVER, IP } from "../Services";
 import { Modal } from '../components/Modal'
 
@@ -31,12 +30,12 @@ export const Home = () => {
     // console.log(simbologia)
     return (
       <View style={containerBox}>
-      <Modal header={`INFORMACIÓN DE ${titulo}`}>
-        <Image
-          source={{ uri: simbologia }}
-          style={{ width: 300, height: 370, resizeMode: 'contain' }}
-        />
-      </Modal>
+        <Modal header={`INFORMACIÓN DE ${titulo}`}>
+          <Image
+            source={{ uri: simbologia }}
+            style={{ width: 300, height: 370, resizeMode: 'contain' }}
+          />
+        </Modal>
       </View>
     )
   }
@@ -45,9 +44,12 @@ export const Home = () => {
     <View
       style={home} 
     >
-      <Image style={image} source={ipf} />
-      <Text>Bienvenido a AgroMaps</Text>
-      <Text>Aquí podrá consultar información geográfica sobre el suelo y algunas clasificaciones.</Text>
+      <View style={{ width: '40%', height: '20%', alignItems: 'center'}}>
+        <Image style={image} source={ipf} />
+      </View>
+
+        <Text style={nameProfile}>Bienvenido a AgroMaps</Text>
+        <Text style={button3}>Aquí podrá consultar información geográfica sobre el suelo y algunas clasificaciones.</Text>
 
       <View>
         {capa.map(({ titulo, simbologia }, index) => (

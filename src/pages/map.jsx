@@ -12,6 +12,8 @@ import {
   containerInfoCapa,
   containerFormUbi,
   containerUbi,
+  button3,
+  input,
 } from "../styles/styles";
 import {
   View,
@@ -51,7 +53,6 @@ export function Map() {
   //* VALIDACIÓN PARA INGRESAR NOMBRE DEL MARCADOR A AGREGAR
   const [marcador, setMarcador] = useState(false);
 
-  const [value, setValue] = useState(0);
   const [valueCapa, setValueCapa] = useState(0);
   const [valueUbi, setValueUbi] = useState(0);
   const [valueMarker, setValueMarker] = useState(0);
@@ -145,42 +146,33 @@ export function Map() {
         // VALIDACIÓN DE ESTADO PARA INGRESAR NOMBRE DE MARCADOR
       }
       {marcador && (
+        <Motion.View
+        style={containerBox}
+        animate={{
+          x: valueMarker * 10,
+          opacity: valueMarker ? 1 : 0.2,
+          scale: valueMarker ? 1 : 0.5,
+        }}
+        transition={transition}>
         <View style={containerFormUbi}>
-          <Text style={{ marginTop: 30, marginBottom: 20, fontSize: 16 }}>
-            Agregar un nuevo marcador
+          <Text style={{ marginVertical: 20, fontSize: 16 }}>
+            Nuevo marcador
           </Text>
           <TextInput
-            style={{
-              borderWidth: 0.5,
-              width: 200,
-              borderRadius: 5,
-              padding: 2,
-            }}
+            style={input}
             onChangeText={(value) =>
               setMiliMarker((prev) => ({ ...prev, nombre: value }))
             }
             placeholder="Nombre"
           />
-          <Motion.View
-            style={{ marginVertical: 10, flexDirection: "row" }}
-            animate={{
-              x: valueMarker * 10,
-              opacity: valueMarker ? 1 : 0.2,
-              scale: valueMarker ? 1 : 0.5,
-            }}
-            transition={transition}
+          <View
+            style={{ margin: 10, flexDirection: "row", alignSelf: 'center' }}
           >
             <TouchableOpacity
-              style={{
-                margin: 0,
-                marginLeft: -30,
-                marginRight: 10,
-                padding: 11,
-                borderRadius: 10,
-                backgroundColor: "#686868",
-              }}
+              style={buttonCapaSelect}
             >
               <Text
+                style={{color: 'white'}}
                 onPress={() => {
                   setMarcador(!marcador);
                   setValueMarker(0);
@@ -190,12 +182,7 @@ export function Map() {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={{
-                margin: 0,
-                padding: 11,
-                borderRadius: 10,
-                backgroundColor: "#28b296",
-              }}
+              style={button}
             >
               <Text
                 onPress={() => {
@@ -208,8 +195,9 @@ export function Map() {
                 Agregar
               </Text>
             </TouchableOpacity>
-          </Motion.View>
+          </View>
         </View>
+        </Motion.View>
       )}
 
       <View
@@ -218,17 +206,22 @@ export function Map() {
         <ScrollView
         horizontal={true}
         >
-          {capa.map(({ titulo, api, simbologia, local }, index) => (
+          {capa.map((element, index) => (
             <TouchableOpacity
               key={"capa-" + index}
-              nextFocusDown={0.7}
-              onPress={() => {
-                capaSelec?.titulo ? 
-                setCapaSelec({}) 
-                : setCapaSelec({ titulo, api, simbologia, local })
-              console.log(capaSelec.titulo)}}
+              onPress={() =>
+                capaSelec?.titulo ? setCapaSelec({}) : setCapaSelec(element)
+              }
             >
-              <Text style={button}>{titulo}</Text>
+              <Text
+                style={
+                  element.titulo === capaSelec.titulo
+                  ? buttonCapaSelect
+                  : button
+                }
+                >
+                {element.titulo}
+              </Text>
             </TouchableOpacity>
           ))}
         </ScrollView>
@@ -320,7 +313,8 @@ export function Map() {
 
       <View style={buttonContainer}>
         <TouchableOpacity
-          style={addButton}
+          style={capaSelec.titulo === undefined ? addButtonDisabled : addButton}
+          disabled={capaSelec.titulo === undefined ? true : false}
           onPress={() => { 
             setShow({ ...show, showInfo: !show.showInfo });
             if (valueCapa === 0) {
