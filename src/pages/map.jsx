@@ -14,6 +14,7 @@ import {
   containerUbi,
   button3,
   input,
+  button2,
 } from "../styles/styles";
 import {
   View,
@@ -30,6 +31,7 @@ import { transition } from "../styles/motion";
 import { SERVER, IP } from "../Services";
 import Markers from "../components/Markers";
 import useLocation from "../hooks/useLocation";
+import { Symbology } from "../components/Symbology";
 const iconMarker = require("../imgs/iconblue-location-agromaps.png");
 
 export function Map() {
@@ -243,6 +245,10 @@ export function Map() {
               source={{ uri: capaSelec.simbologia }}
               style={{ width: 300, height: 370, resizeMode: "contain" }}
             />
+            {/* <Symbology
+            color={capaSelec.descripcion.color}
+            categoria={capaSelec.descripcion.categoria}
+            ></Symbology> */}
           </Modal>
         </Motion.View>
       )}
@@ -268,41 +274,36 @@ export function Map() {
               Mis ubicaciones
             </Text>
             <View style={{marginVertical: 10, flexDirection: "row"}}>
-                <Text style={{ fontSize: 24, width: 200 }}>Ubicación actual</Text>
-                <View>
-                  <TouchableOpacity
-                    style={{
-                      width: 40,
-                      alignItems: "center",
-                      padding: 10,
-                      borderRadius: 10,
-                      backgroundColor: "#6166FF",
-                      position: "absolute"
-                    }}
-                  >
-                    <Text onPress={() => setZoomRegion({...position })}>A</Text>
-                  </TouchableOpacity>
-                </View>
+              <Text style={{ fontSize: 24, width: 200 }}>Ubicación actual</Text>
+              <View>
+                <TouchableOpacity
+                  style={button2}
+                  onPress={() => setZoomRegion({...position })}
+                >
+                  <MaterialCommunityIcons
+                    name="map-marker-radius"
+                    style={{color: 'white'}}
+                    size={30}
+                  />
+                </TouchableOpacity>
+              </View>
               </View>
             {marker.map((element, index) => (
               <View key={index} style={{marginVertical: 10, flexDirection: "row"}}>
                 <Text style={{ fontSize: 24, width: 200 }}>{element.nombre}</Text>
                 <View>
-                  <TouchableOpacity
-                    style={{
-                      width: 40,
-                      alignItems: "center",
-                      padding: 10,
-                      borderRadius: 10,
-                      backgroundColor: "#6166FF",
-                      position: "absolute"
-                    }}
-                  >
-                    <Text onPress={() => (
-                      setTimeout(() => {
-                        setZoomRegion({ latitude: element.latitude, longitude: element.longitude, latitudeDelta: 5, longitudeDelta: 3})
-                      }, 100)
-                    )}>A</Text>
+                  <TouchableOpacity 
+                  style={button2}
+                  onPress={() => (
+                    setTimeout(() => {
+                      setZoomRegion({ latitude: element.latitude, longitude: element.longitude, latitudeDelta: 5, longitudeDelta: 3})
+                    }, 100)
+                  )}>
+                    <MaterialCommunityIcons
+                      name="map-marker-account"
+                      style={{color: 'white'}}
+                      size={30}
+                    />
                   </TouchableOpacity>
                 </View>
               </View>

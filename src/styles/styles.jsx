@@ -27,7 +27,7 @@ const alertaF = {
   color: "rgba(203, 0, 0, 1)",
 }
 const text = {
-  height: 40,
+  //height: 40,
   padding: 10,
   // flex: 1
 };
@@ -103,9 +103,13 @@ const containerProfile = {
   // left: "0.1%"
 }
 const button2 = {
-  //margin:"1%",
-  width:"30%",
-  borderRadius:10,
+  width: 40,
+  height: 40,
+  alignItems: "center",
+  padding: 5,
+  borderRadius: 20,
+  backgroundColor: "#28b296",
+  position: "absolute"
 }
 
 const button3 = {
@@ -240,7 +244,8 @@ const containerSalir = {
 
 const headerStylee = {
   marginBottom: 20,
-  fontSize: 17
+  fontSize: 17,
+  fontWeight: 'bold'
 }
 
 const containerMarkers = {
@@ -317,6 +322,20 @@ const picProfile = {
   height: '15%',
 }
 
+const card = {
+  textAlign: 'center',
+  textSize: '26px',
+  margin: '3%',
+  padding: '3%',
+  borderRadius: 10,
+  alignItems: 'center',
+  // height: 'auto',
+  // width: '90%',
+  // padding: '7%',
+  backgroundColor: 'white',
+  //position: 'relative'
+}
+
 export {
   container,
   input,
@@ -355,4 +374,5 @@ export {
   nameProfile,
   button2,
   button3,
+  card
 }
