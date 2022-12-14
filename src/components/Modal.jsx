@@ -1,13 +1,11 @@
-import { containerBox, containerInfoCapa } from "../styles/styles"
-import { View, Text } from "react-native"
+import { containerBox } from "../styles/styles"
+import { View } from "react-native"
 
-export const Modal = ({ header, body, footer,children }) => {
+export const Modal = ({ children, estilo  }) => {
   return (
     <View style={containerBox}>
-      <View style={containerInfoCapa}>
-        <Text>{header}</Text>
+      <View style={estilo}>
         <View>{children}</View>
-        <View>{footer}</View>
       </View>
     </View>
   )

@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { container, regtext, input, button, image, alertaF } from "../styles/styles";
+import { input, button, image, alertaF, home, text } from "../styles/styles";
 import React, { useState } from "react";
 import ipf from "../imgs/Agromaps-blanco.png";
 import { NativeBaseProvider } from "native-base";
@@ -100,13 +100,15 @@ export function Register({ navigation }) {
   return (
 
     <NativeBaseProvider>
-      <View style={container}>
-        <Image style={image} source={ipf} />
+      <View style={home}>
+        <View style={{ width: '73%', height: '40%', justifyContent: 'center', marginTop: '20%'}}>
+          <Image style={image} source={ipf} />
+        </View>
         <View>
           {"usuario" in errors && <Text>{errors.usuario}</Text>}
           <View style={input}>
             <TextInput
-              style={regtext}
+              style={text}
               name="usuario"
               placeholder="Usuario"
               placeholderTextColor="#a3a3a3"
@@ -116,7 +118,7 @@ export function Register({ navigation }) {
           {"contrasena" in errors && <Text>{errors.contrasena}</Text>}
           <View style={input}>
             <TextInput
-              style={regtext}
+              style={text}
               name="contrasena"
               placeholderTextColor="#a3a3a3"
               placeholder="Contraseña"
@@ -126,7 +128,7 @@ export function Register({ navigation }) {
           {"confContrasena" in errors && <Text>{errors.confContrasena}</Text>}
           <View style={input}>
             <TextInput
-              style={regtext}
+              style={text}
               name="confContrasena"
               placeholderTextColor="#a3a3a3"
               placeholder="Confirmar Contraseña"
@@ -137,7 +139,7 @@ export function Register({ navigation }) {
           {"correo" in errors && <Text>{errors.correo}</Text>}
           <View style={input}>
             <TextInput
-              style={regtext}
+              style={text}
               name="correo"
               placeholderTextColor="#a3a3a3"
               placeholder="Correo"
@@ -148,7 +150,7 @@ export function Register({ navigation }) {
           <View style={input}>
             <TextInput
               keyboardType="numeric"
-              style={regtext}
+              style={text}
               name="telefono"
               placeholderTextColor="#a3a3a3"
               placeholder="Telefono"

@@ -1,12 +1,12 @@
 import { Home, Map, MiCuenta, Capas } from "../pages/index"
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { TouchableOpacity, View, Text } from "react-native"
+import { TouchableOpacity, Text, View } from "react-native"
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import useSession from "../hooks/useSession"
 import { NativeBaseProvider } from "native-base";
 import { useState } from "react";
 import { Modal } from "./Modal"
-import { useEffect } from "react"
+import { containerSalir, headerStylee, button, buttonCapaSelect } from '../styles/styles'
 
 export default function TabMenu({ navigation }) {
   const [ver, setVer] = useState(false)
@@ -18,24 +18,12 @@ export default function TabMenu({ navigation }) {
     setVer(false)
     navigation.navigate("Login")
   }
-useEffect(() => {
-
-}, [usuario])
 
   const buttonSalir = (
     <TouchableOpacity variant="unstyled" onPress={() => setVer(!ver)}>
       <MaterialCommunityIcons name="login-variant" size={26} color="#890000" />
     </TouchableOpacity>
   )
-
-  const buttons = [
-    <TouchableOpacity key="cancelar" variant="unstyled" onPress={() => setVer(!ver)}>
-      <Text>Cancelar</Text>
-    </TouchableOpacity>,
-    <TouchableOpacity key="salir" variant="unstyled" onPress={cerrarSesion}>
-      <Text>Salir</Text>
-    </TouchableOpacity>
-  ]
   return (
     <>
       <NativeBaseProvider >
@@ -91,31 +79,6 @@ useEffect(() => {
             }}
           />
 
-          <Tab.Screen
-            name="Cuenta"
-            component={MiCuenta}
-            options={{
-              tabBarLabel: "Mi cuenta",
-              tabBarIcon: ({ color }) => (
-                <MaterialCommunityIcons
-                  name="account"
-                  color={color}
-                  size={26}
-                />
-              ),
-              headerRight: () => buttonSalir,
-              headerStyle: {
-                backgroundColor: '#142c4c',
-              },
-              headerTintColor: '#fff',
-              headerTitleStyle: {
-                fontWeight: 'bold',
-              },
-            }}
-          />
-
-          {/* {console.log('desde tab', usuario.rol)} */}
-
           {
             usuario?.rol === "admin" && (
               <Tab.Screen
@@ -143,11 +106,46 @@ useEffect(() => {
             )
           }
 
+          <Tab.Screen
+            name="Cuenta"
+            component={MiCuenta}
+            options={{
+              tabBarLabel: "Mi cuenta",
+              tabBarIcon: ({ color }) => (
+                <MaterialCommunityIcons
+                  name="account"
+                  color={color}
+                  size={26}
+                />
+              ),
+              headerRight: () => buttonSalir,
+              headerStyle: {
+                backgroundColor: '#142c4c',
+              },
+              headerTintColor: '#fff',
+              headerTitleStyle: {
+                fontWeight: 'bold',
+              },
+            }}
+          />
         </Tab.Navigator>
       </NativeBaseProvider>
 
       {ver && (
-        <Modal header={`¿Está seguro de cerrar la sesión?`} footer={buttons} />
+        <Modal estilo={containerSalir}>
+
+          <Text style={headerStylee}>¿Está seguro de cerrar la sesión?</Text>
+          
+          <View style={{ flexDirection: "row", alignSelf: 'center' }}>
+            <TouchableOpacity key="cancelar"  style={button} onPress={() => setVer(!ver)}>
+              <Text>Cancelar</Text>
+            </TouchableOpacity>
+            <TouchableOpacity key="salir" style={buttonCapaSelect} onPress={cerrarSesion}>
+              <Text style={{ color: 'white' }}>Salir</Text>
+            </TouchableOpacity>
+          </View>
+          
+        </Modal>
       )}
     </>
   );
