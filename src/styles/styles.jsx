@@ -7,12 +7,13 @@ const body = {
 }
 
 const container = {
-  justifyContent: 'center',
+  //justifyContent: 'center',
+  color: 'white',
   alignItems: 'center',
   // borderWidth: 1,
   flex: 1,
   height: '100%',
-  backgroundColor: '#142c4c'
+  backgroundColor: '#142c4c',
 }
 
 const input = {
@@ -103,8 +104,8 @@ const nav = {
 }
 
 const image = {
-  width: '50%',
-  height: '40%',
+  width: '30%',
+  height: '20%',
   resizeMode: 'contain',
 }
 

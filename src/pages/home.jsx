@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Text, View, Image, TouchableOpacity, Button } from 'react-native';
 // import Carousel from 'react-native-reanimated-carousel';
 import ipf from '../imgs/Agromap.png';
-import { image, home, button, containerInfoCapa } from '../styles/styles';
+import { image, home, button, containerInfoCapa, container } from '../styles/styles';
 import { Motion } from "@legendapp/motion";
 import { SERVER, IP } from "../Services";
 import { Modal } from '../components/Modal'
@@ -43,7 +43,7 @@ export const Home = () => {
 
   return (
     <View
-      style={home} 
+      style={container} 
     >
       <Image style={image} source={ipf} />
       <Text>Bienvenido a AgroMaps</Text>
