@@ -31,7 +31,6 @@ import { transition } from "../styles/motion";
 import { SERVER, IP } from "../Services";
 import Markers from "../components/Markers";
 import useLocation from "../hooks/useLocation";
-import { Symbology } from "../components/Symbology";
 const iconMarker = require("../imgs/iconblue-location-agromaps.png");
 
 export function Map() {
@@ -245,10 +244,6 @@ export function Map() {
               source={{ uri: capaSelec.simbologia }}
               style={{ width: 300, height: 370, resizeMode: "contain" }}
             />
-            {/* <Symbology
-            color={capaSelec.descripcion.color}
-            categoria={capaSelec.descripcion.categoria}
-            ></Symbology> */}
           </Modal>
         </Motion.View>
       )}

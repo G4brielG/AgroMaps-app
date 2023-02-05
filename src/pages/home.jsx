@@ -19,26 +19,13 @@ export const Home = () => {
     response.ok && setCapa(json)
   }
 
-  // const verConcepto = ({titulo, simbologia}) => {
-  //   return (
-  //     <View style={containerBox}>
-  //       <Modal header={`INFORMACIÓN DE ${titulo}`}>
-  //         <Image
-  //           source={{ uri: simbologia }}
-  //           style={{ width: 300, height: 370, resizeMode: 'contain' }}
-  //         />
-  //       </Modal>
-  //     </View>
-  //   )
-  // }
-
   useEffect(() => {
     handleFind()
   }, [])
 
   return (
     <View
-      style={container} 
+      style={home} 
     >
       <View style={{ width: '40%', height: '20%', alignItems: 'center'}}>
         <Image style={image} source={ipf} />

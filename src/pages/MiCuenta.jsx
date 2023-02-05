@@ -1,13 +1,8 @@
 import { Text, View } from "react-native"
 import { containerProfile, nameProfile, picProfile, titleProfile, infoProfile } from "../styles/styles"
-// import { LinearGradient } from 'expo-linear-gradient';
 import { Avatar, Divider } from 'react-native-paper';
 import React, { useEffect } from "react";
 import useSession from "../hooks/useSession";
-
-
-
-
 
 export function MiCuenta() {
   const { usuario } = useSession()

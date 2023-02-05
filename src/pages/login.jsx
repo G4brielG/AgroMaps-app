@@ -1,4 +1,4 @@
-import { container, text, input, button, image, container2, home } from "../styles/styles"
+import { text, input, button, image, home } from "../styles/styles"
 import { Text, View, Image, TextInput, TouchableOpacity } from "react-native"
 import { NativeBaseProvider } from "native-base"
 import { useState } from "react"

@@ -1,6 +1,6 @@
 import { NativeBaseProvider } from 'native-base'
 import { View, Text, Image, TextInput, TouchableOpacity, Alert } from 'react-native'
-import { container, image, input, text, button, container2, home, button3, nameProfile } from "../styles/styles";
+import { image, input, text, button, container2, home, nameProfile } from "../styles/styles";
 import ipf from '../imgs/Agromaps-capas.png';
 import { useState } from 'react';
 
@@ -12,7 +12,6 @@ const Capas = ({navigation}) => {
 
   
   const validacion = () => {
-
     if (form.titulo === undefined || "") {
       console.log("Capas, linea 18")
       setErrors({...errors, Error: "Asegurese de no dejar campos vacios"})
@@ -21,20 +20,6 @@ const Capas = ({navigation}) => {
       setErrors({...errors, Error: " "})
       return true
     }
-
-    // if (form.api === undefined || "") {
-    //   console.log("Api vacia")
-    //   setErrors({...errors, Api: "Este campo no puede estar vacio"})
-    //   return false
-    // }
-
-    // if (form.simbologia === undefined || "") {
-    //   console.log("Simbologia vacia")
-    //   setErrors({...errors, Simbologia: "Este campo no puede estar vacio"})
-    //   return false
-    // }
-
-    return true
   }
 
   const onSubmit = () => {
